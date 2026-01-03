@@ -6,7 +6,7 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 import { SearchModal } from './SearchModal'
 import { useI18n, initI18n } from '../i18n'
 import lopolLogoLight from '../assets/LOPOL-LOGO.png'
-import lopolLogoDark from '../assets/LOPOL-LOGO - White.png'
+import lopolLogoDark from '../assets/LOPOL-LOGO-White.png'
 
 interface LayoutProps {
   children: ReactNode
