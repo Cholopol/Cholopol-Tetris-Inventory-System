@@ -5,6 +5,8 @@ import TetrisBackground from './TetrisBackground'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { SearchModal } from './SearchModal'
 import { useI18n, initI18n } from '../i18n'
+import lopolLogoLight from '../assets/LOPOL-LOGO.png'
+import lopolLogoDark from '../assets/LOPOL-LOGO - White.png'
 
 interface LayoutProps {
   children: ReactNode
@@ -94,7 +96,7 @@ export default function Layout({ children }: LayoutProps) {
                 <div className="flex items-center space-x-3">
                   <div className="w-16 h-16 flex items-center justify-center flex-shrink-0 bg-transparent relative">
                     <img 
-                      src={isDarkMode ? "/src/assets/LOPOL-LOGO - White.png" : "/src/assets/LOPOL-LOGO.png"}
+                      src={isDarkMode ? lopolLogoDark : lopolLogoLight}
                       alt="LOPOL Logo"
                       className="w-full h-full object-contain max-w-full max-h-full transition-opacity duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                       style={{ filter: isDarkMode ? 'brightness(1.1)' : 'none' }}
