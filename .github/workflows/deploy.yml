@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'Wiki/**' # 仅当 Wiki 文件夹有变化时触发
+      - 'Wiki/**'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Wiki # 所有 run 命令都在 Wiki 目录下执行
+        working-directory: Wiki
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,7 +33,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install # 改为 npm install 以防缺少 lock 文件
+        run: npm ci --include=dev
 
       - name: Build
         run: npm run build
@@ -44,7 +44,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'Wiki/dist' # 上传构建产物
+          path: 'Wiki/dist'
 
   deploy:
     environment:
