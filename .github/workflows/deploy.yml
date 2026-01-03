@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: Wiki/package-lock.json # 指定锁文件位置以正确缓存
+          cache-dependency-path: '**/Wiki/package-lock.json' # 使用通配符以避免路径解析问题
 
       - name: Install dependencies
         run: npm ci
