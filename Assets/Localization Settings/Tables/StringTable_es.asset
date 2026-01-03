@@ -19,30 +19,22 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 109809545216
-    m_Localized: ">Operaci\xF3n de tecla\r\n->>Q genera elementos para colocar, contin\xFAe
-      haciendo clic para cambiar al siguiente\r\n->>R Girar elemento\r\n->>Bot\xF3n
-      del rat\xF3n 0\r\n-->>>Presione Q para generar el elemento y luego haga clic
-      en el panel de cuadr\xEDcula con el bot\xF3n izquierdo del mouse para colocar
-      el elemento\r\n-->>> Mantenga presionado el bot\xF3n izquierdo del mouse para
-      comenzar a arrastrar el objeto de destino y suelte el bot\xF3n izquierdo del
-      mouse para colocar el objeto.\r\n->>Bot\xF3n del rat\xF3n 1\r\n-->>>Ver el
-      men\xFA de elementos para el siguiente paso\r\n\r\n>Crear nuevos elementos\r\n->>Utilice
-      ItemEditor para crear mejor\r\n->>Los elementos del men\xFA opcionales son
-      opcionales, los dem\xE1s son obligatorios\r\n->> Aseg\xFArate de que la opci\xF3n
-      \"Leer/Escribir\" para el Sprite del elemento de Tetris est\xE9 marcada\r\n->>Creaci\xF3n
-      de GridUIPrefab\r\n-->>>Copie GP_Template en la jerarqu\xEDa para crear un
-      panel de mochila personalizado.\r\n-->>> Aseg\xFArese de que el valor de altura
-      de GP_Template pueda mostrar correctamente el panel de cuadr\xEDcula, lo cual
-      est\xE1 relacionado con si la vista de desplazamiento puede configurar correctamente
-      la altura adecuada\r\n\r\n>Configuraci\xF3n de cuadr\xEDcula\r\n->>Agregue
-      scripts TetrisItemGrid y GridInteract a la interfaz de usuario de imagen para
-      crear una cuadr\xEDcula de Tetris\r\n->>Establezca GridSizeWidth y GridSizeHeight
-      para establecer el tama\xF1o de la cuadr\xEDcula\r\n\r\n> Crea nuevas formas
-      de Tetris\r\n->>Nombra la nueva forma en TetrisShapePos del script Enums\r\n->>Agregar
-      nuevas formas en GameData/TetrisItemPointSet_SO\r\n->>Establezca la esquina
-      superior izquierda como origen, las coordenadas como (0,0), complete las coordenadas
-      de los puntos del sistema de coordenadas de la cuadr\xEDcula de cualquier forma
-      en la lista de puntos y aseg\xFArese de que el valor sea un entero positivo."
+    m_Localized: "~\u200B\u02F6\u1D52 \u1D55 \u02C2\u02F6\u200B\u200B ~ <color=#FFAE00>\xA1Hola!</color>
+      !\nSoy Cholopol, un desarrollador de juegos indie.\r\nGracias por usar este
+      <color=#00FFFF>sistema de inventario estilo Tarkov (tipo Tetris)</color> de
+      c\xF3digo abierto.\r\nPuede que a\xFAn tenga algunas imperfecciones, as\xED
+      que te invito a enviar <color=#00FFFF>Issues</color> y <color=#00FFFF>Pull
+      Requests</color>.\r\nHe puesto mucha energ\xEDa en desarrollar este sistema,
+      y tu apoyo es mi mayor motivaci\xF3n.\r\nSi te gusta, te agradecer\xEDa que
+      le dieras una <color=#00FFFF>Star</color> o me invitaras a un caf\xE9.\r\n\xA1Te
+      deseo mucha felicidad en este nuevo a\xF1o!\r\n\r\nby\r\nCholopol\r\n2026.01.01\r\n\r\n~\u200B\u02F6\u1D52
+      \u1D55 \u02C2\u02F6\u200B\u200B ~ Controles\r\nPresiona la tecla <b><color=#FFD700>B</color></b>
+      para abrir/cerrar el inventario.\r\nPon el cursor sobre un objeto y mant\xE9n
+      presionado el <b><color=#FFD700>Clic Izquierdo</color></b> para arrastrar.\r\nMientras
+      arrastras, presiona <b><color=#FFD700>R</color></b> para rotar el objeto. Suelta
+      para colocarlo.\r\nPon el cursor sobre un objeto y presiona el <b><color=#FFD700>Clic
+      Derecho</color></b> para abrir el men\xFA de acciones.\r\n\xA1Si\xE9ntete libre
+      de explorar m\xE1s funciones!"
     m_Metadata:
       m_Items: []
   references:

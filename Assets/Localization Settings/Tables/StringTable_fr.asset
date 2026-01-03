@@ -19,30 +19,23 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 109809545216
-    m_Localized: "> op\xE9ration cl\xE9\n- > > q g\xE9n\xE8re l'article \xE0 placer,
-      continuer \xE0 appuyer basculera vers le suivant\n- > > r rotation des objets\n-
-      > > mouse button 0\n- - > > > cliquez avec le bouton gauche de la souris sur
-      le panneau de grille pour placer les articles apr\xE8s avoir appuy\xE9 sur
-      Q\n- - > > > bouton gauche de la souris maintenez enfonc\xE9 l'\xE9l\xE9ment
-      cible pour commencer \xE0 glisser, rel\xE2chez le bouton gauche de la souris
-      pour placer l'\xE9l\xE9ment\n- > > mouse button 1\n- - > > > voir le menu des
-      articles pour la prochaine op\xE9ration\n\n> cr\xE9er un nouvel objet\n- >
-      > utilisez itemeditor pour mieux cr\xE9er\n- > > le menu optionnel est obligatoire,
-      les autres sont obligatoires\n- > > assurez - vous de cocher l'option \"Read
-      / Write\" pour le Sprite de Tetris item\n- > > cr\xE9ation de griduiprefab\n-
-      - > > > copiez le mod\xE8le GP dans la hi\xE9rarchie pour cr\xE9er un panneau
-      de sac \xE0 dos personnalis\xE9.\n- - > > > assurez - vous que la valeur d'altitude
-      de GP > template affiche correctement le panneau de grille, cela d\xE9pend
-      de la capacit\xE9 de la vue d\xE9filante \xE0 d\xE9finir correctement l'altitude
-      appropri\xE9e\n\n> param\xE8tres de la grille\n- > > ajout de scripts tetrisitemgrid
-      et gridinteract \xE0 l'interface utilisateur image pour cr\xE9er une grille
-      Tetris\n- > > d\xE9finir gridsizewidth et gridsizehight pour d\xE9finir la
-      taille de la grille\n\n> cr\xE9er une nouvelle forme Tetris\n- > > Nom de la
-      nouvelle forme dans tetrisshapepos pour le script enums\n- > > ajout de nouvelles
-      formes dans GameData / tetrisitempointset\n- > > d\xE9finit le coin sup\xE9rieur
-      gauche comme origine avec les coordonn\xE9es (0,0), remplit les coordonn\xE9es
-      du point du syst\xE8me de coordonn\xE9es de la grille de toute forme dans la
-      liste des points, assurez - vous que la valeur num\xE9rique est un entier positif"
+    m_Localized: "~\u200B\u02F6\u1D52 \u1D55 \u02C2\u02F6\u200B\u200B ~ <color=#FFAE00>Bonjour</color>
+      !\nJe suis Cholopol, un d\xE9veloppeur de jeux ind\xE9pendant.\r\nMerci d'utiliser
+      ce <color=#00FFFF>syst\xE8me d'inventaire style Tarkov (Tetris-grid)</color>
+      open source.\r\nIl peut y avoir encore quelques imperfections, alors n'h\xE9sitez
+      pas \xE0 soumettre des <color=#00FFFF>Issues</color> et des <color=#00FFFF>Pull
+      Requests</color>.\r\nJ'ai consacr\xE9 beaucoup d'\xE9nergie au d\xE9veloppement
+      de ce syst\xE8me, votre soutien est ma plus grande motivation.\r\nSi vous l'appr\xE9ciez,
+      n'h\xE9sitez pas \xE0 laisser une <color=#00FFFF>Star</color> ou \xE0 m'offrir
+      un caf\xE9.\r\nJe vous souhaite beaucoup de bonheur pour cette nouvelle ann\xE9e
+      !\r\n\r\nby\r\nCholopol\r\n2026.01.01\r\n\r\n~\u200B\u02F6\u1D52 \u1D55 \u02C2\u02F6\u200B\u200B
+      ~ Commandes\r\nAppuyez sur <b><color=#FFD700>B</color></b> pour ouvrir/fermer
+      l'inventaire.\r\nSurvolez un objet et maintenez le <b><color=#FFD700>Clic Gauche</color></b>
+      pour le faire glisser.\r\nPendant le d\xE9placement, appuyez sur <b><color=#FFD700>R</color></b>
+      pour faire pivoter l'objet, puis rel\xE2chez pour le placer.\r\nSurvolez un
+      objet et appuyez sur le <b><color=#FFD700>Clic Droit</color></b> pour ouvrir
+      le menu d'actions.\r\nN'h\xE9sitez pas \xE0 explorer les autres fonctionnalit\xE9s
+      !"
     m_Metadata:
       m_Items: []
   references:

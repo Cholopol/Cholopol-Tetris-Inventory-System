@@ -1,82 +1,115 @@
+/*
+ * Copyright 2026 Cholopol
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+using Cholopol.TIS.MVVM.ViewModels;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ChosTIS
+namespace Cholopol.TIS
 {
     public class TetrisItemMediator : Singleton<TetrisItemMediator>
     {
-        [SerializeField] TetrisItemGhost tetrisItemGhost;
+        [SerializeField] private TetrisItemGhostView _tetrisItemGhostView;
 
         private Dir _cachedDir;
         private bool _cachedRotated;
         private Vector2Int _cachedRotationOffset;
         private List<Vector2Int> _cachedShapePos;
 
-        private TetrisItem _cachedOrginItem;
-        private TetrisItemGrid _cachedOrginGrid;
+        private TetrisItemVM _cachedOrginItem;
+        private TetrisGridVM _cachedOrginGrid;
         private Dir _cachedItemDir;
         private bool _cachedItemRotated;
         private Vector2Int _cachedItemRotationOffset;
         private List<Vector2Int> _cachedItemShapePos;
 
         // Cache the rotation state of ghost
-        public void CacheGhostState(TetrisItemGhost ghost)
+        public void CacheGhostState(TetrisItemGhostVM ghost)
         {
-            _cachedDir = ghost.Dir;
+            _cachedDir = ghost.Direction;
             _cachedRotated = ghost.Rotated;
             _cachedRotationOffset = ghost.RotationOffset;
-            _cachedShapePos = ghost.TetrisPieceShapePos;
+            _cachedShapePos = ghost.TetrisCoordinateSet;
         }
 
         // Cache the rotation state of the item
-        public void CacheItemState(TetrisItem item)
+        public void CacheItemState(TetrisItemVM item)
         {
             _cachedOrginItem = item;
-            _cachedOrginGrid = item.CurrentInventoryContainer as TetrisItemGrid;
-            _cachedItemDir = item.Dir;
+            _cachedOrginGrid = item.CurrentTetrisContainer as TetrisGridVM;
+            _cachedItemDir = item.Direction;
             _cachedItemRotated = item.Rotated;
             _cachedItemRotationOffset = item.RotationOffset;
-            _cachedItemShapePos = item.TetrisPieceShapePos;
+            _cachedItemShapePos = item.TetrisCoordinateSet;
         }
 
         // Synchronize cache status to TetrisItemGhost
-        public void ApplyStateToGhost(TetrisItemGhost ghost)
+        public void ApplyStateToGhost(TetrisItemGhostVM ghost)
         {
-            ghost.Dir = _cachedItemDir;
+            ghost.Direction = _cachedItemDir;
             ghost.Rotated = _cachedItemRotated;
             ghost.RotationOffset = _cachedItemRotationOffset;
-            ghost.TetrisPieceShapePos = _cachedItemShapePos;
-            ghost.selectedTetrisItem = _cachedOrginItem;
-            ghost.selectedTetrisItemOrginGrid = _cachedOrginGrid;
+            ghost.TetrisCoordinateSet = _cachedItemShapePos;
+            ghost.SelectedItem = _cachedOrginItem;
+            ghost.OriginContainerOnDrag = _cachedOrginGrid;
 
         }
 
         // Synchronize cache status to TetrisItem
-        public void ApplyStateToItem(TetrisItem item)
+        public void ApplyStateToItem(TetrisItemVM item)
         {
-            item.Dir = _cachedDir;
+            item.Direction = _cachedDir;
             item.Rotated = _cachedRotated;
             item.RotationOffset = _cachedRotationOffset;
-            item.TetrisPieceShapePos = _cachedShapePos;
+            item.TetrisCoordinateSet = _cachedShapePos;
 
         }
 
-        public void ApplyStateToItem(TetrisItem item, Dir dir, bool rotated, Vector2Int rotationOffset, List<Vector2Int> tetrisPieceShapePos)
+        public void SyncGhostTargetDropedGrid(TetrisGridVM targetVM)
         {
-            item.Dir = dir;
-            item.Rotated = rotated;
-            item.RotationOffset = rotationOffset;
-            item.TetrisPieceShapePos = tetrisPieceShapePos;
+            if (_tetrisItemGhostView == null || targetVM == null) return;
+            var ghostVM = _tetrisItemGhostView.ViewModel;
+            if (ghostVM == null || targetVM == null) return;
+            if (!ghostVM.OnDragging) return;
+            ghostVM.TargetContaineOnDrop = targetVM;
+            ghostVM.UpdateSizeForContainer(targetVM);
         }
 
-        public void SyncGhostFromItem(TetrisItem item)
+        public void SyncGhostTargetDropedSlot(TetrisSlotVM targetVM)
         {
-            tetrisItemGhost.InitializeFromItem(item);
+            if (_tetrisItemGhostView == null || targetVM == null) return;
+            var ghostVM = _tetrisItemGhostView.ViewModel;
+            if (ghostVM == null || targetVM == null)
+            {
+                return;
+            }
+            if (!ghostVM.OnDragging) return;
+            ghostVM.TargetContaineOnDrop = targetVM;
+            ghostVM.UpdateSizeForContainer(targetVM);
         }
 
-        public TetrisItemGhost GetTetrisItemGhost()
+        public bool TrySyncGhostFromItem(TetrisItemVM itemVM, TetrisItemGhostVM.GhostInitData initData)
         {
-            return tetrisItemGhost;
+            if (_tetrisItemGhostView == null || itemVM == null) return false;
+
+            var ghostVM = _tetrisItemGhostView.ViewModel;
+            if (ghostVM == null || ghostVM.OnDragging) return false;
+
+            ghostVM.InitializeFromItem(itemVM, initData);
+            return true;
         }
 
     }

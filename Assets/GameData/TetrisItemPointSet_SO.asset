@@ -37,7 +37,7 @@ MonoBehaviour:
   - itemShapeID: 4
     tetrisPieceShape: 4
     points:
-    - {x: 0, y: 0}
+    - {x: 0, y: 1}
     - {x: 1, y: 0}
     - {x: 1, y: 1}
   - itemShapeID: 5
@@ -137,3 +137,68 @@ MonoBehaviour:
     - {x: 0, y: 2}
     - {x: 1, y: 0}
     - {x: 1, y: 1}
+  - itemShapeID: 18
+    tetrisPieceShape: 18
+    points:
+    - {x: 0, y: 0}
+    - {x: 0, y: 1}
+    - {x: 0, y: 2}
+    - {x: 1, y: 0}
+    - {x: 1, y: 1}
+    - {x: 1, y: 2}
+    - {x: 2, y: 0}
+    - {x: 2, y: 1}
+    - {x: 2, y: 2}
+  - itemShapeID: 19
+    tetrisPieceShape: 19
+    points:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
+    - {x: 3, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    - {x: 2, y: 1}
+    - {x: 3, y: 1}
+    - {x: 0, y: 2}
+    - {x: 1, y: 2}
+    - {x: 2, y: 2}
+    - {x: 3, y: 2}
+    - {x: 0, y: 3}
+    - {x: 1, y: 3}
+    - {x: 2, y: 3}
+    - {x: 3, y: 3}
+  - itemShapeID: 20
+    tetrisPieceShape: 20
+    points:
+    - {x: 3, y: 0}
+    - {x: 2, y: 1}
+    - {x: 1, y: 2}
+    - {x: 0, y: 3}
+  - itemShapeID: 21
+    tetrisPieceShape: 21
+    points:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
+    - {x: 3, y: 0}
+    - {x: 2, y: 1}
+    - {x: 3, y: 1}
+  - itemShapeID: 22
+    tetrisPieceShape: 22
+    points:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
+    - {x: 1, y: 1}
+    - {x: 2, y: 1}
+  - itemShapeID: 23
+    tetrisPieceShape: 23
+    points:
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    - {x: 2, y: 1}
+    - {x: 0, y: 2}
+    - {x: 1, y: 2}
+    - {x: 2, y: 2}

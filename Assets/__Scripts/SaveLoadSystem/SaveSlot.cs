@@ -1,7 +1,24 @@
+/*
+ * Copyright 2026 Cholopol
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+using Cholopol.TIS.Events;
 using UnityEngine;
 using UnityEngine.UI;
+using static Cholopol.TIS.TetrisUtilities;
 
-namespace ChosTIS.SaveLoadSystem
+namespace Cholopol.TIS.SaveLoadSystem
 {
     public class SaveSlot : MonoBehaviour
     {
@@ -29,7 +46,7 @@ namespace ChosTIS.SaveLoadSystem
 
             if (currentData != null)
             {
-                saveTime.text = "Save Time£º" + currentData.SaveTime;
+                saveTime.text = "Save Time: " + (SaveLoadManager.Instance.GetSlotTimestamp(Index) ?? string.Empty);
                 delletBtn.gameObject.SetActive(true);
             }
             else
@@ -44,16 +61,13 @@ namespace ChosTIS.SaveLoadSystem
         {
             if (currentData != null)
             {
-                Debug.Log("[LoadGame]" + Index);
-                ChosTIS.Utility.EventHandler.CallStartGameEvent(Index);
-                ChosTIS.Utility.EventHandler.CallInstantiateInventoryItemUI();
+                EventBus.Instance.Publish<int>(EventNames.StartGameEvent, Index);
             }
         }
 
         private void SaveGameData()
         {
-            Debug.Log("[SaveGame]" + Index);
-            ChosTIS.Utility.EventHandler.CallSaveGameEvent(Index);
+            EventBus.Instance.Publish<int>(EventNames.SaveGameEvent, Index);
             SetupSlotUI();
         }
 
@@ -61,13 +75,12 @@ namespace ChosTIS.SaveLoadSystem
         {
             if (currentData != null)
             {
-                Debug.Log("[DeleteGame]" + Index);
-                ChosTIS.Utility.EventHandler.CallDeleteDataEvent(Index);
-                ChosTIS.Utility.EventHandler.CallDeleteObjectEvent();
+                EventBus.Instance.Publish<int>(EventNames.DeleteDataEvent, Index);
+                EventBus.Instance.Publish(EventNames.DeleteObjectEvent);
                 SetupSlotUI();
             }
 
-            Utilities.TetrisItemUtilities.TriggerPointerEnter(InventoryManager.Instance.depositoryGrid.gameObject);
+            InventoryLogicHelper.TriggerPointerEnter(InventoryManager.Instance.depositoryGridView.gameObject);
         }
 
     }

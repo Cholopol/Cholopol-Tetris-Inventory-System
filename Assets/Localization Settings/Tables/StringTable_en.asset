@@ -19,71 +19,20 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 109809545216
-    m_Localized: '>Key operation
-
-      ->>Q:generates items to be placed, continuing
-      to click will switch to the next one
-
-      ->>R:Rotating object
-
-      ->>Mouse
-      Button 0
-
-      -->>>After generating items by pressing Q, left click on the
-      grid panel to place the items
-
-      -->>>Keep holding down the left mouse
-      button on the target item to start dragging, release the left mouse button
-      to place the item
-
-      ->>Mouse Button 1
-
-      -->>>View the item menu for
-      next steps
-
-
-      >Create a new item
-
-      ->>Use ItemEditor to better create
-
-      ->>The
-      Optional menu is optional, while others are mandatory
-
-      ->>Ensure that
-      the ''Read/Write'' option of the Sprite for Tetris Item is checked
-
-      ->>Creating
-      GridUIPrefab
-
-      -->>>Copy GP_Template from the hierarchy to create a custom
-      backpack panel.
-
-      -->>>Ensure that the height value of GP_Template can
-      correctly display the grid panel, which is related to whether the scrolling
-      view can be set to the appropriate height correctly
-
-
-      >Grid settings
-
-      ->>Add
-      Tetris ItemGrid and GridInteract scripts to Image UI to create Tetris grids
-
-      ->>Set
-      GridSizeWidth and GridSizeHeight to set the size of the grid
-
-
-      >Create
-      a new Tetris shape
-
-      ->>Name the newly added shape in TetrisShapePos in
-      the enum script
-
-      ->>Add new shapes to GameData/TetrisItemPointSet_SO
-
-      ->>Set
-      the upper left corner as the origin and coordinate as (0,0). Fill in the coordinates
-      of any grid coordinate system point in the points list, ensuring that the value
-      is a positive integer'
+    m_Localized: "~\u200B\u02F6\u1D52 \u1D55 \u02C2\u02F6\u200B\u200B ~ <color=#FFAE00>Hello</color>
+      !\nI'm Cholopol, an indie game developer.\r\nThank you for using this open-source
+      <color=#00FFFF>Tarkov-like Tetris Inventory System</color>.\r\nIt might still
+      have some imperfections, so please feel free to submit <color=#00FFFF>Issues</color>
+      and <color=#00FFFF>Pull Requests</color>.\r\nI poured a lot of energy into
+      developing this system, and your support is my greatest motivation.\r\nIf you
+      like it, please consider giving it a <color=#00FFFF>Star</color> or buying
+      me a coffee.\r\nWishing you happiness every day in the new year!\r\n\r\nby\r\nCholopol\r\n2026.01.01\r\n\r\n~\u200B\u02F6\u1D52
+      \u1D55 \u02C2\u02F6\u200B\u200B ~ Controls\r\nPress <b><color=#FFD700>B</color></b>
+      to toggle the inventory panel.\r\nHover over an item and hold the <b><color=#FFD700>Left
+      Mouse Button</color></b> to drag.\r\nWhile dragging, press <b><color=#FFD700>R</color></b>
+      to rotate the item. Release to place.\r\nHover over an item and press the <b><color=#FFD700>Right
+      Mouse Button</color></b> to open the action menu.\r\nFeel free to explore more
+      features at your own pace!"
     m_Metadata:
       m_Items: []
   references:

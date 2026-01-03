@@ -1,0 +1,602 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tetris Background Animation */
+@keyframes tetrisFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* Language Switcher Dark Mode Styles */
+.dark .language-switcher-dropdown {
+  background-color: hsl(var(--popover));
+  border-color: hsl(var(--border));
+}
+
+.dark .language-switcher-button {
+  background-color: transparent;
+  color: hsl(var(--popover-foreground));
+}
+
+.dark .language-switcher-button:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+/* Tetris Block Enhanced Styling for Dark Mode */
+.tetris-block {
+  transition: all 0.3s ease;
+}
+
+.dark .tetris-block {
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6)) 
+          drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))
+          brightness(1.2);
+  border-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark .tetris-block > div {
+  filter: brightness(1.3);
+}
+
+.dark .tetris-block::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 8px;
+  z-index: -1;
+}
+
+/* Cholopol-TIS-Wiki CSS Variables */
+:root {
+  --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  
+  /* Default theme colors */
+  --background: 0 0% 100%;
+  --background-deep: 216 20.11% 95.47%;
+  --foreground: 222 84% 5%;
+  
+  /* Card colors */
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  
+  /* Popover colors */
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  
+  /* Muted colors */
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  
+  /* Primary colors */
+  --primary: 212 100% 45%;
+  --primary-foreground: 0 0% 98%;
+  
+  /* Secondary colors */
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 6% 10%;
+  
+  /* Accent colors */
+  --accent: 240 5% 96%;
+  --accent-foreground: 240 6% 10%;
+  --accent-hover: 200deg 10% 90%;
+  
+  /* Destructive colors */
+  --destructive: 0 78% 68%;
+  --destructive-foreground: 0 0% 98%;
+  
+  /* Success colors */
+  --success: 144 57% 58%;
+  --success-foreground: 0 0% 98%;
+  
+  /* Warning colors */
+  --warning: 42 84% 61%;
+  --warning-foreground: 0 0% 98%;
+  
+  /* Border and ring colors */
+  --border: 240 5.9% 90%;
+  --input: 240deg 5.88% 90%;
+  --ring: 222.2 84% 4.9%;
+  
+  /* Sidebar and header colors */
+  --sidebar: 0 0% 100%;
+  --sidebar-deep: 216 20.11% 95.47%;
+  --header: 0 0% 100%;
+  
+  /* Backdrop blur colors */
+  --backdrop-header: 0 0% 100% / 0.85;
+  --backdrop-content: 0 0% 100% / 0.8;
+  
+  /* Border radius */
+  --radius: 0.5rem;
+  
+  /* Font size */
+  --font-size-base: 16px;
+  
+  /* Overlay */
+  --overlay: 0deg 0% 0% / 30%;
+}
+
+/* Dark mode variables */
+.dark {
+  --background: 222 47% 11%; /* 更深的暗色背景 */
+  --background-deep: 222 47% 8%; /* 更深的暗色深层背景 */
+  --foreground: 0 0% 95%;
+  
+  --card: 222 47% 11%; /* 更深的暗色卡片背景 */
+  --card-foreground: 0 0% 95%; /* 卡片文字保持浅色 */
+  
+  --popover: 222 47% 11%; /* 更深的暗色弹出层背景 */
+  --popover-foreground: 0 0% 95%; /* 弹出层文字保持浅色 */
+  
+  --muted: 222 47% 15%; /* 更深的暗色静音背景 */
+  --muted-foreground: 215 20% 75%; /* 提高静音文字的可读性 */
+  
+  --primary: 212 100% 45%;
+  --primary-foreground: 0 0% 98%;
+  
+  --secondary: 222 47% 13%; /* 更深的暗色次要背景 */
+}
+
+  /* Search Modal Enhancements */
+.search-modal-input {
+  @apply w-full px-4 py-3 text-base rounded-lg transition-colors;
+  border: none;
+  outline: none;
+}
+
+.search-modal-input:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* Header Anchor Offset for Fixed Header */
+[id] {
+  scroll-margin-top: 100px;
+}
+
+h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
+  scroll-margin-top: 120px;
+  padding-top: 20px;
+  margin-top: -20px;
+}
+
+.dark h1[id], .dark h2[id], .dark h3[id], .dark h4[id], .dark h5[id], .dark h6[id] {
+  scroll-margin-top: 120px;
+}
+
+.search-modal-input {
+  caret-color: hsl(var(--primary));
+}
+
+.search-modal-input::placeholder {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.search-modal-input:focus::placeholder {
+  opacity: 0.6;
+}
+
+.dark .search-modal-input {
+  color: hsl(var(--popover-foreground));
+}
+
+.dark .search-modal-input::placeholder {
+  color: hsl(var(--muted-foreground));
+  opacity: 0.9;
+}
+
+.dark .search-modal-input:focus::placeholder {
+  color: hsl(var(--muted-foreground));
+  opacity: 0.7;
+}
+
+.dark .search-modal-input:hover::placeholder {
+  opacity: 1;
+  color: hsl(var(--popover-foreground) / 0.8);
+}
+
+/* Search Modal Focus Ring */
+.search-modal-container:focus-within {
+  border-color: hsl(var(--primary));
+}
+
+/* Dark mode - subtle focus ring */
+.dark .search-modal-container:focus-within {
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.2);
+  border-color: hsl(var(--primary));
+}
+
+.dark {
+  --tetris-glow: 0 0% 100% / 40%; /* 白色发光效果 */
+  --tetris-border: 0 0% 100% / 60%; /* 白色边框 */
+  
+  --secondary-foreground: 0 0% 95%; /* 次要文字保持浅色 */
+  
+  --accent: 222 47% 15%; /* 更深的暗色强调背景 */
+  --accent-foreground: 0 0% 95%; /* 强调文字保持浅色 */
+  --accent-hover: 222 47% 18%; /* 更深的暗色悬停效果 */
+  
+  --destructive: 0 78% 68%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --success: 144 57% 58%;
+  --success-foreground: 0 0% 98%;
+  
+  --warning: 42 84% 61%;
+  --warning-foreground: 0 0% 98%;
+  
+  --border: 222 47% 20%; /* 更深的暗色边框 */
+  --input: 222 47% 15%; /* 更深的暗色输入框背景 */
+  --ring: 212 100% 45%; /* 保持主色调作为焦点环 */
+  
+  --sidebar: 222 47% 11%; /* 更深的暗色侧边栏 */
+  --sidebar-deep: 222 47% 8%; /* 更深的暗色深层侧边栏 */
+  --header: 222 47% 11%; /* 更深的暗色头部 */
+  
+  /* Dark mode backdrop blur colors */
+  --backdrop-header: 222 47% 11% / 0.9;
+  --backdrop-content: 222 47% 11% / 0.85;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: hsl(var(--foreground));
+  }
+  
+  /* Ensure proper text color inheritance in dark mode */
+  .dark {
+    color-scheme: dark;
+  }
+  
+  .dark body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  /* CholopolsToolbox style components */
+  .cholopols-layout {
+    @apply min-h-screen bg-background;
+  }
+  
+  .cholopols-header {
+    @apply bg-header border-b border-border shadow-sm;
+    background-color: hsl(var(--backdrop-header));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .cholopols-sidebar {
+    @apply bg-sidebar border-r border-border;
+  }
+  
+  .cholopols-content {
+    background-color: hsl(var(--backdrop-content));
+    color: hsl(var(--foreground));
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  
+  /* Dark mode header text colors */
+  .dark .cholopols-header {
+    color: hsl(var(--foreground));
+  }
+  
+  .dark .cholopols-header h1 {
+    color: hsl(var(--foreground));
+  }
+  
+  /* Ensure all text elements inherit proper colors */
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: hsl(var(--foreground));
+  }
+  
+  .dark p, .dark span, .dark div {
+    color: hsl(var(--foreground));
+  }
+  
+  /* Dark mode sidebar and content specific styles */
+  .dark .cholopols-sidebar {
+    background-color: hsl(var(--sidebar));
+    border-color: hsl(var(--border));
+  }
+  
+  .dark .cholopols-content {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+  
+  /* Dark mode sidebar links */
+  .dark .sidebar-link {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .dark .sidebar-link:hover {
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--accent));
+  }
+  
+  .dark .sidebar-link.active {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  
+  .cholopols-card {
+    @apply bg-card text-card-foreground rounded-lg border border-border shadow-sm;
+  }
+  
+  .cholopols-button {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+  
+  .cholopols-button-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  
+  .cholopols-button-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+  
+  .cholopols-button-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  .cholopols-input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm 
+           ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+           placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+           focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .sidebar-link {
+    @apply flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-all duration-200
+           text-muted-foreground hover:text-foreground hover:bg-accent relative;
+  }
+  
+  .sidebar-link.active {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground;
+  }
+  
+  /* Dark mode card styles */
+  .dark .cholopols-card {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-color: hsl(var(--border));
+  }
+  
+  /* Dark mode button styles */
+  .dark .cholopols-button-secondary {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+  }
+  
+  .dark .cholopols-button-secondary:hover {
+    background-color: hsl(var(--secondary) / 80%);
+  }
+  
+  .dark button:hover .language-code {
+    color: #fff;
+  }
+  
+  /* Dark mode input styles */
+.dark .cholopols-input {
+  background-color: hsl(var(--input));
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--border));
+}
+
+.dark .cholopols-input::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Dark mode backdrop blur effects */
+.dark .cholopols-header {
+  background-color: hsl(var(--backdrop-header)); /* 使用专门的暗色模糊背景变量 */
+  backdrop-filter: blur(12px); /* 稍微增强模糊效果 */
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .cholopols-content {
+  background-color: hsl(var(--backdrop-content)); /* 使用专门的暗色模糊背景变量 */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Search functionality styles */
+.search-highlight {
+  background-color: hsl(var(--primary) / 0.2);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.dark .search-highlight {
+  background-color: hsl(var(--primary) / 0.3);
+}
+
+/* Header anchor styles */
+.header-anchor {
+  scroll-margin-top: 100px; /* 为固定头部留出空间 */
+}
+
+.header-anchor .anchor-link {
+  opacity: 0;
+  transition: opacity 0.2s;
+  margin-left: 8px;
+  color: hsl(var(--muted-foreground));
+}
+
+.header-anchor:hover .anchor-link {
+  opacity: 1;
+}
+
+.header-anchor .anchor-link:hover {
+  color: hsl(var(--primary));
+}
+  
+  .sidebar-link::before {
+    @apply absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-4 bg-primary rounded-r-full 
+           opacity-0 transition-opacity duration-200;
+    content: '';
+  }
+  
+  .sidebar-link.active::before {
+    @apply opacity-100;
+  }
+  
+  .code-block {
+    @apply bg-muted rounded-lg overflow-hidden border border-border;
+  }
+  
+  /* Dark mode code block styles */
+  .dark .code-block {
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--border));
+  }
+  
+  /* Dark mode syntax highlighting adjustments */
+  .dark pre[class*="language-"],
+  .dark code[class*="language-"] {
+    background-color: hsl(var(--muted)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+  
+  /* Ensure code blocks in cards are properly dark */
+  .dark .cholopols-card .code-block {
+    background-color: hsl(222 47% 13%); /* Slightly lighter than card background */
+    border-color: hsl(var(--border));
+  }
+  
+  /* Inline code styling for dark mode */
+  .dark code:not(pre code) {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    border: 1px solid hsl(var(--border));
+  }
+  
+  .dark .cholopols-card code:not(pre code) {
+    background-color: hsl(222 47% 20%); /* Slightly lighter than card background */
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+  }
+  
+  .code-header {
+    @apply flex items-center justify-between px-4 py-2 bg-muted/50 border-b border-border;
+  }
+  
+  .copy-button {
+    @apply px-3 py-1 text-xs font-medium text-muted-foreground hover:text-foreground 
+           bg-transparent hover:bg-accent rounded transition-all duration-200;
+  }
+  
+  /* Table styles */
+  .cholopols-table {
+    @apply w-full caption-bottom text-sm;
+  }
+  
+  .cholopols-table thead {
+    @apply bg-muted/50;
+  }
+  
+  .cholopols-table th {
+    @apply h-12 px-4 text-left align-middle font-medium text-muted-foreground;
+  }
+  
+  .cholopols-table td {
+    @apply p-4 align-middle border-b border-border;
+  }
+  
+  /* Dark mode table styles */
+  .dark .cholopols-table {
+    background-color: transparent;
+  }
+  
+  .dark .cholopols-table thead {
+    background-color: hsl(var(--muted));
+  }
+  
+  .dark .cholopols-table th {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .dark .cholopols-table td {
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+  }
+  
+  .dark .cholopols-table tr:hover {
+    background-color: hsl(var(--accent));
+  }
+  
+  /* Dark mode HTTP method badges */
+  .dark .bg-green-100 {
+    background-color: hsl(142 76% 16%) !important;
+    color: hsl(142 76% 85%) !important;
+  }
+  
+  .dark .bg-blue-100 {
+    background-color: hsl(221 83% 16%) !important;
+    color: hsl(221 83% 85%) !important;
+  }
+  
+  .dark .bg-yellow-100 {
+    background-color: hsl(48 96% 16%) !important;
+    color: hsl(48 96% 85%) !important;
+  }
+  
+  .dark .bg-orange-100 {
+    background-color: hsl(33 96% 16%) !important;
+    color: hsl(33 96% 85%) !important;
+  }
+  
+  .dark .bg-red-100 {
+    background-color: hsl(0 84% 16%) !important;
+    color: hsl(0 84% 85%) !important;
+  }
+  
+  /* Enhanced card styles for dark mode */
+  .dark .cholopols-card {
+    @apply bg-[#0F1117] border-[#27272A] shadow-lg;
+    background: linear-gradient(135deg, #0F1117 0%, #12151A 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .dark .cholopols-card:hover {
+    @apply shadow-xl;
+    background: linear-gradient(135deg, #0F1117 0%, #181A20 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Homepage card specific styles */
+  .home-card {
+    @apply relative overflow-hidden;
+  }
+  
+  .dark .home-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-300;
+  }
+  
+  .dark .home-card:hover::before {
+    @apply opacity-100;
+  }
+}

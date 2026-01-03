@@ -1,0 +1,11 @@
+Cholopol-Tetris-Inventory-System
+Copyright 2026 Cholopol
+
+This product includes software developed by Cholopol.
+
+---
+This product also includes/references the following third-party software:
+
+Loxodon Framework
+Copyright (c) 2018 Clark Yang (vovgou)
+Licensed under the MIT License.

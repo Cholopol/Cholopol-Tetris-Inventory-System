@@ -14,53 +14,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDetailsList:
   - itemID: 1001
-    itemName: Tetromino_L
-    itemDescription: Tetromino L Shape,A classic Tetris shape.
+    itemName: AK-201
+    itemDescription: The new generation assault rifle based on the classic Kalashnikov
+      platform has higher human-machine efficiency and modular expansion capabilities,
+      adapting to the diverse combat needs of modern battlefields while maintaining
+      reliability.
     itemEntity: {fileID: 0}
-    tetrisPieceShape: 9
-    itemIcon: {fileID: 21300000, guid: 5896a6d049c787849884663b1cba647b, type: 3}
-    itemUI: {fileID: 21300000, guid: 5896a6d049c787849884663b1cba647b, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: 0531db0e936ee5d4fbf4b4c45049dc22, type: 3}
+    tetrisPieceShape: 21
+    itemIcon: {fileID: 21300000, guid: 5cf006e70c571ad4a9bdcff7126d16b1, type: 3}
+    itemUI: {fileID: 21300000, guid: 5cf006e70c571ad4a9bdcff7126d16b1, type: 3}
     gridUIPrefab: {fileID: 0}
-    inventorySlotType: 6
+    inventorySlotType: 7
+    itemRarity: 0
     itemDamage: 0
     maxStack: 0
     reloadTime: 0
     yHeight: 2
-    xWidth: 3
+    xWidth: 4
     weight: 0
     dir: 0
     itemPrice: 0
     sellPercentage: 0
   - itemID: 1002
-    itemName: Domino
-    itemDescription: Domino,A classic Tetris shape.
+    itemName: HK-716
+    itemDescription: A modern assault rifle featuring a short-stroke gas piston system,
+      combining AR-platform ergonomics with German engineering reliability, designed
+      for high-intensity operations in demanding environments.
     itemEntity: {fileID: 0}
-    tetrisPieceShape: 1
-    itemIcon: {fileID: 21300000, guid: 052553b7c51dc34408e247eb1aef1d53, type: 3}
-    itemUI: {fileID: 21300000, guid: 052553b7c51dc34408e247eb1aef1d53, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: 9e98279fc2609624ebf6b0b96fe92632, type: 3}
+    tetrisPieceShape: 21
+    itemIcon: {fileID: 21300000, guid: 48c4544898147ae45aedeb1a0ce8eb5e, type: 3}
+    itemUI: {fileID: 21300000, guid: 48c4544898147ae45aedeb1a0ce8eb5e, type: 3}
     gridUIPrefab: {fileID: 0}
-    inventorySlotType: 9
+    inventorySlotType: 7
+    itemRarity: 1
     itemDamage: 0
     maxStack: 0
     reloadTime: 0
-    yHeight: 1
-    xWidth: 2
+    yHeight: 2
+    xWidth: 4
     weight: 0
     dir: 0
     itemPrice: 0
     sellPercentage: 0
   - itemID: 1003
-    itemName: Jacket
+    itemName: Army Jacket
     itemDescription: A forest camouflage jacket.
     itemEntity: {fileID: 0}
     tetrisPieceShape: 6
     itemIcon: {fileID: 21300000, guid: 238ca091985cb3f4799a6445519f3168, type: 3}
     itemUI: {fileID: 21300000, guid: 238ca091985cb3f4799a6445519f3168, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: 75c6c818dfcae3f4283fc55ccd26a7c3, type: 3}
     gridUIPrefab: {fileID: 5878296250847125403, guid: db4cd6df4abdd134aab2fbb6cfa69b88, type: 3}
     inventorySlotType: 1
+    itemRarity: 0
     itemDamage: 0
     maxStack: 0
     reloadTime: 0
@@ -71,15 +76,17 @@ MonoBehaviour:
     itemPrice: 0
     sellPercentage: 0
   - itemID: 1004
-    itemName: Armor
-    itemDescription: A basic bulletproof vest.
+    itemName: Vest_Essential
+    itemDescription: A personal protective tactical gear made from high-strength
+      ballistic materials, designed to effectively stop shrapnel and ballistic threats
+      while balancing protection, mobility, and wearer comfort.
     itemEntity: {fileID: 0}
     tetrisPieceShape: 6
     itemIcon: {fileID: 21300000, guid: bf4f1feef8cc6934fb7a550fb6e53e9c, type: 3}
     itemUI: {fileID: 21300000, guid: bf4f1feef8cc6934fb7a550fb6e53e9c, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: b348352c04c8bd14bb3e3aec5e318a0a, type: 3}
     gridUIPrefab: {fileID: 1543471118029654277, guid: 5b7fd7284704524459d9905178d785d3, type: 3}
     inventorySlotType: 2
+    itemRarity: 1
     itemDamage: 0
     maxStack: 0
     reloadTime: 0
@@ -90,15 +97,15 @@ MonoBehaviour:
     itemPrice: 0
     sellPercentage: 0
   - itemID: 1005
-    itemName: IPB_Ac
+    itemName: IPB_Mini
     itemDescription: A small waist bag, but it can hold a lot.
     itemEntity: {fileID: 0}
     tetrisPieceShape: 0
     itemIcon: {fileID: 21300000, guid: 3499bcb5c5bbb55479879b995335b56e, type: 3}
     itemUI: {fileID: 21300000, guid: 3499bcb5c5bbb55479879b995335b56e, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: b1d6aa1132e22334fb89f01362443c38, type: 3}
     gridUIPrefab: {fileID: 6412536237889142456, guid: dff402478424ba04d85524e463802ea1, type: 3}
     inventorySlotType: 4
+    itemRarity: 3
     itemDamage: 0
     maxStack: 0
     reloadTime: 0
@@ -109,53 +116,55 @@ MonoBehaviour:
     itemPrice: 0
     sellPercentage: 0
   - itemID: 1006
-    itemName: IPB_Brich
+    itemName: IPB_Essential
     itemDescription: A backpack with moderate capacity.
     itemEntity: {fileID: 0}
-    tetrisPieceShape: 6
+    tetrisPieceShape: 18
     itemIcon: {fileID: 21300000, guid: bf344ef18410bbe42a0b7b953e916877, type: 3}
     itemUI: {fileID: 21300000, guid: bf344ef18410bbe42a0b7b953e916877, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: 824de003ba2cd524c81cb0ed4b1f924d, type: 3}
     gridUIPrefab: {fileID: 8199173421864791972, guid: e7102a17aedaf9e4eaa2d86c373b622d, type: 3}
     inventorySlotType: 3
+    itemRarity: 0
     itemDamage: 0
     maxStack: 0
     reloadTime: 0
-    yHeight: 2
-    xWidth: 2
-    weight: 0
-    dir: 0
-    itemPrice: 0
-    sellPercentage: 0
-  - itemID: 1007
-    itemName: Tetromino_T
-    itemDescription: Tetromino T shape,A classic Tetris shape.
-    itemEntity: {fileID: 0}
-    tetrisPieceShape: 7
-    itemIcon: {fileID: 21300000, guid: 65114f725f7aeef46bfd6a7998bb828d, type: 3}
-    itemUI: {fileID: 21300000, guid: 65114f725f7aeef46bfd6a7998bb828d, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: 5c55c266182e6c2478a7c6cf9a4ffacb, type: 3}
-    gridUIPrefab: {fileID: 0}
-    inventorySlotType: 6
-    itemDamage: 0
-    maxStack: 0
-    reloadTime: 0
-    yHeight: 2
+    yHeight: 3
     xWidth: 3
     weight: 0
     dir: 0
     itemPrice: 0
     sellPercentage: 0
+  - itemID: 1007
+    itemName: IPB_Tactical
+    itemDescription: A large-capacity carrying system designed for extended field
+      operations, offering balanced load distribution and modular attachment options
+      to efficiently transport combat and survival supplies in demanding environments.
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 19
+    itemIcon: {fileID: 21300000, guid: 1420d82a9bf0c21499d01f53be306299, type: 3}
+    itemUI: {fileID: 21300000, guid: 1420d82a9bf0c21499d01f53be306299, type: 3}
+    gridUIPrefab: {fileID: 8199173421864791972, guid: ea53f9a800fd13b41884da8e7e2f56d5, type: 3}
+    inventorySlotType: 3
+    itemRarity: 2
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 4
+    xWidth: 4
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
   - itemID: 1008
-    itemName: EB1
+    itemName: M995
     itemDescription: A box of 5.56x45mm bullets with a maximum capacity of 60 rounds.
     itemEntity: {fileID: 0}
     tetrisPieceShape: 0
     itemIcon: {fileID: 21300000, guid: c078b08df4998414b8c001632d57e6ec, type: 3}
     itemUI: {fileID: 21300000, guid: c078b08df4998414b8c001632d57e6ec, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: f2c5b58d5008f2a459fc478e374e2f89, type: 3}
     gridUIPrefab: {fileID: 0}
     inventorySlotType: 11
+    itemRarity: 4
     itemDamage: 0
     maxStack: 60
     reloadTime: 0
@@ -172,14 +181,187 @@ MonoBehaviour:
     tetrisPieceShape: 1
     itemIcon: {fileID: 21300000, guid: ee6ddb847d0db784a8340550793347d9, type: 3}
     itemUI: {fileID: 21300000, guid: ee6ddb847d0db784a8340550793347d9, type: 3}
-    uiPrefab: {fileID: 3715836269625240257, guid: 2966264cd587374488b790aebeac8fbe, type: 3}
     gridUIPrefab: {fileID: 0}
     inventorySlotType: 10
+    itemRarity: 3
     itemDamage: 0
     maxStack: 3
     reloadTime: 0
     yHeight: 1
     xWidth: 2
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1010
+    itemName: Wooden Sorwd
+    itemDescription: A traditional ritual weapon crafted from peachwood and adorned
+      with protective talismans, believed to ward off evil and restrain supernatural
+      entities, combining symbolic significance with practical deterrence.
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 20
+    itemIcon: {fileID: 21300000, guid: 75a62fe638bfc0942983e38e48e464ac, type: 3}
+    itemUI: {fileID: 21300000, guid: 75a62fe638bfc0942983e38e48e464ac, type: 3}
+    gridUIPrefab: {fileID: 0}
+    inventorySlotType: 8
+    itemRarity: 5
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 4
+    xWidth: 4
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1011
+    itemName: PPSH-67
+    itemDescription: Union soldiers' weapons
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 22
+    itemIcon: {fileID: 21300000, guid: 9584d4bf0e0140e40b04fb0cecb8ad14, type: 3}
+    itemUI: {fileID: 21300000, guid: 9584d4bf0e0140e40b04fb0cecb8ad14, type: 3}
+    gridUIPrefab: {fileID: 0}
+    inventorySlotType: 7
+    itemRarity: 5
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 2
+    xWidth: 3
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1012
+    itemName: Union Soldier Pants
+    itemDescription: Union soldiers' pants
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 6
+    itemIcon: {fileID: -122383778, guid: ae95c6a99b771b34f981fa52b1d7ecce, type: 3}
+    itemUI: {fileID: -122383778, guid: ae95c6a99b771b34f981fa52b1d7ecce, type: 3}
+    gridUIPrefab: {fileID: 0}
+    inventorySlotType: 13
+    itemRarity: 2
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 2
+    xWidth: 2
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1013
+    itemName: Union Soldier Shoes
+    itemDescription: Union soldiers' boots
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 4
+    itemIcon: {fileID: -2018770348, guid: ae95c6a99b771b34f981fa52b1d7ecce, type: 3}
+    itemUI: {fileID: -2018770348, guid: ae95c6a99b771b34f981fa52b1d7ecce, type: 3}
+    gridUIPrefab: {fileID: 0}
+    inventorySlotType: 14
+    itemRarity: 3
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 2
+    xWidth: 2
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1014
+    itemName: Union Soldier Uniforms
+    itemDescription: Union soldiers' uniforms
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 6
+    itemIcon: {fileID: 1169455415, guid: ae95c6a99b771b34f981fa52b1d7ecce, type: 3}
+    itemUI: {fileID: 1169455415, guid: ae95c6a99b771b34f981fa52b1d7ecce, type: 3}
+    gridUIPrefab: {fileID: 5878296250847125403, guid: db4cd6df4abdd134aab2fbb6cfa69b88, type: 3}
+    inventorySlotType: 1
+    itemRarity: 0
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 2
+    xWidth: 2
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1015
+    itemName: Union Soldier Helmets
+    itemDescription: Union soldiers' Helmets
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 6
+    itemIcon: {fileID: 217767693, guid: ae95c6a99b771b34f981fa52b1d7ecce, type: 3}
+    itemUI: {fileID: 217767693, guid: ae95c6a99b771b34f981fa52b1d7ecce, type: 3}
+    gridUIPrefab: {fileID: 0}
+    inventorySlotType: 12
+    itemRarity: 0
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 2
+    xWidth: 2
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1016
+    itemName: Like
+    itemDescription: 
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 23
+    itemIcon: {fileID: 753666047, guid: 3f74de3008a7cd647abba8c08c5e4107, type: 3}
+    itemUI: {fileID: 753666047, guid: 3f74de3008a7cd647abba8c08c5e4107, type: 3}
+    gridUIPrefab: {fileID: 0}
+    inventorySlotType: 6
+    itemRarity: 5
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 3
+    xWidth: 3
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1017
+    itemName: Coin
+    itemDescription: 
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 18
+    itemIcon: {fileID: 246652276, guid: 3f74de3008a7cd647abba8c08c5e4107, type: 3}
+    itemUI: {fileID: 246652276, guid: 3f74de3008a7cd647abba8c08c5e4107, type: 3}
+    gridUIPrefab: {fileID: 0}
+    inventorySlotType: 6
+    itemRarity: 5
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 3
+    xWidth: 3
+    weight: 0
+    dir: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemID: 1018
+    itemName: Collection
+    itemDescription: 
+    itemEntity: {fileID: 0}
+    tetrisPieceShape: 23
+    itemIcon: {fileID: 463506697, guid: 3f74de3008a7cd647abba8c08c5e4107, type: 3}
+    itemUI: {fileID: 463506697, guid: 3f74de3008a7cd647abba8c08c5e4107, type: 3}
+    gridUIPrefab: {fileID: 0}
+    inventorySlotType: 6
+    itemRarity: 5
+    itemDamage: 0
+    maxStack: 0
+    reloadTime: 0
+    yHeight: 3
+    xWidth: 3
     weight: 0
     dir: 0
     itemPrice: 0

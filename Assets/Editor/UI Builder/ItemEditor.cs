@@ -1,3 +1,19 @@
+/*
+ * Copyright 2026 Cholopol
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +21,6 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
-
 
 public class ItemEditor : EditorWindow
 {
@@ -45,7 +60,7 @@ public class ItemEditor : EditorWindow
         GenerateListView();
     }
 
-    #region 按键事件
+    #region Key Events
     private void OnDeleteClicked()
     {
         itemList.Remove(activeItem);
@@ -131,7 +146,6 @@ public class ItemEditor : EditorWindow
         {
             Sprite newIcon = evt.newValue as Sprite;
             activeItem.itemIcon = newIcon;
-
             iconPreview.style.backgroundImage = newIcon == null ? defaultIcon.texture : newIcon.texture;
             itemListView.Rebuild();
         });
@@ -140,12 +154,6 @@ public class ItemEditor : EditorWindow
         itemDetailsSection.Q<ObjectField>("ItemUI").RegisterValueChangedCallback(evt =>
         {
             activeItem.itemUI = (Sprite)evt.newValue;
-        });
-
-        itemDetailsSection.Q<ObjectField>("UiPrefab").value = activeItem.uiPrefab;
-        itemDetailsSection.Q<ObjectField>("UiPrefab").RegisterValueChangedCallback(evt =>
-        {
-            activeItem.uiPrefab = (Transform)evt.newValue;
         });
 
         itemDetailsSection.Q<ObjectField>("GridUIPrefab").value = activeItem.gridUIPrefab;
@@ -172,6 +180,13 @@ public class ItemEditor : EditorWindow
         itemDetailsSection.Q<EnumField>("InventorySlotType").RegisterValueChangedCallback(evt =>
         {
             activeItem.inventorySlotType = (InventorySlotType)evt.newValue;
+        });
+
+        itemDetailsSection.Q<EnumField>("ItemRarity").Init(activeItem.itemRarity);
+        itemDetailsSection.Q<EnumField>("ItemRarity").value = activeItem.itemRarity;
+        itemDetailsSection.Q<EnumField>("ItemRarity").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.itemRarity = (ItemRarity)evt.newValue;
         });
 
         itemDetailsSection.Q<TextField>("Description").value = activeItem.itemDescription;
