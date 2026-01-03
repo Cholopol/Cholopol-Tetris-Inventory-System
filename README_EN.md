@@ -571,7 +571,7 @@ Bug reports and feature requests are welcome! Please follow these steps:
 ## 📜 License
 
 - This project uses the Apache License 2.0. See the [LICENSE](LICENSE) file for more information.
-- Your project must include the [NOTICE](NOTICE.md) file.
+- Your project must include the [NOTICE](NOTICE) file.
 - If necessary, your project should create a dedicated `THIRD-PARTY-NOTICES` file.
 - Based on Section 4(b), the copyright notices in this system's source code must not be removed in commercial projects. If modified, you must indicate the modification location and time. For example:
 

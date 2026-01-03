@@ -4,7 +4,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'Wiki/**' # 仅当 Wiki 文件夹有变化时触发
+      - 'Wiki/**'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 permissions:
@@ -13,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -21,22 +22,29 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Wiki 
-    strategy:
-      matrix:
-        node-version: [22.x]
+        working-directory: Wiki
     steps:
-       - uses: actions/checkout@v4
-    - name: Install pnpm
-      uses: pnpm/action-setup@v4.0.0
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
-        cache-dependency-path: |
-         ./frontend/pnpm-lock.yaml
-         ./backend/pnpm-lock.yaml
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'Wiki/dist'
 
   deploy:
     environment:

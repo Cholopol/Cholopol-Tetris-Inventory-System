@@ -293,6 +293,7 @@ public static List<Vector2Int> RotatePointsClockwise(List<Vector2Int> points
 $$
 Offset_{Up} = (Width - 1, Height - 1)
 $$
+
 不同方向有不同的硬编码偏移量，详见 `TetrisUtilities.cs:L66`
 
 ### 5\. 逻辑实现细节
@@ -584,7 +585,7 @@ GameObject tile = PoolManager.Instance.GetObject(highlightTilePrefab);
 ## 📜 许可声明
 
 - 本项目采用 Apache License 2.0 许可证。请参阅 [LICENSE](LICENSE) 文件以获取更多信息。
-- 你的项目中必须包含[NOTICE](NOTICE.md)文件。
+- 你的项目中必须包含[NOTICE](NOTICE)文件。
 - 如有必要你的项目需创建专门的 `THIRD-PARTY-NOTICES` 文件
 - 基于Section 4(b)条款，商业用途的项目中有关本系统的源码中的版权声明不得移除，如有修改必须注明修改位置与修改时间。例如：
 
