@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: StringTable_ko
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ko
+  m_SharedData: {fileID: 11400000, guid: d8a14f13b456fc2409633b31731bc0f6, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 109809545216
+    m_Localized: "~\u200B\u02F6\u1D52 \u1D55 \u02C2\u02F6\u200B\u200B ~ <color=#FFAE00>\uC548\uB155\uD558\uC138\uC694</color>
+      !\n\uC778\uB514 \uAC8C\uC784 \uAC1C\uBC1C\uC790 Cholopol\uC785\uB2C8\uB2E4.\r\n\uC774
+      \uC624\uD508 \uC18C\uC2A4 <color=#00FFFF>\uD0C0\uB974\uCF54\uD504 \uC2A4\uD0C0\uC77C
+      \uD14C\uD2B8\uB9AC\uC2A4 \uC778\uBCA4\uD1A0\uB9AC \uC2DC\uC2A4\uD15C</color>\uC744
+      \uC0AC\uC6A9\uD574 \uC8FC\uC154\uC11C \uAC10\uC0AC\uD569\uB2C8\uB2E4.\r\n\uC544\uC9C1
+      \uBD80\uC871\uD55C \uC810\uC774 \uC788\uC744 \uC218 \uC788\uC73C\uB2C8, <color=#00FFFF>Issue</color>\uC640
+      <color=#00FFFF>Pull Request</color>\uB294 \uC5B8\uC81C\uB098 \uD658\uC601\uD569\uB2C8\uB2E4.\r\n\uC774
+      \uC2DC\uC2A4\uD15C\uC744 \uAC1C\uBC1C\uD558\uB294 \uB370 \uB9CE\uC740 \uB178\uB825\uC744
+      \uAE30\uC6B8\uC600\uC2B5\uB2C8\uB2E4. \uC5EC\uB7EC\uBD84\uC758 \uD6C4\uC6D0\uC774
+      \uC800\uC5D0\uAC8C \uAC00\uC7A5 \uD070 \uD798\uC774 \uB429\uB2C8\uB2E4.\r\n\uB9C8\uC74C\uC5D0
+      \uB4DC\uC2E0\uB2E4\uBA74 <color=#00FFFF>Star</color>\uB97C \uB20C\uB7EC\uC8FC\uC2DC\uAC70\uB098
+      \uCEE4\uD53C \uD55C \uC794 \uD6C4\uC6D0 \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4.\r\n\uC0C8\uD574\uC5D0\uB294
+      \uB9E4\uC77C\uB9E4\uC77C \uD589\uBCF5\uD558\uC2DC\uAE38 \uBC14\uB78D\uB2C8\uB2E4!\r\n\r\nby\r\nCholopol\r\n2026.01.01\r\n\r\n~\u200B\u02F6\u1D52
+      \u1D55 \u02C2\u02F6\u200B\u200B ~ \uC870\uC791 \uAC00\uC774\uB4DC\r\n\uC2E4\uD589
+      \uD6C4 <b><color=#FFD700>B \uD0A4</color></b>\uB97C \uB20C\uB7EC \uAC00\uBC29
+      \uD328\uB110\uC744 \uC5EC\uB2EB\uC2B5\uB2C8\uB2E4.\r\n\uC544\uC774\uD15C \uC704\uC5D0
+      \uB9C8\uC6B0\uC2A4\uB97C \uC62C\uB9AC\uACE0 <b><color=#FFD700>\uB9C8\uC6B0\uC2A4
+      \uC67C\uCABD \uBC84\uD2BC</color></b>\uC744 \uAE38\uAC8C \uB20C\uB7EC \uB4DC\uB798\uADF8\uD569\uB2C8\uB2E4.\r\n\uB4DC\uB798\uADF8
+      \uC911 <b><color=#FFD700>R \uD0A4</color></b>\uB97C \uB20C\uB7EC \uC544\uC774\uD15C\uC744
+      \uD68C\uC804\uD558\uACE0, \uBC84\uD2BC\uC744 \uB193\uC544 \uBC30\uCE58\uD569\uB2C8\uB2E4.\r\n\uC544\uC774\uD15C
+      \uC704\uC5D0 \uB9C8\uC6B0\uC2A4\uB97C \uC62C\uB9AC\uACE0 <b><color=#FFD700>\uB9C8\uC6B0\uC2A4
+      \uC624\uB978\uCABD \uBC84\uD2BC</color></b>\uC744 \uB20C\uB7EC \uBA54\uB274\uB97C
+      \uC5FD\uB2C8\uB2E4.\r\n\uB354 \uB9CE\uC740 \uAE30\uB2A5\uC744 \uCC9C\uCC9C\uD788
+      \uD0D0\uC0C9\uD574 \uBCF4\uC138\uC694!"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: StringTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: d8a14f13b456fc2409633b31731bc0f6, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 109809545216
+    m_Localized: "~\u200B\u02F6\u1D52 \u1D55 \u02C2\u02F6\u200B\u200B ~ <color=#FFAE00>Hello</color>
+      !\nI'm Cholopol, an indie game developer.\r\nThank you for using this open-source
+      <color=#00FFFF>Tarkov-like Tetris Inventory System</color>.\r\nIt might still
+      have some imperfections, so please feel free to submit <color=#00FFFF>Issues</color>
+      and <color=#00FFFF>Pull Requests</color>.\r\nI poured a lot of energy into
+      developing this system, and your support is my greatest motivation.\r\nIf you
+      like it, please consider giving it a <color=#00FFFF>Star</color> or buying
+      me a coffee.\r\nWishing you happiness every day in the new year!\r\n\r\nby\r\nCholopol\r\n2026.01.01\r\n\r\n~\u200B\u02F6\u1D52
+      \u1D55 \u02C2\u02F6\u200B\u200B ~ Controls\r\nPress <b><color=#FFD700>B</color></b>
+      to toggle the inventory panel.\r\nHover over an item and hold the <b><color=#FFD700>Left
+      Mouse Button</color></b> to drag.\r\nWhile dragging, press <b><color=#FFD700>R</color></b>
+      to rotate the item. Release to place.\r\nHover over an item and press the <b><color=#FFD700>Right
+      Mouse Button</color></b> to open the action menu.\r\nFeel free to explore more
+      features at your own pace!"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

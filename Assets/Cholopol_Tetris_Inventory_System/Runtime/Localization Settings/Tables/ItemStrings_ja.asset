@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ItemStrings_ja
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ja
+  m_SharedData: {fileID: 11400000, guid: 98fdf17b307dc7644b5b6407e73e475b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 177147142144
+    m_Localized: AK-201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 539623088128
+    m_Localized: HK-716
+    m_Metadata:
+      m_Items: []
+  - m_Id: 991513206784
+    m_Localized: "\u8FF7\u5F69\u30B8\u30E3\u30B1\u30C3\u30C8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1079014776832
+    m_Localized: "\u30DD\u30FC\u30BF\u30D6\u30EB\u9632\u5F3E\u30C1\u30E7\u30C3\u30AD"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1193724796928
+    m_Localized: "\u8FF7\u5F69\u30B8\u30E3\u30B1\u30C3\u30C8\u306F\u8EFD\u91CF\u3067\u5B9F\u7528\u7684\u306A\u6226\u8853\u7528\u8863\u985E\u3067\u3001\u512A\u308C\u305F\u74B0\u5883\u30AB\u30E2\u30D5\u30E9\u30FC\u30B8\u30E5\u6027\u80FD\u3068\u57FA\u672C\u7684\u306A\u9632\u8B77\u6027\u3092\u5099\u3048\u3066\u3044\u308B\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 300489039872
+    m_Localized: "AK-201\u306F\u4FE1\u983C\u6027\u3068\u30E2\u30B8\u30E5\u30FC\u30EB\u8A2D\u8A08\u3092\u517C\u306D\u5099\u3048\u305F\u73FE\u4EE3\u7684\u306A\u30A2\u30B5\u30EB\u30C8\u30E9\u30A4\u30D5\u30EB\u3067\u3001\u3055\u307E\u3056\u307E\u306A\u904E\u9177\u306A\u6226\u5834\u74B0\u5883\u306B\u9069\u3057\u3066\u3044\u308B\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 711631495168
+    m_Localized: "HK716\u306F\u4FE1\u983C\u6027\u306E\u9AD8\u3044\u30B7\u30E7\u30FC\u30C8\u30B9\u30C8\u30ED\u30FC\u30AF\u30FB\u30AC\u30B9\u30D4\u30B9\u30C8\u30F3\u65B9\u5F0F\u3092\u63A1\u7528\u3057\u305F\u9AD8\u7CBE\u5EA6\u30A2\u30B5\u30EB\u30C8\u30E9\u30A4\u30D5\u30EB\u3067\u3001\u5C04\u6483\u306E\u5B89\u5B9A\u6027\u3068\u6226\u5834\u9069\u5FDC\u6027\u3092\u517C\u306D\u5099\u3048\u3066\u3044\u308B\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41288741871616
+    m_Localized: "\u8EFD\u91CF\u9632\u5F3E\u30D9\u30B9\u30C8\u306F\u57FA\u672C\u7684\u306A\u9632\u8B77\u6027\u80FD\u3092\u78BA\u4FDD\u3057\u3064\u3064\u6A5F\u52D5\u6027\u3092\u91CD\u8996\u3057\u3066\u304A\u308A\u3001\u9AD8\u3044\u884C\u52D5\u529B\u304C\u6C42\u3081\u3089\u308C\u308B\u4EFB\u52D9\u306B\u9069\u3057\u3066\u3044\u308B"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46121788039168
+    m_Localized: Waist Bag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46326205833216
+    m_Localized: IPB_Essential
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46378508804096
+    m_Localized: IPB_Tactical
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46478828167168
+    m_Localized: M990
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46511413714944
+    m_Localized: Bandage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46722848579584
+    m_Localized: Peach Wood Sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46870546800640
+    m_Localized: PPSH-97
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46947537444864
+    m_Localized: Union Soldier Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47025283063808
+    m_Localized: Union Soldier Shoes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47074486444032
+    m_Localized: Union Soldier Uniform
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47109676654592
+    m_Localized: Union Soldier Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809019013378048
+    m_Localized: New Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809019973873664
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809022284935168
+    m_Localized: New Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809022960218112
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
