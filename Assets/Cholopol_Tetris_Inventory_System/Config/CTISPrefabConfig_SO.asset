@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27671157170e4294ebbc449582e617a0, type: 3}
+  m_Name: CTISPrefabConfig_SO
+  m_EditorClassIdentifier: 
+  generalTetrisItemPrefab:
+    m_AssetGUID: 728f2ef09bdd6ce47b0b8a1e3aab897f
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  floatingGridPanelTemplate:
+    m_AssetGUID: 55db5d1f033bbfa4e82178213807b417
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  itemInformationPanel:
+    m_AssetGUID: 18cd2a67ca7bb694390d6f854bec0e09
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  defaultItemIcon:
+    m_AssetGUID: 434467a1d81a32e4c83d91f339363388
+    m_SubObjectName: DefaultIcon
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_EditorAssetChanged: 1
+  editorLogoSprite:
+    m_AssetGUID: 7e2fb768cd6be2b469ea30401848e66d
+    m_SubObjectName: LOGO_Gray
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_EditorAssetChanged: 1

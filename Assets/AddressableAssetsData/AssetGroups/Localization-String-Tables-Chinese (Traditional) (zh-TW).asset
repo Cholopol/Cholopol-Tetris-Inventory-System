@@ -24,6 +24,12 @@ MonoBehaviour:
     - Locale-zh-TW
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c9438aaa016cbe4495c7c9e586ec764
+    m_Address: ItemStrings_zh-TW
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-zh-TW
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 43dcb17b2166b3943958baf33648b19c, type: 2}
   m_SchemaSet:

@@ -1,0 +1,588 @@
+/* ChosTIS Data Editor Styles */
+
+/* Root Container */
+.root-container {
+    flex-grow: 1;
+    background-color: #1e1e1e;
+}
+
+/* Header */
+.header {
+    background-color: #252526;
+    padding: 0 20px;
+    border-bottom-width: 1px;
+    border-bottom-color: #111111;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+.header-left {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.header-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.header-right {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.main-title {
+    font-size: 18px;
+    -unity-font-style: bold;
+    color: #e0e0e0;
+    margin: 0;
+}
+
+/* Tab Bar */
+.tab-bar {
+    flex-direction: row;
+    align-items: center;
+    background-color: #181818;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.tab-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    border-radius: 4px;
+    padding: 6px 24px;
+    margin: 0 1px;
+    color: #888888;
+    font-size: 13px;
+    -unity-font-style: bold;
+    transition-duration: 0.2s;
+}
+
+.tab-button:hover {
+    background-color: #2d2d30;
+    color: #cccccc;
+}
+
+.tab-active {
+    background-color: #3a3d41;
+    color: #ffffff;
+}
+
+.tab-active:hover {
+    background-color: #45484d;
+}
+
+/* Save Button */
+.save-button {
+    background-color: #ff9900; /* Standard Orange */
+    border-width: 0;
+    border-radius: 4px;
+    padding: 8px 24px;
+    margin: 0;
+    color: #ffffff;
+    font-size: 13px;
+    -unity-font-style: bold;
+    transition-duration: 0.15s;
+    cursor: link;
+}
+
+.save-button:hover {
+    background-color: #e68a00; /* Darker Orange */
+}
+
+.save-button:active {
+    background-color: #cc7a00;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+}
+
+.panel {
+    flex-grow: 1;
+}
+
+/* List Pane */
+.list-pane {
+    background-color: #252526;
+    border-right-width: 1px;
+    border-right-color: #3c3c3c;
+    min-width: 200px;
+}
+
+.list-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom-width: 1px;
+    border-bottom-color: #3c3c3c;
+    background-color: #2d2d30;
+}
+
+.section-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: #e0e0e0;
+    margin: 0;
+}
+
+.button-group {
+    flex-direction: row;
+}
+
+.icon-button {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border-width: 0;
+    font-size: 16px;
+    -unity-font-style: bold;
+    margin-left: 4px;
+}
+
+.add-btn {
+    background-color: #4caf50;
+    color: #ffffff;
+}
+
+.add-btn:hover {
+    background-color: #66bb6a;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: #ffffff;
+}
+
+.delete-btn:hover {
+    background-color: #ef5350;
+}
+
+.search-field {
+    margin: 8px;
+    border-radius: 4px;
+}
+
+.search-field > TextInput {
+    background-color: #3c3c3c;
+    border-color: #555555;
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: #ffffff;
+}
+
+.item-list {
+    flex-grow: 1;
+    margin: 0;
+    padding: 4px;
+}
+
+.item-list .unity-list-view__item {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 6px 8px;
+    padding: 4px 8px;
+}
+
+.item-list .unity-list-view__item:hover {
+    background-color: #3c3c3c;
+}
+
+.item-list .unity-list-view__item--selected {
+    background-color: #264f78;
+}
+
+.item-list .unity-list-view__item--selected:hover {
+    background-color: #2d5a8a;
+}
+
+.item-list .unity-collection-view__item--selected {
+    background-color: #264f78;
+}
+
+.item-list .unity-collection-view__item--selected:hover {
+    background-color: #2d5a8a;
+}
+
+/* Details Pane */
+.details-pane {
+    background-color: #1e1e1e;
+    padding: 0;
+}
+
+.details-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #2d2d30;
+    border-bottom-width: 1px;
+    border-bottom-color: #3c3c3c;
+}
+
+.language-container {
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Section Foldout */
+.section-foldout {
+    margin: 8px;
+    background-color: #2d2d30;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #3c3c3c;
+}
+
+.section-foldout > Toggle {
+    background-color: #363636;
+    border-radius: 6px 6px 0 0;
+    padding: 10px 12px;
+    margin: 0;
+}
+
+.section-foldout > Toggle:checked {
+    background-color: #3c3c3c;
+    border-bottom-width: 1px;
+    border-bottom-color: #4a4a4a;
+}
+
+.section-foldout > Toggle > Label {
+    color: #e0e0e0;
+    font-size: 13px;
+    -unity-font-style: bold;
+}
+
+.section-content {
+    padding: 12px;
+}
+
+.grid-2col {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.grid-2col > .field {
+    width: 48%;
+    margin-right: 2%;
+}
+
+/* Fields */
+.field {
+    margin-bottom: 8px;
+}
+
+.field > Label {
+    min-width: 90px;
+    color: #b0b0b0;
+    font-size: 12px;
+}
+
+.field > IntegerInput,
+.field > FloatInput,
+.field > TextInput {
+    background-color: #3c3c3c;
+    border-color: #555555;
+    border-radius: 3px;
+    padding: 4px 8px;
+}
+
+/* Icon Preview */
+.icon-row {
+    flex-direction: row;
+    margin-bottom: 12px;
+}
+
+.icon-preview {
+    width: 80px;
+    height: 80px;
+    background-color: #404040;
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: #555555;
+    margin-right: 16px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.icon-fields {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* Description Field */
+.description-field {
+    min-height: 80px;
+}
+
+.description-field > TextInput {
+    background-color: #3c3c3c;
+    border-color: #555555;
+    border-radius: 4px;
+    padding: 8px;
+    white-space: normal;
+}
+
+/* Shape Details */
+.shape-details-content {
+    padding: 16px;
+}
+
+.shape-info-row {
+    flex-direction: row;
+}
+
+.shape-info-row > .field {
+    flex-grow: 1;
+    margin-right: 12px;
+}
+
+.subsection-title {
+    font-size: 13px;
+    -unity-font-style: bold;
+    color: #9e9e9e;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom-width: 1px;
+    border-bottom-color: #3c3c3c;
+}
+
+.shape-grid-preview {
+    background-color: #252526;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #3c3c3c;
+    min-height: 50px;
+    margin-bottom: 16px;
+    padding: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.grid-cell {
+    width: 24px;
+    height: 24px;
+    margin: 1px;
+    border-radius: 3px;
+    background-color: #3c3c3c;
+}
+
+.grid-cell-active {
+    background-color: #4fc3f7;
+}
+
+.points-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.small-button {
+    background-color: #4caf50;
+    color: #ffffff;
+    border-width: 0;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 11px;
+}
+
+.small-button:hover {
+    background-color: #66bb6a;
+}
+
+.points-list-container {
+    max-height: 200px;
+    background-color: #252526;
+    border-radius: 4px;
+    padding: 8px;
+    margin-top: 8px;
+}
+
+.point-row {
+    flex-direction: row;
+    align-items: center;
+    padding: 4px;
+    margin-bottom: 4px;
+    background-color: #2d2d30;
+    border-radius: 4px;
+}
+
+.point-row > IntegerField {
+    width: 80px;
+    margin-right: 8px;
+}
+
+.point-row > IntegerField > Label {
+    min-width: 15px;
+    color: #b0b0b0;
+}
+
+.point-row > IntegerField #unity-text-input {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border-color: #555555;
+}
+
+.point-delete-btn {
+    width: 24px;
+    height: 24px;
+    background-color: #ff5252;
+    color: #ffffff;
+    border-width: 0;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+/* Status Bar */
+.status-bar {
+    background-color: #007acc;
+    padding: 4px 16px;
+    border-top-width: 1px;
+    border-top-color: #3c3c3c;
+}
+
+.status-text {
+    color: #ffffff;
+    font-size: 11px;
+}
+
+/* Config Panel */
+#ConfigPanel {
+    background-color: #1a1a1a;
+}
+
+#ConfigPanel > .details-pane {
+    padding: 16px;
+    background-color: #1a1a1a;
+}
+
+#ConfigPanel > .details-pane > .section-title {
+    font-size: 20px;
+    color: #ffffff;
+    padding: 16px 20px;
+    margin: 0 0 16px 0;
+    background-color: #2d2d30;
+    border-radius: 8px;
+    border-left-width: 4px;
+    border-left-color: #ff9900;
+}
+
+#ConfigPanel .section-foldout {
+    margin: 0 0 16px 0;
+    background-color: #252526;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #404040;
+}
+
+#ConfigPanel .section-foldout > Toggle {
+    background-color: #2d2d30;
+    border-radius: 10px 10px 0 0;
+    padding: 14px 16px;
+    margin: 0;
+}
+
+#ConfigPanel .section-foldout > Toggle:checked {
+    background-color: #333333;
+    border-bottom-width: 1px;
+    border-bottom-color: #505050;
+}
+
+#ConfigPanel .section-foldout > Toggle > Label {
+    color: #ffffff;
+    font-size: 14px;
+    -unity-font-style: bold;
+}
+
+#ConfigPanel .section-content {
+    padding: 16px 20px;
+}
+
+#ConfigPanel .field > Toggle {
+    padding: 8px 0;
+}
+
+#ConfigPanel .field > Label {
+    min-width: 180px;
+    font-size: 13px;
+    color: #cccccc;
+}
+
+#HighlightPaletteContainer {
+    margin: 12px 0 0 0;
+    padding: 16px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #404040;
+}
+
+#HighlightPaletteContainer > .field {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background-color: #2a2a2a;
+    border-radius: 6px;
+}
+
+#HighlightPaletteContainer > .field > Label {
+    min-width: 160px;
+    color: #e0e0e0;
+    font-size: 13px;
+}
+
+#InvalidReasonColorsContainer {
+    margin-top: 12px;
+    padding: 12px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #404040;
+}
+
+#InvalidReasonColorsContainer > .item-list {
+    background-color: #252526;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+#AddColorOverrideBtn {
+    background-color: #4caf50;
+    color: #ffffff;
+    border-width: 0;
+    border-radius: 8px;
+    padding: 12px 0;
+    margin-top: 8px;
+    font-size: 14px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+#AddColorOverrideBtn:hover {
+    background-color: #66bb6a;
+}
+
+#AddColorOverrideBtn:active {
+    background-color: #43a047;
+}
+
+#ConfigPanel .subsection-title {
+    font-size: 14px;
+    color: #ff9900;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom-width: 2px;
+    border-bottom-color: #ff9900;
+}

@@ -1,0 +1,193 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="ChosTISDataEditor.uss" />
+    
+    <ui:VisualElement name="Root" class="root-container">
+        <!-- Header with tabs -->
+        <ui:VisualElement name="Header" class="header">
+            <ui:VisualElement name="HeaderLeft" class="header-left">
+                <ui:Label text="Cholopol TIS Editor" class="main-title" />
+            </ui:VisualElement>
+            
+            <ui:VisualElement name="HeaderCenter" class="header-center">
+                <ui:VisualElement name="TabBar" class="tab-bar">
+                    <ui:Button text="Items" name="ItemsTab" class="tab-button tab-active" />
+                    <ui:Button text="Shapes" name="ShapesTab" class="tab-button" />
+                    <ui:Button text="Config" name="ConfigTab" class="tab-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            
+            <ui:VisualElement name="HeaderRight" class="header-right">
+                <ui:Button text="Save Data" name="SaveAllBtn" class="save-button" tooltip="Save all changes to disk" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Main Content Area -->
+        <ui:VisualElement name="MainContent" class="main-content">
+            <!-- Items Panel -->
+            <ui:VisualElement name="ItemsPanel" class="panel">
+                <ui:TwoPaneSplitView fixed-pane-initial-dimension="280" fixed-pane-index="0">
+                    <!-- Left: Item List -->
+                    <ui:VisualElement name="ItemListPane" class="list-pane">
+                        <ui:VisualElement name="ListHeader" class="list-header">
+                            <ui:Label text="Item List" class="section-title" />
+                            <ui:VisualElement class="button-group">
+                                <ui:Button text="+" name="AddItemBtn" class="icon-button add-btn" tooltip="Add New Item" />
+                                <ui:Button text="−" name="DeleteItemBtn" class="icon-button delete-btn" tooltip="Delete Item" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:TextField name="ItemSearchField" class="search-field" />
+                        <ui:ListView name="ItemListView" class="item-list" />
+                    </ui:VisualElement>
+                    
+                    <!-- Right: Item Details -->
+                    <ui:ScrollView name="ItemDetailsPane" class="details-pane">
+                        <ui:VisualElement name="DetailsHeader" class="details-header">
+                            <ui:Label text="Item Details" class="section-title" />
+                            <ui:VisualElement name="LanguageContainer" class="language-container" />
+                        </ui:VisualElement>
+                        
+                        <!-- General Section -->
+                        <ui:Foldout text="General" name="GeneralFoldout" value="true" class="section-foldout">
+                            <ui:VisualElement class="section-content">
+                                <ui:VisualElement class="icon-row">
+                                    <ui:VisualElement name="ItemIconPreview" class="icon-preview" />
+                                    <ui:VisualElement class="icon-fields">
+                                        <uie:IntegerField label="ID" name="ItemID" class="field" />
+                                        <ui:TextField label="Name" name="ItemName" class="field" />
+                                        <uie:ObjectField label="Icon" type="UnityEngine.Sprite, UnityEngine.CoreModule" name="ItemIcon" class="field" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:EnumField label="Shape" name="TetrisPieceShape" class="field" />
+                                <ui:EnumField label="Slot Type" name="InventorySlotType" class="field" />
+                                <ui:EnumField label="Rarity" name="ItemRarity" class="field" />
+                            </ui:VisualElement>
+                        </ui:Foldout>
+                        
+                        <!-- Properties Section -->
+                        <ui:Foldout text="Properties" name="PropertiesFoldout" value="true" class="section-foldout">
+                            <ui:VisualElement class="section-content grid-2col">
+                                <uie:IntegerField label="Width" name="Width" class="field" />
+                                <uie:IntegerField label="Height" name="Height" class="field" />
+                                <uie:FloatField label="Weight" name="Weight" class="field" />
+                                <ui:EnumField label="Dir" name="Dir" class="field" />
+                            </ui:VisualElement>
+                        </ui:Foldout>
+                        
+                        <!-- Combat Section -->
+                        <ui:Foldout text="Combat" name="CombatFoldout" value="false" class="section-foldout">
+                            <ui:VisualElement class="section-content grid-2col">
+                                <uie:IntegerField label="Damage" name="ItemDamage" class="field" />
+                                <uie:IntegerField label="Max Stack" name="MaxStack" class="field" />
+                                <uie:FloatField label="Reload Time" name="ReloadTime" class="field" />
+                            </ui:VisualElement>
+                        </ui:Foldout>
+                        
+                        <!-- Vendor Section -->
+                        <ui:Foldout text="Vendor" name="VendorFoldout" value="false" class="section-foldout">
+                            <ui:VisualElement class="section-content">
+                                <uie:IntegerField label="Price" name="Price" class="field" />
+                                <ui:Slider label="Sell %" name="SellPercentage" low-value="0" high-value="1" show-input-field="true" class="field" />
+                            </ui:VisualElement>
+                        </ui:Foldout>
+                        
+                        <!-- References Section -->
+                        <ui:Foldout text="References" name="ReferencesFoldout" value="false" class="section-foldout">
+                            <ui:VisualElement class="section-content">
+                                <uie:ObjectField label="Entity" name="ItemEntity" type="UnityEngine.GameObject, UnityEngine.CoreModule" class="field" />
+                                <uie:ObjectField label="Grid UI" name="GridUIPrefab" type="UnityEngine.Transform, UnityEngine.CoreModule" class="field" />
+                            </ui:VisualElement>
+                        </ui:Foldout>
+                        
+                        <!-- Description Section -->
+                        <ui:Foldout text="Description" name="DescriptionFoldout" value="true" class="section-foldout">
+                            <ui:VisualElement class="section-content">
+                                <ui:TextField name="Description" multiline="true" class="description-field" />
+                            </ui:VisualElement>
+                        </ui:Foldout>
+                    </ui:ScrollView>
+                </ui:TwoPaneSplitView>
+            </ui:VisualElement>
+            
+            <!-- Shapes Panel -->
+            <ui:VisualElement name="ShapesPanel" class="panel" style="display: none;">
+                <ui:TwoPaneSplitView fixed-pane-initial-dimension="280" fixed-pane-index="0">
+                    <!-- Left: Shape List -->
+                    <ui:VisualElement name="ShapeListPane" class="list-pane">
+                        <ui:VisualElement name="ListHeader" class="list-header">
+                            <ui:Label text="Shape List" class="section-title" />
+                            <ui:VisualElement class="button-group">
+                                <ui:Button text="+" name="AddShapeBtn" class="icon-button add-btn" tooltip="Add New Shape" />
+                                <ui:Button text="−" name="DeleteShapeBtn" class="icon-button delete-btn" tooltip="Delete Shape" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:ListView name="ShapeListView" class="item-list" />
+                    </ui:VisualElement>
+                    
+                    <!-- Right: Shape Details -->
+                    <ui:VisualElement name="ShapeDetailsPane" class="details-pane">
+                        <ui:VisualElement name="ShapeDetailsHeader" class="details-header">
+                            <ui:Label text="Shape Details" class="section-title" />
+                        </ui:VisualElement>
+                        
+                        <ui:VisualElement class="shape-details-content">
+                            <ui:VisualElement class="shape-info-row">
+
+                                <ui:EnumField label="Shape Type" name="ShapeType" class="field" />
+                            </ui:VisualElement>
+                            
+                            <!-- Grid Preview -->
+                            <ui:Label text="Grid Preview" class="subsection-title" />
+                            <ui:VisualElement name="ShapeGridPreview" class="shape-grid-preview" />
+                            
+                            <!-- Points Editor -->
+                            <ui:VisualElement name="PointsHeader" class="points-header">
+                                <ui:Label text="Points" class="subsection-title" />
+                                <ui:Button text="+ Add Point" name="AddPointBtn" class="small-button" />
+                            </ui:VisualElement>
+                            <ui:ScrollView name="PointsListContainer" class="points-list-container" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:TwoPaneSplitView>
+            </ui:VisualElement>
+
+            <!-- Config Panel -->
+            <ui:VisualElement name="ConfigPanel" class="panel" style="display: none;">
+                <ui:ScrollView class="details-pane">
+                    <ui:Label text="Configuration" class="section-title" style="margin-bottom: 10px;" />
+                    
+                    <ui:Foldout text="Rules" name="RulesFoldout" value="true" class="section-foldout">
+                        <ui:VisualElement class="section-content">
+                            <ui:Toggle label="Block Self Owned Container" name="BlockSelfOwnedContainer" class="field" />
+                            <ui:Toggle label="Block Out Of Bounds" name="BlockOutOfBounds" class="field" />
+                            <ui:Toggle label="Block Slot Occupied" name="BlockSlotOccupied" class="field" />
+                            <ui:Toggle label="Block Slot Type Mismatch" name="BlockSlotTypeMismatch" class="field" />
+                        </ui:VisualElement>
+                    </ui:Foldout>
+
+                    <ui:Foldout text="Highlight Colors" name="HighlightColorsFoldout" value="true" class="section-foldout">
+                        <ui:VisualElement class="section-content">
+                            <ui:Toggle label="Override Highlight Palette" name="OverrideHighlightPalette" class="field" />
+                            <ui:VisualElement name="HighlightPaletteContainer" style="margin-left: 10px;">
+                                <uie:ColorField label="Valid Empty" name="ColorValidEmpty" class="field" />
+                                <uie:ColorField label="Invalid" name="ColorInvalid" class="field" />
+                                <uie:ColorField label="Can Stack" name="ColorCanStack" class="field" />
+                                <uie:ColorField label="Can Quick Exchange" name="ColorCanQuickExchange" class="field" />
+                            </ui:VisualElement>
+                            
+                            <ui:Label text="Invalid Reason Colors" class="subsection-title" style="margin-top: 10px;" />
+                            <ui:VisualElement name="InvalidReasonColorsContainer">
+                                <ui:ListView name="InvalidReasonColorsList" class="item-list" style="height: 200px;" />
+                                <ui:Button text="+ Add Override" name="AddColorOverrideBtn" class="small-button" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:Foldout>
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Status Bar -->
+        <ui:VisualElement name="StatusBar" class="status-bar">
+            <ui:Label name="StatusText" text="Ready" class="status-text" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

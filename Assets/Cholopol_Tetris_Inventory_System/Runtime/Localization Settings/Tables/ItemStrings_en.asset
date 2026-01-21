@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ItemStrings_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 98fdf17b307dc7644b5b6407e73e475b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 177147142144
+    m_Localized: AK-201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 539623088128
+    m_Localized: HK-716
+    m_Metadata:
+      m_Items: []
+  - m_Id: 991513206784
+    m_Localized: Camouflage Jacket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1079014776832
+    m_Localized: Light bulletproof vest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1193724796928
+    m_Localized: The camouflage jacket is a lightweight and practical tactical garment,
+      offering effective environmental concealment and basic protection.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 711631495168
+    m_Localized: The HK716 is a high-precision assault rifle featuring a reliable
+      short-stroke gas piston system, offering both shooting stability and battlefield
+      adaptability.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 300489039872
+    m_Localized: The AK-201 is a modern assault rifle combining reliability with
+      modular design, suitable for a wide range of complex combat environments.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41288741871616
+    m_Localized: The lightweight ballistic vest provides essential protection while
+      maintaining mobility, making it suitable for high-mobility operations.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46121788039168
+    m_Localized: Waist Bag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46326205833216
+    m_Localized: IPB_Essential
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46378508804096
+    m_Localized: IPB_Tactical
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46478828167168
+    m_Localized: M990
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46511413714944
+    m_Localized: Bandage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46722848579584
+    m_Localized: Peach Wood Sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46870546800640
+    m_Localized: PPSH-97
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46947537444864
+    m_Localized: Union Soldier Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47025283063808
+    m_Localized: Union Soldier Shoes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47074486444032
+    m_Localized: Union Soldier Uniform
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47109676654592
+    m_Localized: Union Soldier Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809019013378048
+    m_Localized: New Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809019973873664
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809022284935168
+    m_Localized: New Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809022960218112
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

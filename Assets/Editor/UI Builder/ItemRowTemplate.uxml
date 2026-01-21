@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Row" style="height: 60px; flex-direction: row; align-items: center; justify-content: flex-start;">
-        <ui:VisualElement name="Icon" style="background-image: url(&quot;project://database/Assets/ArtResource/ItemEditor/DefaultIcon.png?fileID=2800000&amp;guid=434467a1d81a32e4c83d91f339363388&amp;type=3#DefaultIcon&quot;); width: 40px; height: 40px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
-        <ui:Label text="Label" display-tooltip-when-elided="true" name="Name" style="font-size: 18px;" />
-    </ui:VisualElement>
-</ui:UXML>

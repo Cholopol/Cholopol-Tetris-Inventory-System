@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ItemStrings_zh-Hans
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: zh-Hans
+  m_SharedData: {fileID: 11400000, guid: 98fdf17b307dc7644b5b6407e73e475b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 177147142144
+    m_Localized: AK-201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 300489039872
+    m_Localized: "AK-201\u662F\u4E00\u6B3E\u73B0\u4EE3\u5316\u7A81\u51FB\u6B65\u67AA\uFF0C\u517C\u987E\u53EF\u9760\u6027\u4E0E\u6A21\u5757\u5316\u8BBE\u8BA1\uFF0C\u9002\u5408\u591A\u79CD\u590D\u6742\u6218\u573A\u73AF\u5883\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 539623088128
+    m_Localized: HK-716
+    m_Metadata:
+      m_Items: []
+  - m_Id: 711631495168
+    m_Localized: "HK716\u662F\u4E00\u6B3E\u9AD8\u7CBE\u5EA6\u7A81\u51FB\u6B65\u67AA\uFF0C\u91C7\u7528\u53EF\u9760\u7684\u77ED\u884C\u7A0B\u6D3B\u585E\u7CFB\u7EDF\uFF0C\u517C\u987E\u5C04\u51FB\u7A33\u5B9A\u6027\u4E0E\u6218\u573A\u9002\u5E94\u6027\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 991513206784
+    m_Localized: "\u8FF7\u5F69\u5939\u514B"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1079014776832
+    m_Localized: "\u8F7B\u4FBF\u9632\u5F39\u80CC\u5FC3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1193724796928
+    m_Localized: "\u8FF7\u5F69\u5939\u514B\u662F\u4E00\u79CD\u8F7B\u4FBF\u5B9E\u7528\u7684\u6218\u672F\u670D\u88C5\uFF0C\u5177\u5907\u826F\u597D\u7684\u73AF\u5883\u4F2A\u88C5\u80FD\u529B\u4E0E\u65E5\u5E38\u9632\u62A4\u6027\u80FD\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41288741871616
+    m_Localized: "\u8F7B\u4FBF\u9632\u5F39\u80CC\u5FC3\u5728\u4FDD\u8BC1\u57FA\u7840\u9632\u62A4\u80FD\u529B\u7684\u540C\u65F6\u517C\u987E\u7075\u6D3B\u6027\uFF0C\u9002\u5408\u9AD8\u673A\u52A8\u884C\u52A8\u4F7F\u7528\u3002"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46121788039168
+    m_Localized: Waist Bag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46326205833216
+    m_Localized: IPB_Essential
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46378508804096
+    m_Localized: IPB_Tactical
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46478828167168
+    m_Localized: M990
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46511413714944
+    m_Localized: Bandage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46722848579584
+    m_Localized: Peach Wood Sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46870546800640
+    m_Localized: PPSH-97
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46947537444864
+    m_Localized: Union Soldier Pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47025283063808
+    m_Localized: Union Soldier Shoes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47074486444032
+    m_Localized: Union Soldier Uniform
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47109676654592
+    m_Localized: Union Soldier Helmet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809019013378048
+    m_Localized: m
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809019973873664
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809022284935168
+    m_Localized: New Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 809022960218112
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

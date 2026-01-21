@@ -16,7 +16,32 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 9a03540b16f8a7f49ac07015850e94c2
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 18cd2a67ca7bb694390d6f854bec0e09
+    m_Address: Assets/Cholopol_Tetris_Inventory_System/Prefabs/Windows/ItemInformation.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 434467a1d81a32e4c83d91f339363388
+    m_Address: Assets/Cholopol_Tetris_Inventory_System/Art/Icons/DefaultIcon.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55db5d1f033bbfa4e82178213807b417
+    m_Address: Assets/Cholopol_Tetris_Inventory_System/Prefabs/Windows/FloatingGridPanelTemplate.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 728f2ef09bdd6ce47b0b8a1e3aab897f
+    m_Address: Assets/Cholopol_Tetris_Inventory_System/Prefabs/Items/GeneralTetrisItemPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e2fb768cd6be2b469ea30401848e66d
+    m_Address: Assets/Cholopol_Tetris_Inventory_System/Art/Icons/LOGO_Gray.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 43dcb17b2166b3943958baf33648b19c, type: 2}
   m_SchemaSet:
