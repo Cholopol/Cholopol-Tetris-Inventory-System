@@ -25,7 +25,10 @@ namespace Cholopol.TIS.MVVM.ViewModels
 {
     public class TetrisItemVM : ViewModelBase, ITetrisRotatable
     {
-        private static readonly ItemTextStyle _stackNumTextStyle = new ItemTextStyle(0f, 2f, 2f, 10, new Vector2(0.5f, 0.5f), minFontSize: 6, bestFit: true);
+        private static readonly ItemTextStyle _stackNumTextStyle = new ItemTextStyle(0f, 2f, 2f, 10, new Vector2(0.5f, 0.5f), 
+            minFontSize: 6, 
+            horizontalOverflow: HorizontalWrapMode.Wrap, 
+            bestFit: true);
         public ItemTextStyle StackNumTextStyle => _stackNumTextStyle;
 
         private static readonly ItemTextStyle _itemNameTextStyle = new ItemTextStyle(0f, 2f, 0f, 8, new Vector2(0.5f, 0.5f),
@@ -87,7 +90,27 @@ namespace Cholopol.TIS.MVVM.ViewModels
         public Vector2Int LocalGridCoordinate { get => _localGridCoordinate; set => Set(ref _localGridCoordinate, value); }
         public List<Vector2Int> TetrisCoordinateSet { get => _coordinateSet; set => Set(ref _coordinateSet, value); }
         public Vector2Int RotationOffset { get => _rotationOffset; set => Set(ref _rotationOffset, value); }
-        public TetrisItemContainerVM CurrentTetrisContainer { get => _currentTetrisContainer; set => Set(ref _currentTetrisContainer, value); }
+        public TetrisItemContainerVM CurrentTetrisContainer 
+        { 
+            get => _currentTetrisContainer; 
+            set 
+            { 
+                if (Set(ref _currentTetrisContainer, value))
+                {
+                    RaisePropertyChanged(nameof(TextScaleFactor));
+                }
+            } 
+        }
+        
+        public float TextScaleFactor
+        {
+            get
+            {
+                if (_currentTetrisContainer is TetrisGridVM grid && Settings.gridTileSizeWidth > 0)
+                    return grid.LocalGridTileSizeWidth / Settings.gridTileSizeWidth;
+                return 1.0f;
+            }
+        }
         public bool IsRaycastTargetEnabled { get => _isRaycastTargetEnabled; set => Set(ref _isRaycastTargetEnabled, value); }
         public Sprite Icon { get => _icon; set => Set(ref _icon, value); }
         public InventorySlotType SlotType { get => _slotType; set => Set(ref _slotType, value); }

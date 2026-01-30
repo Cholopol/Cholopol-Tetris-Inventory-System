@@ -88,11 +88,10 @@ namespace Cholopol.TIS.MVVM.ViewModels
 
         public void UpdateGridSize(int width, int height)
         {
-            _gridSizeWidth = width > 0 ? width : 1;
-            _gridSizeHeight = height > 0 ? height : 1;
-            GridSizeWidth = _gridSizeWidth;
-            GridSizeHeight = _gridSizeHeight;
+            GridSizeWidth = width > 0 ? width : 1;
+            GridSizeHeight = height > 0 ? height : 1;
             Size = new Vector2(GridSizeWidth * _localGridUnitSizeWidth, GridSizeHeight * _localGridUnitSizeHeight);
+            TetrisItemOccupiedCells = new TetrisItemVM[GridSizeWidth, GridSizeHeight];
         }
 
         public void ApplyConfig(int width, int height, float unitWidth, float unitHeight)

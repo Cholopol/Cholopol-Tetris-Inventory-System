@@ -82,6 +82,13 @@ namespace Cholopol.TIS
                 tile.transform.SetParent(highlighter);
                 tile.transform.localScale = Vector3.one;
                 tile.transform.localPosition = tilePos;
+                
+                var tileRect = tile.GetComponent<RectTransform>();
+                if (tileRect != null)
+                {
+                    tileRect.sizeDelta = new Vector2(tileW, tileH);
+                }
+                
                 activeTiles.Add(tile);
             }
         }

@@ -34,5 +34,6 @@ namespace Cholopol.TIS.MVVM
         void ClearContainerItems(string containerId);
         IEnumerable<ContainerNode> GetAllContainers();
         IEnumerable<string> GetAllContainerIds();
+        bool IsDescendantContainer(string itemGuid, string targetContainerId);
     }
 }

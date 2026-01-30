@@ -183,7 +183,12 @@ namespace Cholopol.TIS
                 {
                     if (!string.IsNullOrEmpty(itemGuid) && !string.IsNullOrEmpty(grid.GridGuid))
                     {
-                        return grid.GridGuid.StartsWith(itemGuid + ":");
+                        if (grid.GridGuid.StartsWith(itemGuid + ":"))
+                            return true;
+
+                        var cache = Loxodon.Framework.Contexts.Context.GetApplicationContext()?.GetService<IInventoryTreeCache>();
+                        if (cache != null && cache.IsDescendantContainer(itemGuid, grid.GridGuid))
+                            return true;
                     }
                 }
 
