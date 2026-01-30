@@ -172,7 +172,7 @@ Loxodon Framework 是一个优秀的 Unity MVVM 架构开源框架，简单易�
 
 - **继承关系**：继承自 ViewModelBase（Loxodon Framework）。
 - **核心机制**：依赖Loxodon Framework的数据绑定方法，可以控制数据流向，通常为`View←ViewModel`或`View←→ViewModel`。
-- **属性通知**：使用 `Set(ref \_field, value)` 方法。当属性值改变时（例如 GridSizeWidth），会自动通知绑定的 View 更新。
+- **属性通知**：使用 `Set(ref _field, value)` 方法。当属性值改变时（例如 GridSizeWidth），会自动通知绑定的 View 更新。
 - **逻辑封装**：
   - `TetrisSlotVM`：维护物品槽占用情况，判断物品是否可以放置。
   - `TetrisGridVM`：计算网格占用情况 (\_tetrisItemOccupiedCells)，判断物品是否可以放置。
@@ -424,13 +424,13 @@ $$
 再利用原物品（拖拽物品）的对应点计算原始网格坐标：
 
 $$
-origin\_cell = A_{original} + O_{original} + S_{original}[k]
+origincell = A_{original} + O_{original} + S_{original}[k]
 $$
 
 最终建立映射关系：
 
 $$
-Mapping: cell \rightarrow origin\_cell
+Mapping: cell \rightarrow origincell
 $$
 
 ### 5. 模式匹配放置
@@ -477,13 +477,13 @@ $$
 
 | 操作 | 时间复杂度 |
 | --- | --- |
-| 覆盖区域构建 | $O(n)$，$n$ 为形状点数 |
+| 覆盖区域构建 | $O(n)$，n 为形状点数 |
 | 重叠物品检测 | $O(n)$，哈希查找 |
-| 完全覆盖验证 | $O(m \cdot n)$，$m$ 为重叠物品数 |
+| 完全覆盖验证 | $O(m \cdot n)$，m 为重叠物品数 |
 | 网格映射计算 | $O(n^2)$，最坏情况 |
 | 模式匹配放置 | $O(4 \cdot n^2)$，四方向遍历 |
 
-在典型场景下（$n < 10$, $m \leq 3$），整个快速交换判定在毫秒级完成。
+在典型场景下（ $ n < 10 $ , $ m \leq 3 $ ），整个快速交换判定在毫秒级完成。
 
 <a id="sprite-mesh-raycast-filter"></a>
 

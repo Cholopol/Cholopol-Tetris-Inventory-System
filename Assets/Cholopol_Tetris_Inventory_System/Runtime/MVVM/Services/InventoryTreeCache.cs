@@ -334,5 +334,59 @@ namespace Cholopol.TIS.MVVM
         {
             return _containers.Keys;
         }
+
+        /// <summary>
+        /// Checks if the target container is a descendant of the specified item (recursive check).
+        /// Used to prevent placing an item into its own descendant container (circular nesting).
+        /// </summary>
+        /// <param name="itemGuid">The item GUID to check</param>
+        /// <param name="targetContainerId">The target container ID</param>
+        /// <returns>True if the target container is a descendant of the item</returns>
+        public bool IsDescendantContainer(string itemGuid, string targetContainerId)
+        {
+            if (string.IsNullOrEmpty(itemGuid) || string.IsNullOrEmpty(targetContainerId))
+                return false;
+
+            if (targetContainerId.StartsWith(itemGuid + ":"))
+                return true;
+
+            return IsDescendantContainerRecursive(itemGuid, targetContainerId, new HashSet<string>());
+        }
+
+        private bool IsDescendantContainerRecursive(string itemGuid, string targetContainerId, HashSet<string> visited)
+        {
+            if (visited.Contains(targetContainerId))
+                return false;
+            visited.Add(targetContainerId);
+
+            string ownerGuid = null;
+
+            if (_containers.TryGetValue(targetContainerId, out var container))
+            {
+                ownerGuid = container.OwnerItemGuid;
+            }
+
+            if (string.IsNullOrEmpty(ownerGuid))
+            {
+                int colonIndex = targetContainerId.IndexOf(':');
+                if (colonIndex > 0)
+                {
+                    ownerGuid = targetContainerId.Substring(0, colonIndex);
+                }
+            }
+
+            if (string.IsNullOrEmpty(ownerGuid))
+                return false;
+
+            if (ownerGuid == itemGuid)
+                return true;
+
+            if (_itemToContainer.TryGetValue(ownerGuid, out var parentContainerId))
+            {
+                return IsDescendantContainerRecursive(itemGuid, parentContainerId, visited);
+            }
+
+            return false;
+        }
     }
 }

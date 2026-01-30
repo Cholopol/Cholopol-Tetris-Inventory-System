@@ -18,6 +18,7 @@ using Loxodon.Framework.Binding;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Cholopol.TIS.MVVM.Views
 {
@@ -60,6 +61,14 @@ namespace Cholopol.TIS.MVVM.Views
             var unitH = _localGridUnitSizeHeight > 0f ? _localGridUnitSizeHeight : Settings.gridTileSizeHeight;
             var gw = _gridSizeWidth > 0 ? _gridSizeWidth : 1;
             var gh = _gridSizeHeight > 0 ? _gridSizeHeight : 1;
+
+            var img = GetComponent<Image>();
+            if (img != null && (img.type == Image.Type.Tiled || img.type == Image.Type.Sliced))
+            {
+                float ratio = Settings.gridTileSizeWidth / unitW;
+                img.pixelsPerUnitMultiplier = ratio;
+            }
+
             viewModel.ApplyConfig(gw, gh, unitW, unitH);
             var bindingSet = this.CreateBindingSet(viewModel);
             bindingSet.Bind(RectTransform).For(v => v.sizeDelta).To(vm => vm.Size).OneWay();

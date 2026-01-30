@@ -194,7 +194,7 @@ namespace Cholopol.TIS.MVVM.Views
             return t;
         }
 
-        private void ApplyTextStyle(Text text, ItemTextStyle style, bool applyLayout)
+        private void ApplyTextStyle(Text text, ItemTextStyle style, bool applyLayout, float scaleFactor = 1.0f)
         {
             if (text == null) return;
 
@@ -207,8 +207,8 @@ namespace Cholopol.TIS.MVVM.Views
                 text.resizeTextForBestFit = style.BestFit;
                 if (style.BestFit)
                 {
-                    text.resizeTextMaxSize = style.MaxFontSize;
-                    text.resizeTextMinSize = style.MinFontSize;
+                    text.resizeTextMaxSize = (int)(style.MaxFontSize * scaleFactor);
+                    text.resizeTextMinSize = (int)(style.MinFontSize * scaleFactor);
                 }
                 text.alignByGeometry = true;
 
@@ -218,19 +218,19 @@ namespace Cholopol.TIS.MVVM.Views
                 rt.pivot = new Vector2(0.5f, 0.5f);
                 rt.anchoredPosition = Vector2.zero;
                 rt.sizeDelta = Vector2.zero;
-                rt.offsetMin = new Vector2(style.LeftOffset, style.BottomOffset);
-                rt.offsetMax = new Vector2(-style.RightOffset, -style.TopOffset);
+                rt.offsetMin = new Vector2(style.LeftOffset * scaleFactor, style.BottomOffset * scaleFactor);
+                rt.offsetMax = new Vector2(-style.RightOffset * scaleFactor, -style.TopOffset * scaleFactor);
 
                 var outline = text.GetComponent<Outline>();
                 if (outline == null) outline = text.gameObject.AddComponent<Outline>();
                 outline.effectColor = Color.black;
-                outline.effectDistance = style.OutlineDistance;
+                outline.effectDistance = style.OutlineDistance * scaleFactor;
                 outline.useGraphicAlpha = true;
             }
 
             if (!style.BestFit)
             {
-                text.fontSize = style.MaxFontSize;
+                text.fontSize = (int)(style.MaxFontSize * scaleFactor);
             }
             text.horizontalOverflow = style.HorizontalOverflow;
             text.verticalOverflow = style.VerticalOverflow;
@@ -262,8 +262,9 @@ namespace Cholopol.TIS.MVVM.Views
             {
                 itemNameText.gameObject.SetActive(true);
             }
-            ApplyTextStyle(stackNumText, viewModel.StackNumTextStyle, true);
-            ApplyTextStyle(itemNameText, viewModel.ItemNameTextStyle, true);
+            float scale = viewModel.TextScaleFactor;
+            ApplyTextStyle(stackNumText, viewModel.StackNumTextStyle, true, scale);
+            ApplyTextStyle(itemNameText, viewModel.ItemNameTextStyle, true, scale);
             viewModel.HasActivedGridPanel = EquipmentTypeGridsPanel != null;
         }
 
@@ -303,12 +304,14 @@ namespace Cholopol.TIS.MVVM.Views
                 e.PropertyName == nameof(TetrisItemVM.Width) ||
                 e.PropertyName == nameof(TetrisItemVM.Height) ||
                 e.PropertyName == nameof(TetrisItemVM.RarityColor) ||
-                e.PropertyName == nameof(TetrisItemVM.ItemDetails))
+                e.PropertyName == nameof(TetrisItemVM.ItemDetails) ||
+                e.PropertyName == nameof(TetrisItemVM.TextScaleFactor))
             {
                 if (_viewModel != null)
                 {
-                    ApplyTextStyle(stackNumText, _viewModel.StackNumTextStyle, false);
-                    ApplyTextStyle(itemNameText, _viewModel.ItemNameTextStyle, false);
+                    float scale = _viewModel.TextScaleFactor;
+                    ApplyTextStyle(stackNumText, _viewModel.StackNumTextStyle, true, scale);
+                    ApplyTextStyle(itemNameText, _viewModel.ItemNameTextStyle, true, scale);
                     RefreshRarityBackgroundTiles();
                 }
             }
