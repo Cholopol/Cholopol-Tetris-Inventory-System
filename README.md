@@ -1,3 +1,5 @@
+
+
 # **Cholopol's Tetris Inventory System**
 
 ![Unity Version](https://img.shields.io/badge/Unity-2022.3.62f3_LTS-blue.svg?logo=unity)
@@ -142,7 +144,7 @@ Loxodon Framework 是一个优秀的 Unity MVVM 架构开源框架，简单易�
 `InventoryManager.cs` 是系统的指挥官（Singleton），它不处理具体网格逻辑，而负责协调：
 
 - **输入处理**：在 Update() 中监听全局按键（如 R 键旋转、B 键开关背包）。
-- **射线检测**：通过 GetGridViewUnderMouse() 实时判断鼠标悬停在哪个网格上，并更新 `selectedTetrisItemGridVM`。
+- **射线检测**：通过 GetGridViewUnderMouse() 实时判断鼠标悬停在哪个网格上，并更新 `selectedTetrisItemGridView`。
 - **视觉反馈**：调用 `inventoryHighlight` 组件，根据 ViewModel 返回的"是否可放置"结果，在 UI 上渲染绿色（可放置）或红色（冲突）的高亮色块。
 
 ### 3. 数据持久化系统
