@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://c0dilxcdsvi1v"]
+
+[ext_resource type="Script" uid="uid://cqtn431grcqqo" path="res://CTIS_Demo/demo/_Scripts/InventoryWindow.cs" id="1_win"]
+[ext_resource type="Texture2D" uid="uid://byrspwmyd2qlv" path="res://addons/ctis/Art/Sprites/UI_Inventory/UI Banner.png" id="2_banner"]
+[ext_resource type="Texture2D" uid="uid://dlfo41mf038rp" path="res://addons/ctis/Art/Sprites/UI_Inventory/UI Banner 2.png" id="3_plate"]
+[ext_resource type="PackedScene" path="res://CTIS_Demo/demo/EquipmentPanelView.tscn" id="4_eq_scene"]
+[ext_resource type="PackedScene" path="res://CTIS_Demo/demo/ContainerPanelView.tscn" id="5_cont_scene"]
+[ext_resource type="PackedScene" path="res://CTIS_Demo/demo/StashPanelView.tscn" id="6_stash_scene"]
+
+[node name="InventoryWindow" type="Control" unique_id=1363906034]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_win")
+
+[node name="Background" type="ColorRect" parent="." unique_id=760021790]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Root" type="HBoxContainer" parent="." unique_id=1905181259]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="GearPane" type="VBoxContainer" parent="Root" unique_id=770393245]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Banner" type="Control" parent="Root/GearPane" unique_id=300361879]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BannerBg" type="NinePatchRect" parent="Root/GearPane/Banner" unique_id=1129634092]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_banner")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Title" type="Label" parent="Root/GearPane/Banner" unique_id=1495441206]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+text = "CTIS_GEAR"
+vertical_alignment = 1
+
+[node name="Shell" type="Control" parent="Root/GearPane" unique_id=7800971]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Plate" type="NinePatchRect" parent="Root/GearPane/Shell" unique_id=1848792818]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="EquipmentPanel" parent="Root/GearPane/Shell" unique_id=2019472767 instance=ExtResource("4_eq_scene")]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+
+[node name="InventoryPane" type="VBoxContainer" parent="Root" unique_id=1041579846]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Banner" type="Control" parent="Root/InventoryPane" unique_id=31313035]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BannerBg" type="NinePatchRect" parent="Root/InventoryPane/Banner" unique_id=447422363]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_banner")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Title" type="Label" parent="Root/InventoryPane/Banner" unique_id=299226638]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+text = "CTIS_INVENTORY"
+vertical_alignment = 1
+
+[node name="Shell" type="Control" parent="Root/InventoryPane" unique_id=1069386565]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Plate" type="NinePatchRect" parent="Root/InventoryPane/Shell" unique_id=2031396021]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="ContainerPanel" parent="Root/InventoryPane/Shell" unique_id=1593909109 instance=ExtResource("5_cont_scene")]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+
+[node name="StashPane" type="VBoxContainer" parent="Root" unique_id=1476967569]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Banner" type="Control" parent="Root/StashPane" unique_id=158968152]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BannerBg" type="NinePatchRect" parent="Root/StashPane/Banner" unique_id=168012891]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_banner")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Title" type="Label" parent="Root/StashPane/Banner" unique_id=1118366160]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+text = "CTIS_STASH"
+vertical_alignment = 1
+
+[node name="Shell" type="Control" parent="Root/StashPane" unique_id=1412668362]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Plate" type="NinePatchRect" parent="Root/StashPane/Shell" unique_id=723234916]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="StashPanel" parent="Root/StashPane/Shell" unique_id=1219273759 instance=ExtResource("6_stash_scene")]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0

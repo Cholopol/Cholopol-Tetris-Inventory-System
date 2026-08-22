@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c1qig34ssicgh"]
+
+[ext_resource type="Script" uid="uid://ph0gummbh02y" path="res://addons/ctis/Godot/Scenes/GridPanels/grid_placeholder.gd" id="1_ph"]
+
+[node name="GP_Coffer" type="Control" unique_id=1214449429]
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="p1" type="Control" parent="." unique_id=1325198725]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_ph")
+width_cells = 2
+height_cells = 2

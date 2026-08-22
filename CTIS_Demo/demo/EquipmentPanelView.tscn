@@ -1,0 +1,354 @@
+[gd_scene format=3 uid="uid://dsw05yytifm4j"]
+
+[ext_resource type="Script" uid="uid://cmsc55ugh05iw" path="res://CTIS_Demo/demo/_Scripts/EquipmentPanelView.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cokelc1yxnl4w" path="res://addons/ctis/Art/Sprites/UI_Inventory/UI Banner 1.png" id="2_plate"]
+[ext_resource type="Texture2D" uid="uid://cucjku8ehixhn" path="res://addons/ctis/Art/Sprites/UI_Inventory/SquareBG_Helmet.png" id="3_helmet"]
+[ext_resource type="Texture2D" uid="uid://b05oaouma488n" path="res://addons/ctis/Art/Sprites/UI_Inventory/SquareBG_Visual.png" id="4_visual"]
+[ext_resource type="Texture2D" uid="uid://b3hklicvg08hd" path="res://addons/ctis/Art/Sprites/UI_Inventory/SquareBG_Knife.png" id="5_knife"]
+[ext_resource type="Texture2D" uid="uid://dd0t5q3h0nv5p" path="res://addons/ctis/Art/Sprites/UI_Inventory/SquareBG_Pistol.png" id="6_pistol"]
+[ext_resource type="Texture2D" uid="uid://d4laau4e2ln6" path="res://addons/ctis/Art/Sprites/UI_Inventory/SquareBG_Pants.png" id="7_pants"]
+[ext_resource type="Texture2D" uid="uid://ddjeotfvjr0gn" path="res://addons/ctis/Art/Sprites/UI_Inventory/SquareBG_Shoes.png" id="8_shoes"]
+[ext_resource type="Texture2D" uid="uid://wn470t5vapff" path="res://addons/ctis/Art/Sprites/UI_Inventory/BG_Weapon.png" id="9_weapon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_intro_bar"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.04, 0.05, 0.07, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.22, 0.28, 0.8)
+anti_aliasing = false
+
+[node name="EquipmentPanelView" type="VBoxContainer" unique_id=1437473885]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+script = ExtResource("1_script")
+
+[node name="GearHost" type="CenterContainer" parent="." unique_id=527692137]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Gear" type="VBoxContainer" parent="GearHost" unique_id=1354871860]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Paperdoll" type="Control" parent="GearHost/Gear" unique_id=1601427461]
+custom_minimum_size = Vector2(216, 288)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Helmet" type="Control" parent="GearHost/Gear/Paperdoll" unique_id=1981433296]
+custom_minimum_size = Vector2(72, 72)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 72.0
+offset_right = 144.0
+offset_bottom = 72.0
+
+[node name="Plate" type="NinePatchRect" parent="GearHost/Gear/Paperdoll/Helmet" unique_id=341812077]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Icon" type="TextureRect" parent="GearHost/Gear/Paperdoll/Helmet" unique_id=440984392]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_helmet")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HeadMounted" type="Control" parent="GearHost/Gear/Paperdoll" unique_id=1609043213]
+custom_minimum_size = Vector2(72, 72)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 144.0
+offset_right = 216.0
+offset_bottom = 72.0
+
+[node name="Plate" type="NinePatchRect" parent="GearHost/Gear/Paperdoll/HeadMounted" unique_id=622327472]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Icon" type="TextureRect" parent="GearHost/Gear/Paperdoll/HeadMounted" unique_id=1556224128]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_visual")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Melee" type="Control" parent="GearHost/Gear/Paperdoll" unique_id=288458889]
+custom_minimum_size = Vector2(72, 72)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_top = 72.0
+offset_right = 72.0
+offset_bottom = 144.0
+
+[node name="Plate" type="NinePatchRect" parent="GearHost/Gear/Paperdoll/Melee" unique_id=258416178]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Icon" type="TextureRect" parent="GearHost/Gear/Paperdoll/Melee" unique_id=2089326513]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_knife")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ShortWeapon" type="Control" parent="GearHost/Gear/Paperdoll" unique_id=1446661481]
+custom_minimum_size = Vector2(72, 72)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 144.0
+offset_top = 72.0
+offset_right = 216.0
+offset_bottom = 144.0
+
+[node name="Plate" type="NinePatchRect" parent="GearHost/Gear/Paperdoll/ShortWeapon" unique_id=889316771]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Icon" type="TextureRect" parent="GearHost/Gear/Paperdoll/ShortWeapon" unique_id=1559505425]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_pistol")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Pants" type="Control" parent="GearHost/Gear/Paperdoll" unique_id=1698752558]
+custom_minimum_size = Vector2(72, 72)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 72.0
+offset_top = 144.0
+offset_right = 144.0
+offset_bottom = 216.0
+
+[node name="Plate" type="NinePatchRect" parent="GearHost/Gear/Paperdoll/Pants" unique_id=670484465]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Icon" type="TextureRect" parent="GearHost/Gear/Paperdoll/Pants" unique_id=2095417419]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_pants")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Shoes" type="Control" parent="GearHost/Gear/Paperdoll" unique_id=1075097832]
+custom_minimum_size = Vector2(72, 72)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 72.0
+offset_top = 216.0
+offset_right = 144.0
+offset_bottom = 288.0
+
+[node name="Plate" type="NinePatchRect" parent="GearHost/Gear/Paperdoll/Shoes" unique_id=981971299]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Icon" type="TextureRect" parent="GearHost/Gear/Paperdoll/Shoes" unique_id=701428552]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_shoes")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Weapons" type="VBoxContainer" parent="GearHost/Gear" unique_id=2050261370]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="PrimaryWeapon" type="Control" parent="GearHost/Gear/Weapons" unique_id=1000286535]
+custom_minimum_size = Vector2(180, 72)
+clip_contents = true
+layout_mode = 2
+
+[node name="Plate" type="NinePatchRect" parent="GearHost/Gear/Weapons/PrimaryWeapon" unique_id=1703416135]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Icon" type="TextureRect" parent="GearHost/Gear/Weapons/PrimaryWeapon" unique_id=192238999]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_weapon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SecondaryWeapon" type="Control" parent="GearHost/Gear/Weapons" unique_id=1287383896]
+custom_minimum_size = Vector2(180, 72)
+clip_contents = true
+layout_mode = 2
+
+[node name="Plate" type="NinePatchRect" parent="GearHost/Gear/Weapons/SecondaryWeapon" unique_id=259580897]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Icon" type="TextureRect" parent="GearHost/Gear/Weapons/SecondaryWeapon" unique_id=1261555531]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_weapon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="." unique_id=1745429232]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="IntroBar" type="PanelContainer" parent="." unique_id=66724160]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_intro_bar")
+
+[node name="Intro" type="Label" parent="IntroBar" unique_id=66724161]
+auto_translate_mode = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 12
+text = "CTIS-2.0.0-By@Cholopol"
+vertical_alignment = 1
+autowrap_mode = 3

@@ -1,0 +1,74 @@
+keys,en,zh
+CTIS_INVENTORY,Inventory,背包
+CTIS_CHECK,Check,查看
+CTIS_SPLIT,Split,拆分
+CTIS_USE,Use,使用
+CTIS_OPEN,Open,打开
+CTIS_FLIP_H,Flip Horizontal,水平翻转
+CTIS_FLIP_V,Flip Vertical,垂直翻转
+CTIS_CLOSE,Close,关闭
+CTIS_SAVE_SLOTS,Save Slots,存档槽位
+CTIS_SAVE,Save,保存
+CTIS_LOAD,Load,加载
+CTIS_DELETE,Delete,删除
+CTIS_START,Start,开始
+CTIS_EMPTY_SLOT,Empty,空槽
+CTIS_ADD,Add,添加
+CTIS_DEBUG_ITEMS,Debug Items,调试物品列表
+CTIS_GEAR,Gear,装备
+CTIS_POCKETS,Pockets,口袋
+CTIS_STASH,Stash,仓库
+CTIS_APP_TITLE,Cholopol's Tetris Inventory System ✦LITE✦,Cholopol's Tetris Inventory System ✦LITE✦
+CTIS_PRESS_B,Press B To Open Inventory Panel,按 B 打开背包界面
+CTIS_SAVE_TIME,Save Time:,存档时间:
+CTIS_SAVE_CORRUPT,Save file is corrupt,存档已损坏
+CTIS_NULL,NULL,空
+CTIS_INTRODUCE,Introduce,介绍
+CTIS_DEPOSITORY,Depository,仓库
+CTIS_STASH_COLUMNS,Cols,列
+CTIS_STASH_ROWS,Rows,行
+CTIS_STASH_CELL,Cell,格
+CTIS_POCKET,Pocket,口袋
+CTIS_COAT,Coat,外套
+CTIS_VEST,Vest,背心
+CTIS_BACKPACK,Backpack,背包
+CTIS_WAISTBAG,Waist Bag,腰包
+CTIS_COFFER,Coffer,保险箱
+CTIS_INTRO_BODY,CTIS-2.0.0-By@Cholopol,CTIS-2.0.0-By@Cholopol
+ITEMS_AK_21,AK-21,AK-21
+DESC_AK_21,,
+ITEMS_BANDAGE,Bandage,绷带
+DESC_BANDAGE,A stackable medical item.,可堆叠的医疗物品。
+ITEMS_PPSH_91,PPSH-91,PPSH-91
+DESC_PPSH_91,,
+ITEMS_VEST,Vest,防弹背心
+DESC_VEST,Tactical vest with inner grid.,带内网格的战术背心。
+ITEMS_BACKPACK,Backpack,轻型背包
+DESC_BACKPACK,A container you can open.,可打开的容器。
+ITEMS_M90,M90,M90
+DESC_M90,,
+ITEMS_UNIONSOLDIERHELMET,UnionSoldierHelmet,联盟士兵头盔
+DESC_UNIONSOLDIERHELMET,,
+ITEMS_UNIONSOLDIERCOAT,UnionSoldierCoat,联盟士兵上衣
+DESC_UNIONSOLDIERCOAT,,
+ITEMS_UNIONSOLDIERPANTS,UnionSoldierPants,联盟士兵长裤
+DESC_UNIONSOLDIERPANTS,,
+ITEMS_UNIONSOLDIERSSHOES,UnionSoldiersShoes,联盟士兵长靴
+DESC_UNIONSOLDIERSSHOES,,
+ITEMS_WOODEN_SWORD,Wooden Sword,桃木剑
+DESC_WOODEN_SWORD,,
+ITEMS_IPB_ESSENTIAL,IPB_Essential,IPB经典
+DESC_IPB_ESSENTIAL,,
+CTIS_MOBILE_MODE,Mobile Mode,手机模式
+CTIS_ROTATE,Rotate,旋转
+CTIS_CANCEL,Cancel,取消
+CTIS_MOBILE_HINT,Tap buttons to operate,点击下方按钮切换背包与存档
+CTIS_MENU,Menu,菜单
+CTIS_DEBUG,Debug,调试
+CTIS_SORT,Sort,整理
+CTIS_SORT_AREA,Compact,紧凑整理
+CTIS_SORT_TYPE,Category,分类整理
+CTIS_SORT_RARITY,Rarity,品质整理
+CTIS_SORT_ITEM_ID,Item ID,归并整理
+ITEMS_HK_716,HK-716,HK716
+DESC_HK_716,HK716 Rifle,HK716步枪

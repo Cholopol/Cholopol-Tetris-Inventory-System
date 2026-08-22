@@ -1,0 +1,5 @@
+[gd_scene format=3]
+
+[node name="HighlightTile" type="Control"]
+layout_mode = 3
+mouse_filter = 2

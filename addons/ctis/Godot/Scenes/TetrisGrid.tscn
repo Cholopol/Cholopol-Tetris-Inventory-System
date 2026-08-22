@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[node name="TetrisGrid" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(320, 256)
+layout_mode = 3
+
+[node name="Highlight" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

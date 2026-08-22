@@ -1,0 +1,88 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://k17fybjrv6n" path="res://CTIS_Demo/demo/_Scripts/ContextMenuWindow.cs" id="1_win"]
+[ext_resource type="Theme" path="res://addons/ctis/Art/Theme/ctis_menu_theme.tres" id="2_theme"]
+
+[node name="ContextMenuWindow" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_win")
+
+[node name="MenuRoot" type="Control" parent="."]
+custom_minimum_size = Vector2(130, 110)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 130.0
+offset_bottom = 110.0
+mouse_filter = 2
+
+[node name="MenuPanel" type="PanelContainer" parent="MenuRoot"]
+theme = ExtResource("2_theme")
+custom_minimum_size = Vector2(130, 110)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 130.0
+offset_bottom = 110.0
+mouse_filter = 0
+
+[node name="Box" type="VBoxContainer" parent="MenuRoot/MenuPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Header" type="PanelContainer" parent="MenuRoot/MenuPanel/Box"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"HeaderPanel"
+
+[node name="Title" type="Label" parent="MenuRoot/MenuPanel/Box/Header"]
+auto_translate_mode = 1
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.7, 0.82, 0.95, 1)
+theme_override_font_sizes/font_size = 10
+vertical_alignment = 1
+clip_text = true
+
+[node name="Check" type="Button" parent="MenuRoot/MenuPanel/Box"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "CTIS_CHECK"
+
+[node name="Open" type="Button" parent="MenuRoot/MenuPanel/Box"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "CTIS_OPEN"
+
+[node name="Split" type="Button" parent="MenuRoot/MenuPanel/Box"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "CTIS_SPLIT"
+
+[node name="Divider" type="ColorRect" parent="MenuRoot/MenuPanel/Box"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.28, 0.36, 0.48, 0.6)
+
+[node name="FlipH" type="Button" parent="MenuRoot/MenuPanel/Box"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "CTIS_FLIP_H"
+
+[node name="FlipV" type="Button" parent="MenuRoot/MenuPanel/Box"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "CTIS_FLIP_V"

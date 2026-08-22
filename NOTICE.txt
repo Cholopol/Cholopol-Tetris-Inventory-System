@@ -1,11 +1,36 @@
-Cholopol-Tetris-Inventory-System
+Cholopol-Tetris-Inventory-System (CTIS)
 Copyright 2026 Cholopol
 
 This product includes software developed by Cholopol.
 
----
-This product also includes/references the following third-party software:
+========================================================================
+Third-party Software / Libraries Used in this Product:
+========================================================================
 
-Loxodon Framework
-Copyright (c) 2018 Clark Yang (vovgou)
-Licensed under the MIT License.
+1. CommunityToolkit.Mvvm
+   Copyright (c) .NET Foundation and Contributors
+   Licensed under the MIT License
+   Website: https://github.com/CommunityToolkit/dotnet
+
+2. Microsoft.Extensions.DependencyInjection
+   Copyright (c) .NET Foundation and Contributors
+   Licensed under the MIT License
+   Website: https://github.com/dotnet/runtime
+
+3. Godot Engine (.NET)
+   Copyright (c) 2014-present Godot Engine contributors
+   Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur
+   Licensed under the MIT License
+   Website: https://godotengine.org
+
+========================================================================
+Internal Submodules / Addons:
+========================================================================
+
+- DotPudica
+  Copyright (c) 2026 Cholopol
+  MVVM and DI framework for Godot .NET
+
+- Tetris Coord Lib
+  Copyright (c) 2026 Cholopol
+  3x3 Homogeneous Affine Coordinate Transformation Library

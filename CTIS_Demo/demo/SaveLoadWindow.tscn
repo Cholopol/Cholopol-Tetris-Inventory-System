@@ -1,0 +1,137 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://CTIS_Demo/demo/_Scripts/SaveLoadWindow.cs" id="1_win"]
+[ext_resource type="Texture2D" path="res://addons/ctis/Art/Sprites/UI_Inventory/UI Banner.png" id="2_banner"]
+
+[node name="SaveLoadWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_win")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0, 0, 0, 1)
+
+[node name="Root" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 20.0
+offset_right = -32.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="Control" parent="Root"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BannerBg" type="NinePatchRect" parent="Root/Header"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_banner")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="Title" type="Label" parent="Root/Header"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "CTIS_APP_TITLE"
+vertical_alignment = 1
+clip_text = true
+
+[node name="LocaleHost" type="Control" parent="Root/Header"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_right = -12.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ControlsHost" type="HBoxContainer" parent="Root/Header/LocaleHost"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+theme_override_constants/separation = 12
+
+[node name="MobileToggle" type="CheckButton" parent="Root/Header/LocaleHost/ControlsHost"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "CTIS_MOBILE_MODE"
+
+[node name="LanguageSelector" type="OptionButton" parent="Root/Header/LocaleHost/ControlsHost"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+item_count = 2
+popup/item_0/text = "English (en)"
+popup/item_0/id = 0
+popup/item_1/text = "中文 (zh)"
+popup/item_1/id = 1
+
+[node name="SpacerTop" type="Control" parent="Root"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="PanelContainer" parent="Root"]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="List" type="VBoxContainer" parent="Root/Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="SpacerBottom" type="Control" parent="Root"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Hint" type="Label" parent="Root"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "CTIS_PRESS_B"
+horizontal_alignment = 1

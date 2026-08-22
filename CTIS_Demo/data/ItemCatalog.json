@@ -1,0 +1,591 @@
+[
+  {
+	"itemId": 1,
+	"nameKey": "ITEMS_BANDAGE",
+	"descriptionKey": "DESC_BANDAGE",
+	"displayName": "\u7EF7\u5E26",
+	"iconKey": "res://CTIS_Demo/Art/Items/Bandage.png",
+	"slotType": "SmallConsume",
+	"rarity": "Common",
+	"maxStack": 10,
+	"occupancy": {
+	  "width": 2,
+	  "height": 1,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 2,
+	"nameKey": "ITEMS_BACKPACK",
+	"descriptionKey": "DESC_BACKPACK",
+	"displayName": "\u8F7B\u578B\u80CC\u5305",
+	"iconKey": "res://CTIS_Demo/Art/Items/Bagpack_IPB_Birch.png",
+	"slotType": "BackPack",
+	"rarity": "Common",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 3,
+	  "height": 3,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 2,
+		  "y": 0
+		},
+		{
+		  "x": 0,
+		  "y": 1
+		},
+		{
+		  "x": 1,
+		  "y": 1
+		},
+		{
+		  "x": 2,
+		  "y": 1
+		},
+		{
+		  "x": 0,
+		  "y": 2
+		},
+		{
+		  "x": 1,
+		  "y": 2
+		},
+		{
+		  "x": 2,
+		  "y": 2
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "res://CTIS_Demo/demo/GridPanels/GP_Bag.tscn",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 3,
+	"nameKey": "ITEMS_VEST",
+	"descriptionKey": "DESC_VEST",
+	"displayName": "\u9632\u5F39\u80CC\u5FC3",
+	"iconKey": "res://CTIS_Demo/Art/Items/Armor.png",
+	"slotType": "Vest",
+	"rarity": "Uncommon",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 2,
+	  "height": 2,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 0,
+		  "y": 1
+		},
+		{
+		  "x": 1,
+		  "y": 1
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "res://CTIS_Demo/demo/GridPanels/GP_Vest.tscn",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 4,
+	"nameKey": "ITEMS_AK_21",
+	"descriptionKey": "DESC_AK_21",
+	"displayName": "AK-21",
+	"iconKey": "res://CTIS_Demo/Art/Items/AK-21.png",
+	"slotType": "LongWeapon",
+	"rarity": "Uncommon",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 4,
+	  "height": 2,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 2,
+		  "y": 0
+		},
+		{
+		  "x": 3,
+		  "y": 0
+		},
+		{
+		  "x": 2,
+		  "y": 1
+		},
+		{
+		  "x": 3,
+		  "y": 1
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 5,
+	"nameKey": "ITEMS_HK_716",
+	"descriptionKey": "DESC_HK_716",
+	"displayName": "HK716",
+	"iconKey": "res://CTIS_Demo/Art/Items/HK-716.png",
+	"slotType": "LongWeapon",
+	"rarity": "Rare",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 4,
+	  "height": 2,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 2,
+		  "y": 0
+		},
+		{
+		  "x": 3,
+		  "y": 0
+		},
+		{
+		  "x": 2,
+		  "y": 1
+		},
+		{
+		  "x": 3,
+		  "y": 1
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 6,
+	"nameKey": "ITEMS_PPSH_91",
+	"descriptionKey": "DESC_PPSH_91",
+	"displayName": "PPSH-91",
+	"iconKey": "res://CTIS_Demo/Art/Items/PPSH-91.png",
+	"slotType": "LongWeapon",
+	"rarity": "Epic",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 3,
+	  "height": 2,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 2,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 1
+		},
+		{
+		  "x": 2,
+		  "y": 1
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 7,
+	"nameKey": "ITEMS_M90",
+	"descriptionKey": "DESC_M90",
+	"displayName": "M90",
+	"iconKey": "res://CTIS_Demo/Art/Items/M90.png",
+	"slotType": "Depository",
+	"rarity": "Legendary",
+	"maxStack": 60,
+	"occupancy": {
+	  "width": 1,
+	  "height": 1,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 8,
+	"nameKey": "ITEMS_UNIONSOLDIERHELMET",
+	"descriptionKey": "DESC_UNIONSOLDIERHELMET",
+	"displayName": "\u8054\u76DF\u58EB\u5175\u5934\u76D4",
+	"iconKey": "res://CTIS_Demo/Art/Items/UnionSoldier.png:0,0,40,40",
+	"slotType": "Helmet",
+	"rarity": "Epic",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 2,
+	  "height": 2,
+	  "cells": [
+		{
+		  "x": 1,
+		  "y": 1
+		},
+		{
+		  "x": 0,
+		  "y": 1
+		},
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 9,
+	"nameKey": "ITEMS_UNIONSOLDIERCOAT",
+	"descriptionKey": "DESC_UNIONSOLDIERCOAT",
+	"displayName": "\u8054\u76DF\u58EB\u5175\u4E0A\u8863",
+	"iconKey": "res://CTIS_Demo/Art/Items/UnionSoldier.png:40,0,40,40",
+	"slotType": "Coat",
+	"rarity": "Rare",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 2,
+	  "height": 2,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 1
+		},
+		{
+		  "x": 0,
+		  "y": 1
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "res://CTIS_Demo/demo/GridPanels/GP_Jacket.tscn",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 10,
+	"nameKey": "ITEMS_UNIONSOLDIERPANTS",
+	"descriptionKey": "DESC_UNIONSOLDIERPANTS",
+	"displayName": "\u8054\u76DF\u58EB\u5175\u957F\u88E4",
+	"iconKey": "res://CTIS_Demo/Art/Items/UnionSoldier.png:0,40,40,40",
+	"slotType": "Pants",
+	"rarity": "Rare",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 2,
+	  "height": 2,
+	  "cells": [
+		{
+		  "x": 0,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 1
+		},
+		{
+		  "x": 0,
+		  "y": 1
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 11,
+	"nameKey": "ITEMS_UNIONSOLDIERSSHOES",
+	"descriptionKey": "DESC_UNIONSOLDIERSSHOES",
+	"displayName": "\u8054\u76DF\u58EB\u5175\u957F\u9774",
+	"iconKey": "res://CTIS_Demo/Art/Items/UnionSoldier.png:40,40,40,40",
+	"slotType": "Shoes",
+	"rarity": "Epic",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 2,
+	  "height": 2,
+	  "cells": [
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 1,
+		  "y": 1
+		},
+		{
+		  "x": 0,
+		  "y": 1
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 12,
+	"nameKey": "ITEMS_WOODEN_SWORD",
+	"descriptionKey": "DESC_WOODEN_SWORD",
+	"displayName": "\u6843\u6728\u5251",
+	"iconKey": "res://CTIS_Demo/Art/Items/WoodSorwd.png",
+	"slotType": "Melee",
+	"rarity": "Artifact",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 4,
+	  "height": 4,
+	  "cells": [
+		{
+		  "x": 3,
+		  "y": 0
+		},
+		{
+		  "x": 2,
+		  "y": 1
+		},
+		{
+		  "x": 1,
+		  "y": 2
+		},
+		{
+		  "x": 0,
+		  "y": 3
+		},
+		{
+		  "x": 1,
+		  "y": 1
+		},
+		{
+		  "x": 2,
+		  "y": 2
+		},
+		{
+		  "x": 2,
+		  "y": 0
+		},
+		{
+		  "x": 3,
+		  "y": 1
+		},
+		{
+		  "x": 0,
+		  "y": 2
+		},
+		{
+		  "x": 1,
+		  "y": 3
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  },
+  {
+	"itemId": 13,
+	"nameKey": "ITEMS_IPB_ESSENTIAL",
+	"descriptionKey": "DESC_IPB_ESSENTIAL",
+	"displayName": "IPB\u7ECF\u5178",
+	"iconKey": "res://CTIS_Demo/Art/Items/Bagpack_IPB_Essential.png",
+	"slotType": "BackPack",
+	"rarity": "Legendary",
+	"maxStack": 1,
+	"occupancy": {
+	  "width": 5,
+	  "height": 5,
+	  "cells": [
+		{
+		  "x": 1,
+		  "y": 0
+		},
+		{
+		  "x": 2,
+		  "y": 0
+		},
+		{
+		  "x": 3,
+		  "y": 0
+		},
+		{
+		  "x": 3,
+		  "y": 1
+		},
+		{
+		  "x": 1,
+		  "y": 1
+		},
+		{
+		  "x": 2,
+		  "y": 1
+		},
+		{
+		  "x": 0,
+		  "y": 2
+		},
+		{
+		  "x": 1,
+		  "y": 2
+		},
+		{
+		  "x": 2,
+		  "y": 2
+		},
+		{
+		  "x": 3,
+		  "y": 2
+		},
+		{
+		  "x": 3,
+		  "y": 3
+		},
+		{
+		  "x": 2,
+		  "y": 3
+		},
+		{
+		  "x": 1,
+		  "y": 3
+		},
+		{
+		  "x": 0,
+		  "y": 3
+		},
+		{
+		  "x": 1,
+		  "y": 4
+		},
+		{
+		  "x": 2,
+		  "y": 4
+		},
+		{
+		  "x": 3,
+		  "y": 4
+		},
+		{
+		  "x": 4,
+		  "y": 2
+		},
+		{
+		  "x": 4,
+		  "y": 3
+		},
+		{
+		  "x": 0,
+		  "y": 4
+		},
+		{
+		  "x": 4,
+		  "y": 4
+		}
+	  ]
+	},
+	"defaultDirection": "Down",
+	"gridPanelSceneKey": "res://CTIS_Demo/demo/GridPanels/GP_Bag_Essential.tscn",
+	"itemDamage": 0,
+	"weight": 0,
+	"itemPrice": 0
+  }
+]

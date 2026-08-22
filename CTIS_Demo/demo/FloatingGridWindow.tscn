@@ -1,0 +1,102 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bgy3odemxkt3j" path="res://CTIS_Demo/demo/_Scripts/FloatingGridWindow.cs" id="1_win"]
+[ext_resource type="Script" uid="uid://dy0jf5q2lk7hc" path="res://CTIS_Demo/demo/_Scripts/WindowDragHandle.cs" id="2_drag"]
+[ext_resource type="Texture2D" uid="uid://bwc32eo18o4fx" path="res://addons/ctis/Art/Icons/Close.png" id="3_close"]
+
+[node name="FloatingGridWindow" type="Control"]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 80)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 160.0
+offset_bottom = 80.0
+mouse_filter = 0
+script = ExtResource("1_win")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Box" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Banner" type="Control" parent="Panel/Box"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+script = ExtResource("2_drag")
+
+[node name="Header" type="ColorRect" parent="Panel/Box/Banner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.08, 0.09, 1)
+
+[node name="Title" type="Label" parent="Panel/Box/Banner"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_right = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close" type="TextureButton" parent="Panel/Box/Banner"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -19.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 19.0
+grow_horizontal = 0
+mouse_filter = 0
+texture_normal = ExtResource("3_close")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SortButton" type="MenuButton" parent="Panel/Box/Banner"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(36, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -58.0
+offset_top = 3.0
+offset_right = -22.0
+offset_bottom = 19.0
+grow_horizontal = 0
+focus_mode = 0
+mouse_filter = 0
+text = "CTIS_SORT"
+flat = false
+
+[node name="Body" type="MarginContainer" parent="Panel/Box"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3

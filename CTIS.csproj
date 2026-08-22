@@ -1,0 +1,59 @@
+<Project Sdk="Godot.NET.Sdk/4.7.1">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+
+<!-- TetrisCoordLib:Begin -->
+  <ItemGroup>
+    <Compile Remove="addons/tetris_coord_lib/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="addons/tetris_coord_lib/Core/TetrisCoordLib.Core.csproj" />
+    <ProjectReference Include="addons/tetris_coord_lib/Godot/TetrisCoordLib.Godot.csproj" />
+  </ItemGroup>
+<!-- TetrisCoordLib:End -->
+
+<!-- DotPudica:Begin -->
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DefaultItemExcludes>$(DefaultItemExcludes);tests/DotPudica.Tests/**;benchmarks/**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="addons/dot-pudica/**/*.cs" />
+    <Compile Remove="tests/DotPudica.Tests/**/*.cs" />
+    <Compile Remove="benchmarks/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="addons/dot-pudica/Core/DotPudica.Core.csproj" />
+    <ProjectReference Include="addons/dot-pudica/Godot/DotPudica.Godot.csproj" />
+    <ProjectReference Include="addons/dot-pudica/SourceGenerator/DotPudica.SourceGenerator.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
+<!-- DotPudica:End -->
+
+<!-- Ctis:Begin -->
+  <ItemGroup>
+	<Compile Remove="addons/ctis/**/*.cs" />
+	<Compile Remove="tests/Ctis.Tests/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+	<Compile Include="addons/ctis/editor/CtisDataEditorHost.cs" />
+  </ItemGroup>
+  <ItemGroup>
+	<ProjectReference Include="addons/ctis/Core/Ctis.Core.csproj" />
+	<ProjectReference Include="addons/ctis/Godot/Ctis.Godot.csproj" />
+  </ItemGroup>
+<!-- Ctis:End -->
+
+</Project>

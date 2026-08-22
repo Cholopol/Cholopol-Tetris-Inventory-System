@@ -1,0 +1,102 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://CTIS_Demo/demo/_Scripts/StashPanelView.cs" id="1_script"]
+
+[node name="StashPanelView" type="VBoxContainer" node_paths=PackedStringArray("_stashColumns", "_stashRows", "_stashCell")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+script = ExtResource("1_script")
+_stashColumns = NodePath("ConfigRow/ColsField/ColsSpin")
+_stashRows = NodePath("ConfigRow/RowsField/RowsSpin")
+_stashCell = NodePath("ConfigRow/CellField/CellSpin")
+
+[node name="ConfigRow" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="ColsField" type="HBoxContainer" parent="ConfigRow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ColsLabel" type="Label" parent="ConfigRow/ColsField"]
+auto_translate_mode = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "CTIS_STASH_COLUMNS"
+vertical_alignment = 1
+
+[node name="ColsSpin" type="SpinBox" parent="ConfigRow/ColsField"]
+custom_minimum_size = Vector2(52, 22)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 40.0
+value = 10.0
+rounded = true
+
+[node name="RowsField" type="HBoxContainer" parent="ConfigRow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="RowsLabel" type="Label" parent="ConfigRow/RowsField"]
+auto_translate_mode = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "CTIS_STASH_ROWS"
+vertical_alignment = 1
+
+[node name="RowsSpin" type="SpinBox" parent="ConfigRow/RowsField"]
+custom_minimum_size = Vector2(52, 22)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 80.0
+value = 24.0
+rounded = true
+
+[node name="CellField" type="HBoxContainer" parent="ConfigRow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="CellLabel" type="Label" parent="ConfigRow/CellField"]
+auto_translate_mode = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "CTIS_STASH_CELL"
+vertical_alignment = 1
+
+[node name="CellSpin" type="SpinBox" parent="ConfigRow/CellField"]
+custom_minimum_size = Vector2(52, 22)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 16.0
+max_value = 64.0
+value = 32.0
+rounded = true
+
+[node name="SortBtn" type="MenuButton" parent="ConfigRow"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(40, 22)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_font_sizes/font_size = 11
+text = "CTIS_SORT"
+flat = false
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 1
+vertical_scroll_mode = 2

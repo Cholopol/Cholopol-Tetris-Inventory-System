@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Ctis.Core</RootNamespace>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsAotCompatible>false</IsAotCompatible>
+    <DefineConstants Condition="'$(Configuration)' == 'Debug'">$(DefineConstants);DIAGHUB_ENABLE_TRACE_SYSTEM</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.DiagnosticsHub.UserMarks" Version="18.7.37220.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\dot-pudica\Core\DotPudica.Core.csproj" />
+    <ProjectReference Include="..\..\tetris_coord_lib\Core\TetrisCoordLib.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Ctis.Godot" />
+    <InternalsVisibleTo Include="Ctis.Tests" />
+  </ItemGroup>
+</Project>

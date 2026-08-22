@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bn4derabecbkh"]
+
+[ext_resource type="Script" uid="uid://bosheoi17kbl4" path="res://CTIS_Demo/demo/_Scripts/GameBootstrap.cs" id="1_bootstrap"]
+
+[node name="Main" type="Node" unique_id=333444644]
+script = ExtResource("1_bootstrap")

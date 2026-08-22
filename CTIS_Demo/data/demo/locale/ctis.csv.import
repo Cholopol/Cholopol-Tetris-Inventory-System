@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://buqf530pd6vhh"
+
+[deps]
+
+files=["res://CTIS_Demo/data/demo/locale/ctis.en.translation", "res://CTIS_Demo/data/demo/locale/ctis.zh.translation"]
+
+source_file="res://CTIS_Demo/data/demo/locale/ctis.csv"
+dest_files=["res://CTIS_Demo/data/demo/locale/ctis.en.translation", "res://CTIS_Demo/data/demo/locale/ctis.zh.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

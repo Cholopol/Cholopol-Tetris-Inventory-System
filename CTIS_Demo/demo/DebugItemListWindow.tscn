@@ -1,0 +1,60 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://di8n87brtx560" path="res://CTIS_Demo/demo/_Scripts/DebugItemListWindow.cs" id="1_win"]
+[ext_resource type="Texture2D" uid="uid://byrspwmyd2qlv" path="res://addons/ctis/Art/Sprites/UI_Inventory/UI Banner.png" id="2_banner"]
+[ext_resource type="Script" uid="uid://dy0jf5q2lk7hc" path="res://CTIS_Demo/demo/_Scripts/WindowDragHandle.cs" id="3_drag"]
+
+[node name="DebugItemListWindow" type="Control"]
+custom_minimum_size = Vector2(340, 420)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 340.0
+offset_bottom = 420.0
+mouse_filter = 0
+script = ExtResource("1_win")
+
+[node name="HitBlocker" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.11, 0.14, 0.96)
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Banner" type="TextureRect" parent="Box"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+texture = ExtResource("2_banner")
+expand_mode = 1
+script = ExtResource("3_drag")
+
+[node name="Title" type="Label" parent="Box/Banner"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CTIS_DEBUG_ITEMS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Box"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Box/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

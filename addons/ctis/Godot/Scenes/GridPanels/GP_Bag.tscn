@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://756cqhbdvecr"]
+
+[ext_resource type="Script" uid="uid://ph0gummbh02y" path="res://addons/ctis/Godot/Scenes/GridPanels/grid_placeholder.gd" id="1_ph"]
+
+[node name="GP_Bag" type="Control" unique_id=966356744]
+custom_minimum_size = Vector2(136, 200)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="p1" type="Control" parent="." unique_id=674882508]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_ph")
+width_cells = 2
+height_cells = 2
+
+[node name="p2" type="Control" parent="." unique_id=565804763]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 0
+offset_left = 72.0
+offset_right = 136.0
+offset_bottom = 64.0
+script = ExtResource("1_ph")
+width_cells = 2
+height_cells = 2
+
+[node name="p3" type="Control" parent="." unique_id=859604990]
+custom_minimum_size = Vector2(128, 128)
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 72.0
+offset_right = 133.0
+offset_bottom = 200.0
+script = ExtResource("1_ph")
+width_cells = 4
+height_cells = 4

@@ -1,0 +1,39 @@
+<Project Sdk="Godot.NET.Sdk/4.7.1">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Ctis.Presentation</RootNamespace>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+  <!-- Godot loads referenced assemblies from the game project's .godot output, not this addon's. -->
+  <Target Name="CopyToHostGodotOutput" AfterTargets="Build">
+    <PropertyGroup>
+      <CtisHostOut>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\..\.godot\mono\temp\bin\$(Configuration)'))</CtisHostOut>
+    </PropertyGroup>
+    <ItemGroup>
+      <_CtisGodotOut Include="$(TargetPath)" />
+      <_CtisGodotOut Include="$(TargetDir)$(TargetName).pdb" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_CtisGodotOut)" DestinationFolder="$(CtisHostOut)" SkipUnchangedFiles="false" Condition="Exists('$(CtisHostOut)')" />
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Ctis.Core.csproj" />
+    <ProjectReference Include="..\..\dot-pudica\Core\DotPudica.Core.csproj" />
+    <ProjectReference Include="..\..\dot-pudica\Godot\DotPudica.Godot.csproj" />
+    <ProjectReference Include="..\..\tetris_coord_lib\Core\TetrisCoordLib.Core.csproj" />
+    <ProjectReference Include="..\..\tetris_coord_lib\Godot\TetrisCoordLib.Godot.csproj" />
+    <ProjectReference Include="..\..\dot-pudica\SourceGenerator\DotPudica.SourceGenerator.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>

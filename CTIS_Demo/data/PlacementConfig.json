@@ -1,0 +1,109 @@
+{
+  "blockSelfOwnedContainer": true,
+  "blockOutOfBounds": true,
+  "blockSlotOccupied": true,
+  "blockSlotTypeMismatch": true,
+  "overrideHighlightPalette": true,
+  "highlightPalette": {
+    "validEmpty": {
+      "r": 0,
+      "g": 1,
+      "b": 0,
+      "a": 0.39215687
+    },
+    "invalid": {
+      "r": 1,
+      "g": 0,
+      "b": 0,
+      "a": 0.39215687
+    },
+    "canStack": {
+      "r": 1,
+      "g": 1,
+      "b": 0,
+      "a": 0.39215687
+    },
+    "canQuickExchange": {
+      "r": 0.4,
+      "g": 0.6,
+      "b": 1,
+      "a": 0.39215687
+    }
+  },
+  "invalidReasonColors": [
+    {
+      "reason": "SelfOwnedContainer",
+      "color": {
+        "r": 0.59375,
+        "g": 0,
+        "b": 1,
+        "a": 0.39215687
+      }
+    },
+    {
+      "reason": "RevisionMismatch",
+      "color": {
+        "r": 0,
+        "g": 0.375,
+        "b": 1,
+        "a": 0.39215687
+      }
+    }
+  ],
+  "rarityColors": [
+    {
+      "rarity": "Common",
+      "color": {
+        "r": 0.9,
+        "g": 0.9,
+        "b": 0.9,
+        "a": 0.25
+      }
+    },
+    {
+      "rarity": "Uncommon",
+      "color": {
+        "r": 0.55,
+        "g": 0.85,
+        "b": 0.55,
+        "a": 0.25
+      }
+    },
+    {
+      "rarity": "Rare",
+      "color": {
+        "r": 0.55,
+        "g": 0.7,
+        "b": 0.95,
+        "a": 0.25
+      }
+    },
+    {
+      "rarity": "Epic",
+      "color": {
+        "r": 0.85,
+        "g": 0.55,
+        "b": 0.9,
+        "a": 0.25
+      }
+    },
+    {
+      "rarity": "Legendary",
+      "color": {
+        "r": 0.95,
+        "g": 0.8,
+        "b": 0.55,
+        "a": 0.25
+      }
+    },
+    {
+      "rarity": "Artifact",
+      "color": {
+        "r": 0.95,
+        "g": 0.6,
+        "b": 0.6,
+        "a": 0.25
+      }
+    }
+  ]
+}

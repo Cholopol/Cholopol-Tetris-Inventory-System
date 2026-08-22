@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://b62877tot00so"]
+
+[ext_resource type="Script" uid="uid://ph0gummbh02y" path="res://addons/ctis/Godot/Scenes/GridPanels/grid_placeholder.gd" id="1_ph"]
+
+[node name="GP_Jacket" type="Control" unique_id=936345727]
+custom_minimum_size = Vector2(152, 72)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="p1" type="Control" parent="." unique_id=461533952]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 0
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("1_ph")
+
+[node name="p2" type="Control" parent="." unique_id=1992430061]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 0
+offset_top = 40.0
+offset_right = 64.0
+offset_bottom = 104.0
+script = ExtResource("1_ph")
+width_cells = 2
+height_cells = 2
+
+[node name="p3" type="Control" parent="." unique_id=301847371]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 0
+offset_left = 106.0
+offset_right = 138.0
+offset_bottom = 32.0
+script = ExtResource("1_ph")
+
+[node name="p4" type="Control" parent="." unique_id=274634933]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 0
+offset_left = 74.0
+offset_top = 40.0
+offset_right = 138.0
+offset_bottom = 104.0
+script = ExtResource("1_ph")
+width_cells = 2
+height_cells = 2

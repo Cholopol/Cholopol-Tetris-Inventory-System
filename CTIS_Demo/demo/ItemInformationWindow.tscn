@@ -1,0 +1,137 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://dcf1nmqom1eam" path="res://CTIS_Demo/demo/_Scripts/ItemInformationWindow.cs" id="1_win"]
+[ext_resource type="Script" uid="uid://dy0jf5q2lk7hc" path="res://CTIS_Demo/demo/_Scripts/WindowDragHandle.cs" id="2_drag"]
+[ext_resource type="Texture2D" uid="uid://cokelc1yxnl4w" path="res://addons/ctis/Art/Sprites/UI_Inventory/UI Banner 1.png" id="3_plate"]
+[ext_resource type="Texture2D" uid="uid://bwc32eo18o4fx" path="res://addons/ctis/Art/Icons/Close.png" id="4_close"]
+[ext_resource type="Texture2D" uid="uid://byrspwmyd2qlv" path="res://addons/ctis/Art/Sprites/UI_Inventory/UI Banner.png" id="5_banner"]
+
+[node name="ItemInformationWindow" type="Control"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 107)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 150.0
+offset_bottom = 107.0
+mouse_filter = 0
+script = ExtResource("1_win")
+
+[node name="Drag" type="Control" parent="."]
+custom_minimum_size = Vector2(150, 107)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_drag")
+
+[node name="Plate" type="NinePatchRect" parent="Drag"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_plate")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Box" type="VBoxContainer" parent="Drag"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Header" type="Control" parent="Drag/Box"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Drag/Box/Header"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Close" type="TextureButton" parent="Drag/Box/Header"]
+texture_filter = 1
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 18.0
+grow_horizontal = 0
+mouse_filter = 0
+texture_normal = ExtResource("4_close")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Art" type="Control" parent="Drag/Box"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ArtBg" type="TextureRect" parent="Drag/Box/Art"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_banner")
+expand_mode = 1
+
+[node name="IconHost" type="CenterContainer" parent="Drag/Box/Art"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Drag/Box/Art/IconHost"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Description" type="Label" parent="Drag/Box"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2

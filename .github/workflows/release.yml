@@ -1,0 +1,118 @@
+name: Release CTIS Plugin
+
+on:
+  push:
+    tags:
+      - 'v*'
+      - '[0-9]+.[0-9]+.[0-9]+*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release Tag Name (e.g. v2.0.0)'
+        required: true
+        default: 'v2.0.0'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Package and Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine Version Tag
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ github.event.inputs.tag_name }}"
+          else
+            TAG="${GITHUB_REF#refs/tags/}"
+          fi
+          echo "TAG=$TAG" >> "$GITHUB_OUTPUT"
+          # Extract clean version string (strip leading 'v' or 'ctis-v')
+          CLEAN_VER=$(echo "$TAG" | sed -E 's/^(ctis-)?v?//I')
+          echo "VERSION=$CLEAN_VER" >> "$GITHUB_OUTPUT"
+
+      - name: Extract Release Notes
+        id: release_notes
+        env:
+          TAG: ${{ steps.get_version.outputs.TAG }}
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+        run: |
+          python3 - << 'EOF'
+          import re, os, sys
+
+          tag = os.environ.get("TAG", "")
+          version = os.environ.get("VERSION", "")
+          notes_file = "RELEASE_NOTES_TEMP.md"
+
+          # 1. Try extracting version section from CHANGELOG.md
+          if os.path.exists("CHANGELOG.md"):
+              with open("CHANGELOG.md", "r", encoding="utf-8") as f:
+                  content = f.read()
+              # Matches formats like ## [2.0.0], ## v2.0.0, ## 2.0.0 up to the next ## section
+              pattern = rf"(?m)^##\s+\[?(?:ctis-)?(?:v)?{re.escape(version)}\]?(?:[^\n]*)\n([\s\S]*?)(?=(?:^##\s+)|\Z)"
+              match = re.search(pattern, content, re.IGNORECASE)
+              if match and match.group(1).strip():
+                  with open(notes_file, "w", encoding="utf-8") as out:
+                      out.write(match.group(1).strip() + "\n")
+                  print("Extracted release notes from CHANGELOG.md")
+                  sys.exit(0)
+
+          # 2. If not found, check for a standalone RELEASE_NOTES.md
+          if os.path.exists("RELEASE_NOTES.md"):
+              with open("RELEASE_NOTES.md", "r", encoding="utf-8") as f:
+                  content = f.read().strip()
+              if content:
+                  with open(notes_file, "w", encoding="utf-8") as out:
+                      out.write(content + "\n")
+                  print("Extracted release notes from RELEASE_NOTES.md")
+                  sys.exit(0)
+
+          # 3. If no notes found, leave empty to fallback to GitHub automatic release notes
+          with open(notes_file, "w", encoding="utf-8") as out:
+              out.write("")
+          print("No handwritten notes found.")
+          EOF
+
+          if [ -s "RELEASE_NOTES_TEMP.md" ]; then
+            echo "has_custom_notes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_custom_notes=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Package addons/ctis into Zip
+        run: |
+          TAG="${{ steps.get_version.outputs.TAG }}"
+          ZIP_NAME="ctis-${TAG}.zip"
+
+          # Package addons/ctis into zip, excluding build artifacts and cache
+          zip -r "$ZIP_NAME" addons/ctis \
+            -x "*/bin/*" \
+            -x "*/obj/*" \
+            -x "*/.godot/*" \
+            -x "*/.vs/*" \
+            -x "*.tmp" \
+            -x "*.suo" \
+            -x "*.user"
+
+          echo "ZIP_NAME=$ZIP_NAME" >> "$GITHUB_ENV"
+          ls -lh "$ZIP_NAME"
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_version.outputs.TAG }}
+          name: CTIS Release ${{ steps.get_version.outputs.TAG }}
+          body_path: ${{ steps.release_notes.outputs.has_custom_notes == 'true' && 'RELEASE_NOTES_TEMP.md' || '' }}
+          files: ${{ env.ZIP_NAME }}
+          draft: false
+          prerelease: ${{ contains(steps.get_version.outputs.TAG, '-beta') || contains(steps.get_version.outputs.TAG, '-alpha') || contains(steps.get_version.outputs.TAG, '-rc') }}
+          generate_release_notes: ${{ steps.release_notes.outputs.has_custom_notes == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

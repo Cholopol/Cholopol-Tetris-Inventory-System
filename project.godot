@@ -1,0 +1,57 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="CTIS"
+run/main_scene="res://CTIS_Demo/demo/Main.tscn"
+config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+config/icon="uid://b2o82cttse58s"
+
+[ctis]
+
+item_catalog="res://CTIS_Demo/data/ItemCatalog.json"
+placement_config="res://CTIS_Demo/data/PlacementConfig.json"
+locale="res://CTIS_Demo/data/demo/locale/ctis.csv"
+equipment_layout="res://CTIS_Demo/data/EquipmentLayout.json"
+menu_theme="res://addons/ctis/Art/Theme/ctis_menu_theme.tres"
+scenes/pocket="res://addons/ctis/Godot/Scenes/GridPanels/GP_Pocket.tscn"
+scenes/coffer="res://addons/ctis/Godot/Scenes/GridPanels/GP_Coffer.tscn"
+editor/use_chinese=true
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="CTIS"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ctis/plugin.cfg", "res://addons/dot-pudica/plugin.cfg", "res://addons/tetris_coord_lib/plugin.cfg")
+
+[gui]
+
+theme/custom="res://CTIS_Demo/demo/res/ctis_theme.tres"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

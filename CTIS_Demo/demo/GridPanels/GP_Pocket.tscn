@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/ctis/Godot/Scenes/GridPanels/grid_placeholder.gd" id="1_ph"]
+
+[node name="GP_Pocket" type="Control"]
+custom_minimum_size = Vector2(152, 64)
+layout_mode = 3
+
+[node name="p1" type="Control" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("1_ph")
+width_cells = 1
+height_cells = 1
+
+[node name="p2" type="Control" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_right = 72.0
+offset_bottom = 64.0
+script = ExtResource("1_ph")
+width_cells = 1
+height_cells = 2
+
+[node name="p3" type="Control" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_right = 112.0
+offset_bottom = 64.0
+script = ExtResource("1_ph")
+width_cells = 1
+height_cells = 2
+
+[node name="p4" type="Control" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 152.0
+offset_bottom = 32.0
+script = ExtResource("1_ph")
+width_cells = 1
+height_cells = 1

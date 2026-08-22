@@ -1,0 +1,98 @@
+[
+  {
+    "slotType": "Helmet",
+    "slotIndex": 4,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Character",
+    "titleKey": ""
+  },
+  {
+    "slotType": "HeadMountedEquipment",
+    "slotIndex": 5,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Character",
+    "titleKey": ""
+  },
+  {
+    "slotType": "Melee",
+    "slotIndex": 16,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Character",
+    "titleKey": ""
+  },
+  {
+    "slotType": "ShortWeapon",
+    "slotIndex": 15,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Character",
+    "titleKey": ""
+  },
+  {
+    "slotType": "Pants",
+    "slotIndex": 8,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Character",
+    "titleKey": ""
+  },
+  {
+    "slotType": "Shoes",
+    "slotIndex": 9,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Character",
+    "titleKey": ""
+  },
+  {
+    "slotType": "Coat",
+    "slotIndex": 6,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Container",
+    "titleKey": "CTIS_COAT"
+  },
+  {
+    "slotType": "Vest",
+    "slotIndex": 7,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Container",
+    "titleKey": "CTIS_VEST"
+  },
+  {
+    "slotType": "BackPack",
+    "slotIndex": 10,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Container",
+    "titleKey": "CTIS_BACKPACK"
+  },
+  {
+    "slotType": "WaistBag",
+    "slotIndex": 11,
+    "cellsWidth": 2,
+    "cellsHeight": 2,
+    "group": "Container",
+    "titleKey": "CTIS_WAISTBAG"
+  },
+  {
+    "slotType": "LongWeapon",
+    "slotIndex": 13,
+    "cellsWidth": 5,
+    "cellsHeight": 2,
+    "group": "Weapon",
+    "titleKey": ""
+  },
+  {
+    "slotType": "LongWeapon",
+    "slotIndex": 14,
+    "cellsWidth": 5,
+    "cellsHeight": 2,
+    "group": "Weapon",
+    "titleKey": ""
+  }
+]

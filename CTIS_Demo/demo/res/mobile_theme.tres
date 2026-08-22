@@ -1,0 +1,63 @@
+[gd_resource type="Theme" format=3 uid="uid://bpo85uq8fxr3j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mobile_btn_normal"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.12, 0.14, 0.18, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.55, 0.65, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mobile_btn_hover"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.22, 0.26, 0.34, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.78, 0.98, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mobile_btn_pressed"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.08, 0.1, 0.14, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.65, 0.85, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0.9, 0.95, 1, 1)
+Button/font_sizes/font_size = 14
+Button/styles/disabled = SubResource("StyleBoxFlat_mobile_btn_normal")
+Button/styles/focus = SubResource("StyleBoxFlat_mobile_btn_normal")
+Button/styles/hover = SubResource("StyleBoxFlat_mobile_btn_hover")
+Button/styles/normal = SubResource("StyleBoxFlat_mobile_btn_normal")
+Button/styles/pressed = SubResource("StyleBoxFlat_mobile_btn_pressed")

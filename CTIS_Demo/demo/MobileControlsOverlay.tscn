@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://CTIS_Demo/demo/_Scripts/MobileControlsOverlay.cs" id="1_script"]
+[ext_resource type="Theme" path="res://CTIS_Demo/demo/res/mobile_theme.tres" id="2_theme"]
+
+[node name="MobileControlsOverlay" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NavBar" type="HBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -56.0
+offset_right = 360.0
+offset_bottom = -14.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="BtnInventory" type="Button" parent="Root/NavBar"]
+custom_minimum_size = Vector2(84, 38)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+text = "CTIS_INVENTORY"
+
+[node name="BtnSave" type="Button" parent="Root/NavBar"]
+custom_minimum_size = Vector2(84, 38)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+text = "CTIS_SAVE"
+
+[node name="BtnDebug" type="Button" parent="Root/NavBar"]
+custom_minimum_size = Vector2(84, 38)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+text = "CTIS_DEBUG"
+
+[node name="DragBar" type="VBoxContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -180.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="BtnRotate" type="Button" parent="Root/DragBar"]
+custom_minimum_size = Vector2(100, 54)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "CTIS_ROTATE"
+
+[node name="BtnCancel" type="Button" parent="Root/DragBar"]
+custom_minimum_size = Vector2(100, 42)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+text = "CTIS_CANCEL"
