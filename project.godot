@@ -42,6 +42,7 @@ enabled=PackedStringArray("res://addons/ctis/plugin.cfg", "res://addons/dot-pudi
 [gui]
 
 theme/custom="res://CTIS_Demo/demo/res/ctis_theme.tres"
+theme/custom_font="res://addons/ctis/assets/fonts/NotoSansSC-Regular-subset.ttf"
 
 [input_devices]
 
@@ -54,4 +55,5 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
