@@ -12,6 +12,12 @@ English | [简体中文](README_CN.md)
 
 **CTIS (Cholopol Tetris Inventory System)** is an advanced grid-based inventory management system built for **Godot 4.7+ and .NET 8**. Developed on top of the **DotPudica MVVM** framework and the **TetrisCoordLib** pure mathematical geometry library, it achieves complete decoupling between data logic and UI presentation. Faithfully recreating the core interaction experience of *Escape from Tarkov*, it supports irregular (polyomino) items, infinite nested containers, smart quick exchange, pixel-accurate irregular shape hit-testing, floating container windows, one-click inventory auto-sorting, and multi-slot data persistence.
 
+<div align="center">
+
+<img src=".github/Images/CTIS-DEMO.png" alt="CTIS Demo" width="85%"/>
+
+</div>
+
 ### Third-Party Dependencies
 
 This project is built upon the following independent open-source libraries (distributed together via Release packages; source code hosted in separate GitHub repositories):
@@ -60,8 +66,9 @@ This repository is the CTIS core source repository (including sample showcase). 
   - [5. MVVM Ghost Preview & Highlight Tile System — Zero-GC Pooled Rendering](#5-mvvm-ghost-preview--highlight-tile-system---zero-gc-pooled-rendering)
   - [6. Floating Container Windows & Context Menu — Visual Projection of Infinite Nesting](#6-floating-container-windows--context-menu---visual-projection-of-infinite-nesting)
   - [7. Inventory Auto-Organization & Advanced Features — Area-Greedy Packing and Occupancy Patches](#7-inventory-auto-organization--advanced-features---area-greedy-packing-and-occupancy-patches)
-  - [8. Save & Persistence System — Wrapper Pattern and Version Migration](#8-save--persistence-system---wrapper-pattern-and-version-migration)
-  - [9. Built-in Godot Data Editor — Add Items with Just a Few Clicks](#9-built-in-godot-data-editor---add-items-with-just-a-few-clicks)
+  - [8. Command-Simulation-Projection Pipeline — The Unidirectional Data-Flow Engine](#8-command-simulation-projection-pipeline---the-unidirectional-data-flow-engine)
+  - [9. Save & Persistence System — Wrapper Pattern and Version Migration](#9-save--persistence-system---wrapper-pattern-and-version-migration)
+  - [10. Built-in Godot Data Editor — Add Items with Just a Few Clicks](#10-built-in-godot-data-editor---add-items-with-just-a-few-clicks)
 - [🚀 Quick Start: Minimal Runnable Configuration](#-quick-start-minimal-runnable-configuration)
   - [A. Environment Requirements](#a-environment-requirements)
   - [B. Host .csproj Dependency Injection](#b-host-csproj-dependency-injection)
@@ -436,44 +443,160 @@ Supports dynamic footprint modifications when customizing weapon attachments (e.
 
 #### 3. Command & Network Replay Support (Command & Replay)
 
-All core operations are encapsulated as `InventoryCommand` (containing `CommandId` and version verification tokens), natively supporting multiplayer network replication, replay, and Undo/Redo.
+All core operations are encapsulated as immutable `InventoryCommand` objects (carrying `CommandId` idempotency deduplication and `ExpectedRevision` optimistic-concurrency validation), natively supporting multiplayer network replication, replay, and Undo/Redo. See [Command-Simulation-Projection Pipeline](#command-pipeline) for the full pipeline design.
+
+***
+
+<a id="command-pipeline"></a>
+
+### 8. Command-Simulation-Projection Pipeline — The Unidirectional Data-Flow Engine
+
+Every inventory state mutation — placing, exchanging, stacking, splitting, flipping, organizing, occupancy patches, container resizing — flows through the same pipeline: **intent is wrapped in an immutable command, the simulation layer validates and commits it to the tree as a pure function, and the projection layer then precisely flushes the successful result back into the ViewModels**. Views and ViewModels never mutate data directly; `InventoryTreeCache` is the single source of truth.
+
+```mermaid
+flowchart TB
+    U["User gesture<br/>drag-drop · context menu · hotkey"] --> API["InventoryService friendly methods<br/>TryStack / TryFlip / PlaceOnGrid / TrySplit ..."]
+    API -->|"build command + auto envelope<br/>CommandId + ExpectedRevision"| CMD["InventoryCommand<br/>immutable payload · 12 kinds · static factories"]
+    CMD --> SIM["InventorySimulation.Apply<br/>static pure function · zero Godot deps"]
+    SIM --> GATE{"Front gates<br/>① CommandId idempotency dedup<br/>② Revision optimistic concurrency"}
+    GATE -->|"pass"| CHK["validate → clone persistent data<br/>→ occupancy board check"]
+    GATE -->|"duplicate hit"| OK0["return Success immediately (zero side effects)"]
+    GATE -->|"stale revision"| FAIL0["Fail(RevisionMismatch)"]
+    CHK -->|"any check fails: tree untouched"| FAIL["Fail(BlockReason)<br/>caller shows a precise reason"]
+    CHK -->|"all pass: commit in place"| TREE[("InventoryTreeCache single source of truth<br/>Revision+1 · records LastAppliedCommandId")]
+    TREE -->|"after success, dispatch by Kind"| PROJ["Project series<br/>refresh only the affected live VMs"]
+    PROJ --> VM["TetrisItemVM / TetrisGridVM<br/>(identity held by ItemVmRegistry / GridFactory)"]
+    VM -->|"INotifyPropertyChanged"| VIEW["DotPudica declarative bindings<br/>views refresh automatically"]
+```
+
+#### 1. Command Wrapping: Intent as Data
+
+- **Immutable**: all `InventoryCommand` properties are `init`-only — commands are naturally serializable, cacheable, and replayable
+- **Static factories prevent misuse**: each of the 12 `InventoryCommandKind` values has a dedicated factory (`InventoryCommand.Place(...)` / `.Flip(...)` / `.Stack(...)` ...); required arguments are enforced at the signature level, so a "half-filled command" cannot exist
+- **Envelope separation**: `WithEnvelope(commandId, expectedRevision)` attaches the replay envelope; local commands get it automatically via `InventoryService.Apply`, while remote commands must carry one and are strictly validated by `ApplyRemote`
+- **Guids issued by an authority**: new item identities come from `IItemIdFactory`, whose contract explicitly states "authority-owned in a networked session" — reserved for multiplayer synchronization
+
+```csharp
+// Service friendly method: intent → command → simulation → projection, in one line
+public bool TryStack(TetrisItemVM source, TetrisItemVM target)
+    => Apply(InventoryCommand.Stack(source.Guid, target.Guid)).Ok;
+```
+
+#### 2. Simulation: A Pure-Function Transaction of Clone-Validate-Commit
+
+`InventorySimulation.Apply` is a static pure function (in `Ctis.Core`, zero engine dependencies), and every command handler follows the same pattern:
+
+```mermaid
+flowchart LR
+    A["clone persistent data<br/>node.Data.Clone()"] --> B["mutate the clone<br/>facing · stack · origin · patches"]
+    B --> C["occupancy check with new shape<br/>OccupancyBoard excludes self"]
+    C -->|"pass"| D["PersistInPlace writes back<br/>CommitSuccess: Revision+1"]
+    C -->|"fail"| E["discard the clone<br/>tree stays untouched"]
+```
+
+- **Zero trace on failure**: validation and mutation happen entirely on cloned copies; results are written back to the tree only after the occupancy check passes — rejected commands leave no intermediate state
+- **Deferred batch commits**: multi-item commands such as `Exchange` stage every occupant's clone into a write list and flush once after the whole plan validates
+- **Uniform tracing**: every handler opens a `CtisTrace.Scope` profiling span
+- **Two front gates**:
+  1. *Idempotency dedup*: `CommandId == LastAppliedCommandId` → return Success immediately; safe against duplicate network delivery
+  2. *Optimistic concurrency*: `ExpectedRevision != Revision` → `RevisionMismatch`; stale commands are rejected so old commands can never overwrite newer state
+
+#### 3. Projection: After Success, Precisely Flushed Back
+
+`Dispatch` records the item's previous container before simulation, and after a **successful** commit dispatches by Kind into minimal ViewModel updates. VMs are downstream projection caches of the tree, not a second copy of state:
+
+| Command | Simulation validation highlights (excerpt) | Projection after success |
+|---|---|---|
+| `Place` | container/item/catalog exist · self-nesting forbidden · occupancy check | `ProjectFrom` + `MoveVmOntoGrid` |
+| `MoveToSlot` | slot exists · type match · slot vacant | `DetachVmOccupancy`; slot VM bound by the `PlaceOnSlot` wrapper |
+| `Lift` | item exists | `DetachVmOccupancy` (clears the old container; item moves into the held container) |
+| `Stack` | stackable · capacity limit (overflow stays in source) | both `CurrentStack` refreshed; swallowed source removes its view and `Unregister`s |
+| `Split` | valid amount · new guid conflict-free · adjacent/free origin search | `GetOrCreate` a new VM and place it on the grid |
+| `ResizeContainer` | size clamping · rejects wholesale if repack fails | `RefreshFromTree` (whole grid repack) |
+| `Exchange` | exchange plan must seat all affected items legally | target grid + origin grid each `RefreshFromTree` |
+| `Flip` / `PatchOccupancy` / `RemoveOccupancyPatch` | in-place occupancy check (neighbor collision rejects) | `ProjectItemShape`: remove with `destroyView:false` → re-project → replace in position (zero view destruction) |
+| `OrganizeContainer` / `OrganizeItemGrids` | container exists · sort strategy | `RefreshFromTree` (the latter walks all inner grids by `guid:` prefix) |
+
+Three key details:
+
+- **Unified shape-change pipeline**: `Flip` and occupancy patches share `ProjectItemShape` — remove from the grid with `destroyView:false` (both view and VM survive), recompute derived state via `ProjectFrom`, then place back in position. Any future "mutable footprint" feature (shrink-on-damage, mod expansion) plugs into the same pipeline and inherits validation, rollback, and persistence for free
+- **Lazy materialization**: `EnsureSpawned` / `TryEnsureContainer` before `PlaceOnGrid` support VM-first creation orders — e.g. the debug panel's `GetOrCreate` produces a VM before any tree data exists, and `EnsureSpawned` then materializes it into a persistent tree node; a grid VM without a tree node gets one via a `ResizeContainer` command on demand. The command layer therefore always finds its target in the tree
+- **One-way read path**: coordinates, width/height, and occupancy point sets on VMs are all derived from `(Occupancy, Patches, Direction, FlipH, FlipV)`; user gestures always travel "command → simulation → tree → projection" — there is no side channel where VMs mutate data directly
+
+#### 4. Why This Design
+
+- **Replayable**: immutable commands + `CommandId` idempotency + `Revision` optimistic concurrency → the same command sequence replayed on the same initial tree yields the same final state. This is the common foundation for multiplayer sync, reconnection, replay recording, and Undo/Redo
+- **Testable**: the simulation layer is pure functions over pure data (tree + catalog + equipment layout) — no Godot, no windows; deterministic unit tests construct data directly
+- **Zero ghost state**: the UI is only a projection; "what's in the backpack" has exactly one authoritative answer (the tree). Close every window and reopen — everything restores from the tree
+- **Explainable failures**: rejected commands carry a typed `InventoryPlacementBlockReason` (`SlotTypeMismatch` / `SlotOccupied` / `SelfOwnedContainer` / `RevisionMismatch` ...), so callers can surface precise UI hints
 
 ***
 
 <a id="save-load-system"></a>
 
-### 8. Save & Persistence System — Wrapper Pattern and Version Migration
+### 9. Save & Persistence System — Wrapper Pattern and Version Migration
 
 `JsonSaveLoadService` provides a decoupled data persistence solution:
 
 ```mermaid
 flowchart LR
-  RuntimeState["Runtime Memory State<br/>(ItemVMRegistry & TreeCache)"] -->|Serialize| DTO["Flat Payload Dictionary<br/>(GUID as Key)"]
-  DTO --> Wrap["Wrapper Metadata Encapsulation<br/>(Version · Timestamp)"]
-  Wrap --> SaveFile[("JSON Save File<br/>user://SaveData/Slot_{id}.json")]
+  RuntimeState["Runtime Memory State<br/>(ItemVMRegistry & TreeCache)"] -->|Serialize| DTO["Flat Payload<br/>(Items list + GridConfigs)"]
+  DTO --> Wrap["Wrapper Envelope<br/>(Version · Timestamp · CatalogVersion)"]
+  Wrap --> SaveFile[("user://ctis_save_{index}.json<br/>3 fixed save slots")]
 
-  SaveFile -->|Deserialize| Unpack["Read JSON and verify version"]
-  Unpack --> Clear["Clear Registry and TreeCache"]
-  Clear --> Apply["Write item data into TreeCache"]
+  SaveFile -->|Deserialize| Check{"Validate CatalogVersion"}
+  Check -->|"incompatible"| Abort["Return immediately<br/>live state left untouched"]
+  Check -->|"compatible"| Clear["Clear Registry and TreeCache"]
+  Clear --> Apply["Restore GridConfigs first<br/>then PlaceItem one by one"]
   Apply --> Notify["Trigger Restored event"]
   Notify --> VM["ViewModel calls RebuildFromCache<br/>to reconstruct item collection from TreeCache"]
   VM --> View["DotPudica data binding<br/>automatically refreshes View layer"]
 ```
 
-- **Multi-Slot Management**: Supports independent save slot switching, recording timestamps and save metadata.
-- **Version Validation**: Validates `CatalogVersion` on loading, rejecting mismatched versions to prevent data corruption (with migration interfaces reserved).
+#### 1. Save File Structure: Three JSON Layers
+
+```json
+{
+  "Version": 1,                          // SaveFileWrapper: save-format version (structural migration)
+  "Timestamp": "2026/08/23 12:00:00",
+  "Payload": {
+    "CatalogVersion": 1,                 // GameSaveData: item-catalog version (compatibility check)
+    "Items": [                           // TetrisItemPersistentData list (one entry per item)
+      {
+        "ItemId": 7, "ItemGuid": "a1b2...", "ContainerId": "depository",
+        "OriginPosition": { "X": 3, "Y": 5 }, "Direction": 2,
+        "Stack": 12, "IsOnSlot": false, "SlotIndex": -1,
+        "CustomData": { }, "OccupancyPatches": [ ... ]
+      }
+    ],
+    "GridConfigs": {                     // grid size configs (container id → size)
+      "depository": { "Width": 12, "Height": 8 }
+    }
+  }
+}
+```
+
+Each item entry records only its **persistent truth**: identity (`ItemId`/`ItemGuid`), placement (`ContainerId`/`OriginPosition`/`Direction`/`FlipH`/`FlipV`), stack (`Stack`), slot (`IsOnSlot`/`SlotIndex`), extensions (`CustomData`/`OccupancyPatches`). Derived state — shape point sets, bounding-box sizes — **is never saved**; it is re-derived at load time by `ItemShape.Resolve` from `(Occupancy, Patches, Direction, Flip)`, keeping saves naturally decoupled from geometry-algorithm evolution. Fields at default values (false/0) are omitted to keep files lean.
+
+#### 2. Storage Logic
+
+- **Serialization filters**: walks every container in the tree, skipping empty `Held` (in-transit) containers; `GridConfigs` records only "non-slot/non-held grids that hold items, plus the Depository" — slot and held sizes are layout-time constants that need no persistence
+- **Restore order**: version-compatible → clear Registry and TreeCache → restore `GridConfigs` **first**, **then** `PlaceItem` each entry (container sizes are in place before items land) → raise `Restored`
+- **Dual version numbers**: `Version` (save-format structure, reserved for migration) and `CatalogVersion` (item catalog, validating static-data compatibility) serve distinct purposes; an incompatible save is **rejected without clearing the current live state**, ruling out half-migrated corrupted data
+- **Slot abstraction**: the `ISaveSlotStore` interface isolates environments — Core ships `InMemorySaveSlotStore` (pure memory, for tests), Godot ships `GodotSaveSlotStore` persisting to `user://ctis_save_{index}.json` (3 fixed slots); `SaveSlotInfo` reads metadata only (`HasData`/`IsCorrupt`/`Timestamp`) without touching live state, and `LoadSlot` uniformly returns false for the three failure modes: missing slot / corrupt JSON / catalog mismatch
+- **Serialization options**: `WriteIndented` for human readability + custom `Vec2I`/`Dir` converters + a Source Generator context (`CtisJsonContext`), AOT/trimming friendly
 
 ***
 
 <a id="item-editor"></a>
 
-### 9. Built-in Godot Data Editor — Add Items with Just a Few Clicks
+### 10. Built-in Godot Data Editor — Add Items with Just a Few Clicks
 
 CTIS integrates a full-featured visual data workbench directly inside the Godot editor (**Project Menu -> Tools -> CTIS/Data Editor**):
 
 <div align="center">
 
-<img src="Images/editor_0.png" alt="CTIS Data Editor" width="80%"/>
+<img src=".github/Images/CTIS-DATA-EDITOR.png" alt="CTIS Data Editor" width="80%"/>
 
 </div>
 
@@ -523,7 +646,7 @@ When the **CTIS** plugin is enabled in the Godot editor, `plugin.gd` will automa
 
 ### C. Service Registration and Runtime Initialization
 
-Configure DI (Dependency Injection) services and load data in the global entry point of your game (e.g. `Main.cs` or scene root node):
+Configure DI (Dependency Injection) services and load data in the global entry point of your game (e.g. `Main.cs` or scene root node). The example below is excerpted from the demo's [GameBootstrap.cs](file:///d:/File/_UnityFile/Cholopol-Tetris-Inventory-System/CTIS_Demo/demo/_Scripts/GameBootstrap.cs). Note that the `IFloatingInventoryWindows` / `IInventorySession` interfaces are provided by the plugin, but `FloatingInventoryWindows` / `InventorySession` and the window types are **demo-side implementations** (located in `CTIS_Demo/demo/_Scripts/`, not distributed with the plugin) — when integrating into your own project, implement these two interfaces yourself (or copy from the demo) and substitute your own window types and scene paths:
 
 ```csharp
 using Godot;
@@ -531,9 +654,12 @@ using Ctis.Core;
 using Ctis.Presentation;
 using DotPudica.Godot.Views;
 using Microsoft.Extensions.DependencyInjection;
+using AppContext = DotPudica.Godot.AppContext;  // Alias: avoids ambiguity with System.AppContext
 
 public partial class GameBootstrap : Node
 {
+    private AppContext? _app;
+
     public override void _Ready()
     {
         // 1. Initialize Window Manager
@@ -543,52 +669,68 @@ public partial class GameBootstrap : Node
             AddChild(wm);
 
         // 2. Initialize AppContext and register services
-        var app = new AppContext().Initialize(services =>
+        _app = new AppContext().Initialize(services =>
         {
             services.AddCtis();           // Register CTIS core business services
             services.AddCtisGodot();      // Register CTIS Godot presentation & interaction services
-            services.AddSingleton<IFloatingInventoryWindows, FloatingInventoryWindows>();
-            services.AddSingleton<IInventorySession, InventorySession>();
+            services.AddSingleton<IFloatingInventoryWindows, FloatingInventoryWindows>();  // demo implementation
+            services.AddSingleton<IInventorySession, InventorySession>();                  // demo implementation
         }, wm);
 
         // 3. Load item catalog and configuration tables
-        ItemCatalogLoader.LoadInto(app.Services.GetRequiredService<IItemCatalog>());
-        PlacementConfigLoader.LoadInto(app.Services.GetRequiredService<PlacementConfig>());
-        EquipmentLayoutLoader.LoadInto(app.Services.GetRequiredService<EquipmentLayout>());
+        ItemCatalogLoader.LoadInto(_app.Services.GetRequiredService<IItemCatalog>());
+        PlacementConfigLoader.LoadInto(_app.Services.GetRequiredService<PlacementConfig>());
+        EquipmentLayoutLoader.LoadInto(_app.Services.GetRequiredService<EquipmentLayout>());
 
-        // 4. Configure window object pools (scene path + pool size)
+        // 4. Attach the CTIS runtime (window/ghost layers; re-parents wm under CtisWindowLayer)
+        CtisRuntime.Attach(this, wm);
+
+        // 5. Configure window object pools (scene path + pool size); must be called before ShowPooled
         wm.ConfigurePool<InventoryWindow>("res://CTIS_Demo/demo/InventoryWindow.tscn", 1);
         wm.ConfigurePool<FloatingGridWindow>("res://CTIS_Demo/demo/FloatingGridWindow.tscn", 8);
         wm.ConfigurePool<ContextMenuWindow>("res://CTIS_Demo/demo/ContextMenuWindow.tscn", 2);
+    }
 
-        CtisRuntime.Attach(this, wm);
+    public override void _ExitTree()
+    {
+        // AppContext can only be initialized once until Dispose; release it when the scene exits
+        _app?.Dispose();
+        _app = null;
     }
 }
 ```
 
 ### D. Scene View Attachment and Binding
 
-In your Godot UI scene, attach `TetrisGridView` to the grid control and connect it to the ViewModel via DotPudica's declarative binding:
+Views fall into two categories: **host views** (which declare their own `[DotPudicaView]` bound to some VM) and **built-in pooled controls** (`TetrisGridView` / `TetrisItemView`, etc., which already carry `[DotPudicaView(..., AutoInitialize = false, Pooled = true)]` with a full lifecycle — **do not derive from them and re-apply the attribute**, or the source generator will emit conflicting lifecycle members along the inheritance chain). Host views obtain built-in controls from the pool via `CtisRuntime.CreateGridView()` and activate them with `BindGrid(vm)`:
 
 ```csharp
 using Godot;
-using DotPudica.Godot;
+using Ctis.Core;
 using Ctis.Presentation;
+using DotPudica.Core.ViewModels;
+using DotPudica.Godot.Views;
 
-// Non-pooled views use standard mode
-[DotPudicaView(typeof(TetrisGridVM))]
-public partial class PlayerBackpackView : TetrisGridView
+// Host view: declares its own VM, binds an external VM via ActivateViewModel (see the demo's ContainerPanelView)
+[DotPudicaView(typeof(ContainerPanelVM), AutoInitialize = false, Pooled = true, Ownership = ViewModelOwnership.External)]
+public partial class PlayerBackpackView : VBoxContainer
 {
     public override void _Ready() => InitializeView();
+    public override void _ExitTree() => RecycleView();  // Pooled view recycling: unbind without destroying the node
 
-    public override void _ExitTree()
+    public void BindPanel(ContainerPanelVM vm) => ActivateViewModel(vm);
+
+    partial void OnViewModelBound()
     {
-        DisposeView();
-        base._ExitTree();
+        // Take a built-in TetrisGridView from the pool and bind the grid VM of ContainerPanelVM
+        var gridVm = ViewModel!.GetOrCreatePersistentGrid(0, width: 8, height: 6);
+        var gridView = CtisRuntime.CreateGridView();
+        AddChild(gridView);
+        gridView.BindGrid(gridVm);
     }
 }
 
-// Pooled windows (e.g. FloatingGridWindow) use RecycleView
+// Pooled window (e.g. the demo's FloatingGridWindow): the window itself is also a host view
 [DotPudicaView(typeof(FloatingGridVM), Pooled = true)]
 public partial class FloatingGridWindow : GodotWindow
 {
@@ -610,8 +752,7 @@ public partial class FloatingGridWindow : GodotWindow
 | **R Key** | Rotate item $90^\circ$ clockwise | Dynamically transforms point set and recalculates `RotationOffset` & highlight state |
 | **Right Mouse Click** | Open context menu | Quick access to inspect attributes, rotate, unequip, drop, open sub-containers, etc. |
 | **B Key** | Open / Close main inventory panel | Toggles inventory UI visibility, triggering view enter/exit tree lifecycles |
-| **Ctrl + Left Click** | Quick transfer / Auto-place | Quickly transfers items between equipment slots, main inventory, and external containers |
-| **Top-Right Debug Button** | Open runtime item spawner panel | Real-time testing of item spawning, monitoring active VM counts and memory status |
+| **F1 Key** | Open / Close debug item panel | Real-time testing of item spawning |
 
 ***
 

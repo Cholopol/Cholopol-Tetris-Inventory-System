@@ -24,7 +24,7 @@ equipment_layout="res://CTIS_Demo/data/EquipmentLayout.json"
 menu_theme="res://addons/ctis/Art/Theme/ctis_menu_theme.tres"
 scenes/pocket="res://addons/ctis/Godot/Scenes/GridPanels/GP_Pocket.tscn"
 scenes/coffer="res://addons/ctis/Godot/Scenes/GridPanels/GP_Coffer.tscn"
-editor/use_chinese=true
+editor/use_chinese=false
 
 [display]
 

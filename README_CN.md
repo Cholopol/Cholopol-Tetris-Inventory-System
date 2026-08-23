@@ -12,9 +12,15 @@
 
 **CTIS (Cholopol Tetris Inventory System)** 是面向 **Godot 4.7+ 与 .NET 8** 构建的高级网格背包管理系统。系统基于 **DotPudica MVVM** 框架与 **TetrisCoordLib** 纯数学几何库开发，实现了数据逻辑与 UI 表现的彻底解耦。完美还原了《逃离塔科夫》（Escape from Tarkov）的核心交互体验，支持异形物品、无限背包嵌套、智能快捷交换、精确异形点击过滤、浮动容器窗口、背包一键整理以及多槽位数据持久化。
 
+<div align="center">
+
+<img src=".github/Images/CTIS-DEMO.png" alt="CTIS Demo" width="85%"/>
+
+</div>
+
 ### 第三方依赖
 
-本项目基于以下独立开源库构建（仓库中通过 Release 包一并分发，源码托管于独立 GitHub 仓库）：
+本项目基于以下独立开源库构建（访问仓库通过 Release 包一并分发，源码托管于独立 GitHub 仓库）：
 
 | 依赖库                     | GitHub 仓库                                                                             | 用途                                                |
 | ----------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------- |
@@ -60,8 +66,9 @@
   - [5. MVVM 幽灵预览与高亮瓦片系统 - 对象池化零 GC 渲染](#5-mvvm-幽灵预览与高亮瓦片系统---对象池化零-gc-渲染)
   - [6. 浮动容器窗口与右键菜单 - 无限嵌套的可视化投影](#6-浮动容器窗口与右键菜单---无限嵌套的可视化投影)
   - [7. 背包自动整理与高级特性 - 面积贪心排序与占位补丁](#7-背包自动整理与高级特性---面积贪心排序与占位补丁)
-  - [8. 存档持久化系统 - 包装器模式与版本迁移](#8-存档持久化系统---包装器模式与版本迁移)
-  - [9. Godot 内置数据编辑器 - 点点鼠标，又增加了一个物品](#9-godot-内置数据编辑器---点点鼠标又增加了一个物品)
+  - [8. 命令-仿真-投影管线 - 单向数据流的核心引擎](#8-命令-仿真-投影管线---单向数据流的核心引擎)
+  - [9. 存档持久化系统 - 包装器模式与版本迁移](#9-存档持久化系统---包装器模式与版本迁移)
+  - [10. Godot 内置数据编辑器 - 点点鼠标，又增加了一个物品](#10-godot-内置数据编辑器---点点鼠标又增加了一个物品)
 - [🚀 快速使用：最小可运行配置](#-快速使用最小可运行配置)
   - [A. 环境要求](#a-环境要求)
   - [B. 宿主 .csproj 依赖注入](#b-宿主-csproj-依赖注入)
@@ -189,7 +196,7 @@ $$
 
 #### 2. 形状定义与四向旋转矩阵算法
 
-物品的占位并非固定的贴图包围盒，而是相对于原点 $(0,0)$ 的离散点集：$\mathcal{S} = { (p\_{x1}, p\_{y1}), (p\_{x2}, p\_{y2}), \dots, (p\_{xn}, p\_{yn}) }$。
+物品的占位并非固定的贴图包围盒，而是相对于原点 $(0,0)$ 的离散点集：$\mathcal{S} = \{ (p_{x1}, p_{y1}), (p_{x2}, p_{y2}), \dots, (p_{xn}, p_{yn}) \}$.
 
 顺时针旋转 $90^\circ$ 的二维线性变换矩阵为：
 
@@ -436,44 +443,160 @@ flowchart LR
 
 #### 3. 网络与命令支持（Command & Replay）
 
-所有核心操作均封装为 `InventoryCommand`（含 `CommandId` 与版本校验号），天然支持多人联机网络同步回放与撤销重做（Undo/Redo）。
+所有核心操作均封装为不可变的 `InventoryCommand`（含 `CommandId` 幂等去重与 `ExpectedRevision` 乐观并发校验），天然支持多人联机网络同步回放与撤销重做（Undo/Redo）。命令管线的完整设计详见[命令-仿真-投影管线](#command-pipeline)。
+
+***
+
+<a id="command-pipeline"></a>
+
+### 8. 命令-仿真-投影管线 - 单向数据流的核心引擎
+
+背包的一切状态变更——放置、交换、堆叠、拆分、翻转、整理、占位补丁、容器扩缩——都流经同一条管线：**意图被封装为不可变命令，仿真层以纯函数校验并提交到树，投影层再把成功结果精确刷回 ViewModel**。View 与 ViewModel 从不直接修改数据，`InventoryTreeCache` 是唯一事实源。
+
+```mermaid
+flowchart TB
+    U["用户手势<br/>拖拽落下 · 右键菜单 · 快捷键"] --> API["InventoryService 友好方法层<br/>TryStack / TryFlip / PlaceOnGrid / TrySplit ..."]
+    API -->|"构造命令 + 自动补信封<br/>CommandId + ExpectedRevision"| CMD["InventoryCommand<br/>不可变数据包 · 12 种 Kind · 静态工厂"]
+    CMD --> SIM["InventorySimulation.Apply<br/>静态纯函数 · 零 Godot 依赖"]
+    SIM --> GATE{"前置闸门<br/>① CommandId 幂等去重<br/>② Revision 乐观并发"}
+    GATE -->|"通过"| CHK["逐项校验 → 克隆持久数据<br/>→ 占位棋盘检查"]
+    GATE -->|"命中重复"| OK0["直接返回 Success（零副作用）"]
+    GATE -->|"版本过期"| FAIL0["Fail(RevisionMismatch)"]
+    CHK -->|"任一校验失败：树零改动"| FAIL["Fail(BlockReason)<br/>调用方按原因精确提示"]
+    CHK -->|"全部通过：原位提交"| TREE[("InventoryTreeCache 单一事实源<br/>Revision+1 · 记录 LastAppliedCommandId")]
+    TREE -->|"成功后按 Kind 分发"| PROJ["Project 投影系列<br/>只刷新受影响的活体 VM"]
+    PROJ --> VM["TetrisItemVM / TetrisGridVM<br/>（身份由 ItemVmRegistry / GridFactory 保持）"]
+    VM -->|"INotifyPropertyChanged"| VIEW["DotPudica 声明式绑定<br/>View 自动刷新"]
+```
+
+#### 1. 命令包装：意图即数据
+
+- **不可变**：`InventoryCommand` 全部属性为 `init`-only，构造后不可修改——命令天然可序列化、可缓存、可回放
+- **静态工厂防误用**：每种 `InventoryCommandKind`（共 12 种）对应一个工厂方法（`InventoryCommand.Place(...)` / `.Flip(...)` / `.Stack(...)` 等），必填参数在签名层面强制，不会出现"半填的命令"
+- **信封分离**：`WithEnvelope(commandId, expectedRevision)` 为命令补上回放信封；本地命令由 `InventoryService.Apply` 自动补齐，远程命令必须自带信封且经 `ApplyRemote` 强制校验
+- **guid 归权威发放**：新物品身份由 `IItemIdFactory` 统一签发，接口契约明确"联网会话中由权威端持有"，为联机同步预留
+
+```csharp
+// 服务层友好方法：意图 → 命令 → 仿真 → 投影，一行完成
+public bool TryStack(TetrisItemVM source, TetrisItemVM target)
+    => Apply(InventoryCommand.Stack(source.Guid, target.Guid)).Ok;
+```
+
+#### 2. 仿真：克隆-校验-提交的纯函数事务
+
+`InventorySimulation.Apply` 是静态纯函数（位于 `Ctis.Core`，零引擎依赖），每个命令处理函数遵循同一模式：
+
+```mermaid
+flowchart LR
+    A["克隆持久数据<br/>node.Data.Clone()"] --> B["在克隆上变更<br/>朝向 · 堆叠 · 位置 · 补丁"]
+    B --> C["按新形状做占位检查<br/>OccupancyBoard 排除自身"]
+    C -->|"通过"| D["PersistInPlace 写回树<br/>CommitSuccess：Revision+1"]
+    C -->|"失败"| E["丢弃克隆副本<br/>树保持零改动"]
+```
+
+- **失败零痕迹**：校验与变更全部发生在克隆副本上，占位检查通过才写回树——被拒绝的命令不留任何中间态
+- **批处理延迟提交**：`Exchange` 等多物品命令先把全部占位者的克隆写入暂存列表，整体校验通过后一次性落盘
+- **统一埋点**：每个处理函数自带 `CtisTrace.Scope` 性能剖析作用域
+- **两道前置闸门**：
+  1. *幂等去重*：`CommandId == LastAppliedCommandId` → 直接返回 Success，网络重复投递安全
+  2. *乐观并发*：`ExpectedRevision != Revision` → `RevisionMismatch`，过期命令被拒绝，防止旧命令覆盖新状态
+
+#### 3. 投影：成功之后，精确刷回
+
+`Dispatch` 在仿真前记录物品的原容器，仿真**成功后**按 Kind 分发到最小化的 VM 更新。VM 是树的下游投影缓存，而非第二份状态：
+
+| 命令 | 仿真层校验要点（节选） | 成功后的投影动作 |
+|---|---|---|
+| `Place` | 容器/物品/目录存在 · 自嵌套禁止 · 占位检查 | `ProjectFrom` + `MoveVmOntoGrid` |
+| `MoveToSlot` | 槽位存在 · 类型匹配 · 槽位空闲 | `DetachVmOccupancy`；槽位 VM 由 `PlaceOnSlot` 包装器补充绑定 |
+| `Lift` | 物品存在 | `DetachVmOccupancy`（清空原容器占位，物品移入持有容器） |
+| `Stack` | 可堆叠 · 容量上限（溢出部分留在源） | 双方 `CurrentStack` 刷新；源被吞没时移除视图并 `Unregister` |
+| `Split` | 数量合法 · 新 guid 无冲突 · 相邻位/空位搜索 | `GetOrCreate` 新 VM 并放入网格 |
+| `ResizeContainer` | 尺寸裁剪 · 物品重排失败则整体拒绝 | `RefreshFromTree`（整网格重排） |
+| `Exchange` | 交换计划需让全部受影响物品合法落位 | 目标网格 + 来源网格分别 `RefreshFromTree` |
+| `Flip` / `PatchOccupancy` / `RemoveOccupancyPatch` | 原位占位校验（邻居碰撞即拒绝） | `ProjectItemShape`：`destroyView:false` 移除 → 重投影 → 原位重放置（视图零销毁） |
+| `OrganizeContainer` / `OrganizeItemGrids` | 容器存在 · 排序策略 | `RefreshFromTree`（后者按 `guid:` 前缀遍历全部内嵌网格） |
+
+三个关键细节：
+
+- **形状变更统一管线**：`Flip` 与占位补丁共享 `ProjectItemShape`——先以 `destroyView:false` 从网格移除（视图与 VM 均存活），`ProjectFrom` 重算派生状态后原位放回。未来任何"占位可变化"特性（破损缩小、改装扩格）接入同一管线即自动获得校验、回滚与持久化
+- **懒物化**：`PlaceOnGrid` 前的 `EnsureSpawned` / `TryEnsureContainer` 支持"先建 VM、后建数据"的写入顺序——如调试面板 `GetOrCreate` 先产出 VM、`EnsureSpawned` 再把 VM 状态物化为树的持久节点；尚无树节点的网格 VM 则由 `ResizeContainer` 命令按需建格。命令执行时树中必有目标，调用方无需"先建容器再放物品"的两段式编排
+- **读路径单向**：VM 上的坐标、宽高、占位点集全部从 `(Occupancy, Patches, Direction, FlipH, FlipV)` 派生；用户手势永远走"命令 → 仿真 → 树 → 投影"，不存在 VM 直改数据的旁路
+
+#### 4. 为什么这样设计
+
+- **可回放**：命令不可变 + `CommandId` 幂等 + `Revision` 乐观并发 → 同一命令序列在相同初始树上重放得到相同终态。这是联机同步、断线重连、录像回放与 Undo/Redo 的共同基础
+- **可测试**：仿真层是纯函数 + 纯数据（树 + 目录 + 装备布局），不需要 Godot、不需要窗口，直接构造数据即可做确定性单元测试
+- **零幽灵状态**：UI 只是投影，"背包里有什么"只有一个权威答案（树）。关掉全部窗口再打开，从树重建即完全恢复
+- **失败可解释**：拒绝的命令携带类型化的 `InventoryPlacementBlockReason`（`SlotTypeMismatch` / `SlotOccupied` / `SelfOwnedContainer` / `RevisionMismatch` ...），调用方可据此给出精确的 UI 提示
 
 ***
 
 <a id="save-load-system"></a>
 
-### 8. 存档持久化系统 - 包装器模式与版本迁移
+### 9. 存档持久化系统 - 包装器模式与版本迁移
 
 `JsonSaveLoadService` 提供了解耦优秀的数据持久化方案：
 
 ```mermaid
 flowchart LR
-  RuntimeState["运行时内存状态<br/>(ItemVMRegistry & TreeCache)"] -->|Serialize| DTO["扁平 Payload 数据字典<br/>(以 GUID 为 Key)"]
-  DTO --> Wrap["包装器元数据封装<br/>(Version · Timestamp)"]
-  Wrap --> SaveFile[("JSON 存档文件<br/>user://SaveData/Slot_{id}.json")]
+  RuntimeState["运行时内存状态<br/>(ItemVMRegistry & TreeCache)"] -->|Serialize| DTO["扁平 Payload<br/>(Items 列表 + GridConfigs)"]
+  DTO --> Wrap["包装器信封<br/>(Version · Timestamp · CatalogVersion)"]
+  Wrap --> SaveFile[("user://ctis_save_{index}.json<br/>固定 3 个存档槽位")]
 
-  SaveFile -->|Deserialize| Unpack["读取 JSON 并校验版本号"]
-  Unpack --> Clear["清空 Registry 与 TreeCache"]
-  Clear --> Apply["将物品数据写入 TreeCache"]
+  SaveFile -->|Deserialize| Check{"校验 CatalogVersion"}
+  Check -->|"不兼容"| Abort["直接返回<br/>当前活状态原样保留"]
+  Check -->|"兼容"| Clear["清空 Registry 与 TreeCache"]
+  Clear --> Apply["先恢复 GridConfigs<br/>再逐条 PlaceItem 写入 TreeCache"]
   Apply --> Notify["触发 Restored 事件"]
   Notify --> VM["ViewModel 调用 RebuildFromCache<br/>从 TreeCache 重建物品集合"]
   VM --> View["DotPudica 数据绑定<br/>自动刷新 View 层"]
 ```
 
-- **多槽位管理**：支持独立的存档插槽切换，记录时间戳与存档元数据。
-- **版本校验**：加载时校验 `CatalogVersion`，版本不匹配时拒绝加载以避免数据损坏（预留迁移接口）。
+#### 1. 存档文件结构：三层 JSON
+
+```json
+{
+  "Version": 1,                          // SaveFileWrapper：存档格式版本（结构迁移用）
+  "Timestamp": "2026/08/23 12:00:00",
+  "Payload": {
+    "CatalogVersion": 1,                 // GameSaveData：物品目录版本（兼容性校验）
+    "Items": [                           // TetrisItemPersistentData 列表（每物品一条）
+      {
+        "ItemId": 7, "ItemGuid": "a1b2...", "ContainerId": "depository",
+        "OriginPosition": { "X": 3, "Y": 5 }, "Direction": 2,
+        "Stack": 12, "IsOnSlot": false, "SlotIndex": -1,
+        "CustomData": { }, "OccupancyPatches": [ ... ]
+      }
+    ],
+    "GridConfigs": {                     // 网格尺寸配置（容器 ID → 尺寸）
+      "depository": { "Width": 12, "Height": 8 }
+    }
+  }
+}
+```
+
+物品条目只记录**持久真身**：身份（`ItemId`/`ItemGuid`）、位置（`ContainerId`/`OriginPosition`/`Direction`/`FlipH`/`FlipV`）、堆叠（`Stack`）、槽位（`IsOnSlot`/`SlotIndex`）、扩展（`CustomData`/`OccupancyPatches`）。形状点集、包围盒宽高等**派生态一概不存**——载入时由 `ItemShape.Resolve` 从 `(Occupancy, Patches, Direction, Flip)` 重新派生，存档因此与几何算法演进天然解耦。默认值字段（false/0）省略不写，文件保持精简。
+
+#### 2. 存储逻辑
+
+- **序列化过滤**：遍历树中全部容器，空的 `Held`（手持中转）容器跳过；`GridConfigs` 只记录"有物品的非槽位/非手持网格 + 主仓库 Depository"，槽位与手持容器的尺寸是布局期常量，无需持久化
+- **恢复顺序**：版本兼容 → 清空 Registry 与 TreeCache → **先**恢复 `GridConfigs` **再**逐条 `PlaceItem`（物品落位时容器尺寸已就绪）→ 触发 `Restored`
+- **双版本号分离**：`Version`（存档格式结构版本，供未来迁移）与 `CatalogVersion`（物品目录版本，校验物品静态数据兼容）各司其职；不兼容的存档**拒绝载入且不清空当前活状态**，杜绝半新半旧的损坏数据
+- **槽位抽象**：`ISaveSlotStore` 接口隔离开销环境——Core 侧 `InMemorySaveSlotStore`（纯内存实例用于测试），Godot 侧 `GodotSaveSlotStore` 写入本地 `user://ctis_save_{index}.json`（固定 3 槽）；`SaveSlotInfo` 只读元数据（`HasData`/`IsCorrupt`/`Timestamp`）不触碰活状态，`LoadSlot` 对"槽位缺失 / JSON 损坏 / 目录不兼容"三种失败统一返回 false
+- **序列化配置**：`WriteIndented` 可读性 + `Vec2I`/`Dir` 自定义转换器 + Source Generator 上下文（`CtisJsonContext`），AOT/裁剪友好
 
 ***
 
 <a id="item-editor"></a>
 
-### 9. Godot 内置数据编辑器 - 点点鼠标，又增加了一个物品
+### 10. Godot 内置数据编辑器 - 点点鼠标，又增加了一个物品
 
 CTIS 在 Godot 编辑器内集成了全功能可视化数据工作台（**项目菜单 -> 工具 -> CTIS/Data Editor**）：
 
 <div align="center">
 
-<img src="Images/editor_0.png" alt="CTIS Data Editor" width="80%"/>
+<img src=".github/Images/CTIS-DATA-EDITOR.png" alt="CTIS Data Editor" width="80%"/>
 
 </div>
 
@@ -523,7 +646,7 @@ flowchart TD
 
 ### C. 服务注册与运行时启动
 
-在游戏的全局入口（如 `Main.cs` 或场景根节点）中配置 DI 依赖注入服务并完成数据加载：
+在游戏的全局入口（如 `Main.cs` 或场景根节点）中配置 DI 依赖注入服务并完成数据加载。以下示例节选自 Demo 的 [GameBootstrap.cs](file:///d:/File/_UnityFile/Cholopol-Tetris-Inventory-System/CTIS_Demo/demo/_Scripts/GameBootstrap.cs)，其中 `IFloatingInventoryWindows` / `IInventorySession` 接口由插件提供，但 `FloatingInventoryWindows` / `InventorySession` 及各窗口类型是 **Demo 侧实现**（位于 `CTIS_Demo/demo/_Scripts/`，不随插件分发）——接入自己的工程时需自行实现这两个接口（或参考 Demo 拷贝），并替换为自己的窗口类型与场景路径：
 
 ```csharp
 using Godot;
@@ -531,9 +654,12 @@ using Ctis.Core;
 using Ctis.Presentation;
 using DotPudica.Godot.Views;
 using Microsoft.Extensions.DependencyInjection;
+using AppContext = DotPudica.Godot.AppContext;  // 别名：避免与 System.AppContext 歧义
 
 public partial class GameBootstrap : Node
 {
+    private AppContext? _app;
+
     public override void _Ready()
     {
         // 1. 初始化窗口管理器
@@ -543,52 +669,68 @@ public partial class GameBootstrap : Node
             AddChild(wm);
 
         // 2. 初始化 AppContext 并注册服务
-        var app = new AppContext().Initialize(services =>
+        _app = new AppContext().Initialize(services =>
         {
             services.AddCtis();           // 注册 CTIS 核心业务服务
             services.AddCtisGodot();      // 注册 CTIS Godot 交互服务
-            services.AddSingleton<IFloatingInventoryWindows, FloatingInventoryWindows>();
-            services.AddSingleton<IInventorySession, InventorySession>();
+            services.AddSingleton<IFloatingInventoryWindows, FloatingInventoryWindows>();  // Demo 实现
+            services.AddSingleton<IInventorySession, InventorySession>();                  // Demo 实现
         }, wm);
 
         // 3. 加载物品目录与配置表
-        ItemCatalogLoader.LoadInto(app.Services.GetRequiredService<IItemCatalog>());
-        PlacementConfigLoader.LoadInto(app.Services.GetRequiredService<PlacementConfig>());
-        EquipmentLayoutLoader.LoadInto(app.Services.GetRequiredService<EquipmentLayout>());
+        ItemCatalogLoader.LoadInto(_app.Services.GetRequiredService<IItemCatalog>());
+        PlacementConfigLoader.LoadInto(_app.Services.GetRequiredService<PlacementConfig>());
+        EquipmentLayoutLoader.LoadInto(_app.Services.GetRequiredService<EquipmentLayout>());
 
-        // 4. 配置窗口对象池（场景路径 + 池大小）
+        // 4. 挂载 CTIS 运行时（窗口/幽灵拖拽层，会把 wm 重新挂到 CtisWindowLayer 下）
+        CtisRuntime.Attach(this, wm);
+
+        // 5. 配置窗口对象池（场景路径 + 池大小），必须在 ShowPooled 之前调用
         wm.ConfigurePool<InventoryWindow>("res://CTIS_Demo/demo/InventoryWindow.tscn", 1);
         wm.ConfigurePool<FloatingGridWindow>("res://CTIS_Demo/demo/FloatingGridWindow.tscn", 8);
         wm.ConfigurePool<ContextMenuWindow>("res://CTIS_Demo/demo/ContextMenuWindow.tscn", 2);
+    }
 
-        CtisRuntime.Attach(this, wm);
+    public override void _ExitTree()
+    {
+        // AppContext 只能初始化一次，直到 Dispose；场景退出时必须释放
+        _app?.Dispose();
+        _app = null;
     }
 }
 ```
 
 ### D. 场景视图挂载与绑定
 
-在 Godot UI 场景中，为网格控件挂载 `TetrisGridView`，通过 DotPudica 声明式绑定连接到 ViewModel：
+视图分两类：**宿主视图**（自己声明 `[DotPudicaView]` 绑定某个 VM）与**插件内置的池化控件**（`TetrisGridView` / `TetrisItemView` 等，已自带 `[DotPudicaView(..., AutoInitialize = false, Pooled = true)]` 与完整生命周期，**不要从它们派生并重复标注**，否则源生成器会在继承链上生成冲突的生命周期成员）。内置控件由宿主通过 `CtisRuntime.CreateGridView()` 从对象池取出，再以 `BindGrid(vm)` 激活：
 
 ```csharp
 using Godot;
-using DotPudica.Godot;
+using Ctis.Core;
 using Ctis.Presentation;
+using DotPudica.Core.ViewModels;
+using DotPudica.Godot.Views;
 
-// 非对象池化视图使用标准模式
-[DotPudicaView(typeof(TetrisGridVM))]
-public partial class PlayerBackpackView : TetrisGridView
+// 宿主视图：声明自己的 VM，通过 ActivateViewModel 绑定外部 VM（参考 Demo 的 ContainerPanelView）
+[DotPudicaView(typeof(ContainerPanelVM), AutoInitialize = false, Pooled = true, Ownership = ViewModelOwnership.External)]
+public partial class PlayerBackpackView : VBoxContainer
 {
     public override void _Ready() => InitializeView();
+    public override void _ExitTree() => RecycleView();  // 池化视图回收：解绑但不销毁节点
 
-    public override void _ExitTree()
+    public void BindPanel(ContainerPanelVM vm) => ActivateViewModel(vm);
+
+    partial void OnViewModelBound()
     {
-        DisposeView();
-        base._ExitTree();
+        // 从对象池取出内置的 TetrisGridView，并绑定 ContainerPanelVM 的网格 VM
+        var gridVm = ViewModel!.GetOrCreatePersistentGrid(0, width: 8, height: 6);
+        var gridView = CtisRuntime.CreateGridView();
+        AddChild(gridView);
+        gridView.BindGrid(gridVm);
     }
 }
 
-// 对象池化窗口（如 FloatingGridWindow）使用 RecycleView
+// 池化窗口（如 Demo 的 FloatingGridWindow）：窗口本身也是一个宿主视图
 [DotPudicaView(typeof(FloatingGridVM), Pooled = true)]
 public partial class FloatingGridWindow : GodotWindow
 {
@@ -610,8 +752,7 @@ public partial class FloatingGridWindow : GodotWindow
 | **R 键**          | 顺时针旋转物品 $90^\circ$ | 动态变换点集并重新计算 `RotationOffset` 与高亮状态 |
 | **鼠标右键**         | 弹出上下文菜单            | 快捷执行查看属性、旋转、卸下、丢弃、打开子容器等操作         |
 | **B 键**          | 打开 / 关闭主背包面板       | 切换背包 UI 显示，触发视图进树与出树生命周期           |
-| **Ctrl + 左键点击**  | 快捷转移 / 自动归置        | 将物品快速在装备槽、主背包与外接容器间移动              |
-| **右上角 Debug 按钮** | 打开运行时物品生成面板        | 实时测试任意物品生成、监控当前 VM 数量与内存状态         |
+| **F1 键**         | 打开 / 关闭调试物品面板      | 实时测试任意物品生成         |
 
 ***
 
