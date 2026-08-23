@@ -1,6 +1,7 @@
 using Ctis.Presentation.Editor;
 using Godot;
 
+#if TOOLS
 namespace Ctis.Presentation.Editor;
 
 /// <summary>
@@ -25,3 +26,4 @@ public partial class CtisDataEditorHost : Window
         CloseRequested += QueueFree;
     }
 }
+#endif

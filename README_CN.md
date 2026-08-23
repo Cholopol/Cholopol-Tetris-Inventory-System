@@ -205,18 +205,43 @@ $$
 $$
 
 ```csharp
-// TetrisCoordLib.Core / 纯数学旋转算法
-public static Vec2I RotateClockwise(Vec2I point) => new(-point.Y, point.X);
-public static Vec2I RotateCounterClockwise(Vec2I point) => new(point.Y, -point.X);
+// TetrisCoordLib.Core / XFormFactory.Rotate90 —— 90° 步进旋转的仿射矩阵
+public static XForm2D Rotate90(int quarterTurns)
+{
+    int n = ((quarterTurns % 4) + 4) % 4;
+    return n switch
+    {
+        1 => new XForm2D(new Mat3x3(0, -1, 0, 1, 0, 0)),  // (x, y) → (-y, x)
+        2 => new XForm2D(new Mat3x3(-1, 0, 0, 0, -1, 0)), // (x, y) → (-x, -y)
+        3 => new XForm2D(new Mat3x3(0, 1, 0, -1, 0, 0)),  // (x, y) → (y, -x)
+        _ => XForm2D.Identity
+    };
+}
 ```
 
-#### 3. 旋转原点偏移修正（Rotation Offset）
+矩阵通过 `XForm2D.Apply` / `ApplyBatchRound` 作用于形状点集，配合 `DirUtil.ToQuarterTurns(Dir)` 将四向朝向映射为 0–3 的步进数。
 
-由于绕 $(0,0)$ 轴心旋转会导致负坐标溢出，系统通过计算几何外包围矩形，引入了 `RotationOffset` 修正向量，确保物品旋转后始终紧贴网格对齐：
+#### 3. 旋转归一化平移（Normalize Transform）
+
+由于绕 $(0,0)$ 轴心旋转会导致负坐标溢出，`ShapeNormalizer` 会在旋转矩阵之后组合一个归一化平移变换（将变换后点集的最小坐标平移回 $(0,0)$），确保物品变换后始终紧贴原点、与网格对齐：
 
 $$
-Target(x, y) = (Origin\_x + p\_x + Offset\_x,\ Origin\_y + p\_y + Offset\_y)
+Offset = (-\min_{i} x'\_i,\ -\min_{i} y'\_i)
 $$
+
+$$
+Target(x, y) = (Origin\_x + x' + Offset\_x,\ Origin\_y + y' + Offset\_y)
+$$
+
+```csharp
+// TetrisCoordLib.Core / ShapeTransform.Rotate —— 旋转 + 归一化的组合管线
+public static ShapeData Rotate(ShapeData shape, int quarterTurns)
+{
+    var rotate = XFormFactory.Rotate90(quarterTurns);
+    var normalize = ShapeNormalizer.ComputeNormalizationXForm(rotate, shape.Width, shape.Height);
+    return Transform(shape, rotate.Then(normalize));
+}
+```
 
 ***
 
@@ -278,7 +303,7 @@ flowchart LR
 ```
 
 - **体验收益**：多件复杂异形武器并排堆叠时，鼠标悬停与点击精确对应视觉图案，无任何操作盲区。
-- **性能优化**：对旋转点集进行本地缓存（`_cachedOccupiedPoints`），矩阵查询复杂度为 $O(1)$，拖拽过程零 GC 压力。
+- **性能优化**：命中判定直接在 ViewModel 派生的占位点集上线性比对，整条路径无堆分配，拖拽过程零 GC 压力。
 
 ***
 
@@ -393,14 +418,14 @@ flowchart TD
   Eval -->|Blocked| C2["阻挡/越界 -> 红色高亮 (Invalid)"]
   Eval -->|Stack| C3["可堆叠归并 -> 黄色高亮 (CanStack)"]
   Eval -->|Exchange| C4["可快捷交换 -> 天蓝色高亮 (CanQuickExchange)"]
-  Eval -->|InnerInsert| C5["可装入内嵌容器 -> 紫色高亮 (InnerInsert)"]
+  Eval -->|InnerInsert| C5["可装入内嵌容器 -> 绿色高亮 (InnerInsert)"]
 
   C1 & C2 & C3 & C4 & C5 --> Pool["NodePool 对象池取出高亮瓦片"]
   Pool --> Render["HighlightOverlay 渲染色块"]
   Render --> Clean["鼠标移出 -> 瓦片全部归还对象池（零堆分配）"]
 ```
 
-- **数据驱动配置**：所有状态的高亮颜色、透明度均通过 `PlacementConfig.json` 集中配置，支持在运行时动态切换色盲辅助模式。
+- **数据驱动配置**：所有状态的高亮颜色、透明度均通过 `PlacementConfig.json` 集中配置，可按项目需求自定义。
 - **对象池化技术**：借助 `NodePool` 循环复用高亮方块节点，高频拖拽与旋转帧率稳定无卡顿。
 
 ***
@@ -603,14 +628,14 @@ CTIS 在 Godot 编辑器内集成了全功能可视化数据工作台（**项目
 ```mermaid
 flowchart TD
   Editor["CTIS Data Editor 可视化编辑器"]
-  Editor --> P1["1. Items 物品管理\nID · 多语言名称 · 图标 · 尺寸重量 · 槽位类型 · 内部网格预设 · 战斗属性"]
-  Editor --> P2["2. Shapes 形状编辑\n预置多米诺方块 · 自定义点集可视化点击勾选 · 实时旋转预览"]
+  Editor --> P1["1. Items 物品管理（内含形状编辑）\nID · 多语言名称 · 图标 · 尺寸重量 · 槽位类型 · 内部网格预设 · 战斗属性\n预置多米诺方块 · 自定义点集可视化点击勾选 · 实时旋转预览"]
+  Editor --> P2["2. Equipment Layout\n玩家角色纸娃娃装备槽位坐标与挂载类型布局"]
   Editor --> P3["3. Config 规则配置\n自身容器嵌套限制 · 越界规则 · 各状态高亮颜色 RGBA 自定义"]
-  Editor --> P4["4. Equipment Layout\n玩家角色纸娃娃装备槽位坐标与挂载类型布局"]
+  Editor --> P4["4. Settings 全局设置\n网格与仓库尺寸 · 交互参数 · 数据文件路径 · 预设场景 · 路径自愈工具"]
 ```
 
 - **双向数据同步**：编辑器保存后直接更新 `ItemCatalog.json`、`PlacementConfig.json` 与 `EquipmentLayout.json`，无需重启编辑器即可生效。
-- **多语言便捷填充**：支持一键将当前名称与描述应用至所有语言本地化词条。
+- **多语言编辑**：名称与描述按当前编辑语言写入中英双语词条，本地化键自动生成与重命名。
 
 ***
 
@@ -749,7 +774,7 @@ public partial class FloatingGridWindow : GodotWindow
 | 操作 / 按键          | 触发动作               | 逻辑说明                               |
 | ---------------- | ------------------ | ---------------------------------- |
 | **鼠标左键拖拽**       | 拿起 / 移动物品          | 激活 `TetrisItemGhostVM`，进入放置预览状态    |
-| **R 键**          | 顺时针旋转物品 $90^\circ$ | 动态变换点集并重新计算 `RotationOffset` 与高亮状态 |
+| **R 键**          | 顺时针旋转物品 $90^\circ$ | 动态变换点集并重新计算归一化平移与高亮状态 |
 | **鼠标右键**         | 弹出上下文菜单            | 快捷执行查看属性、旋转、卸下、丢弃、打开子容器等操作         |
 | **B 键**          | 打开 / 关闭主背包面板       | 切换背包 UI 显示，触发视图进树与出树生命周期           |
 | **F1 键**         | 打开 / 关闭调试物品面板      | 实时测试任意物品生成         |

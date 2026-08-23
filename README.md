@@ -205,18 +205,43 @@ $$
 $$
 
 ```csharp
-// TetrisCoordLib.Core / Pure mathematical rotation algorithm
-public static Vec2I RotateClockwise(Vec2I point) => new(-point.Y, point.X);
-public static Vec2I RotateCounterClockwise(Vec2I point) => new(point.Y, -point.X);
+// TetrisCoordLib.Core / XFormFactory.Rotate90 — affine matrices for 90° stepped rotation
+public static XForm2D Rotate90(int quarterTurns)
+{
+    int n = ((quarterTurns % 4) + 4) % 4;
+    return n switch
+    {
+        1 => new XForm2D(new Mat3x3(0, -1, 0, 1, 0, 0)),  // (x, y) → (-y, x)
+        2 => new XForm2D(new Mat3x3(-1, 0, 0, 0, -1, 0)), // (x, y) → (-x, -y)
+        3 => new XForm2D(new Mat3x3(0, 1, 0, -1, 0, 0)),  // (x, y) → (y, -x)
+        _ => XForm2D.Identity
+    };
+}
 ```
 
-#### 3. Rotation Offset Correction
+The matrix is applied to the shape's point set via `XForm2D.Apply` / `ApplyBatchRound`, with `DirUtil.ToQuarterTurns(Dir)` mapping the four facings to 0–3 quarter turns.
 
-Since rotating around the $(0,0)$ pivot causes negative coordinate overflow, the system computes the geometric bounding box and introduces a `RotationOffset` correction vector to ensure that rotated items remain tightly aligned to the grid:
+#### 3. Rotation Normalize Transform
+
+Since rotating around the $(0,0)$ pivot causes negative coordinate overflow, `ShapeNormalizer` composes a normalize translation after the rotation matrix (shifting the transformed point set's minimum coordinates back to $(0,0)$), ensuring that transformed items always stay anchored to the origin and aligned with the grid:
 
 $$
-Target(x, y) = (Origin_x + p_x + Offset_x,\ Origin_y + p_y + Offset_y)
+Offset = (-\min_{i} x'\_i,\ -\min_{i} y'\_i)
 $$
+
+$$
+Target(x, y) = (Origin\_x + x' + Offset\_x,\ Origin\_y + y' + Offset\_y)
+$$
+
+```csharp
+// TetrisCoordLib.Core / ShapeTransform.Rotate — the rotate + normalize pipeline
+public static ShapeData Rotate(ShapeData shape, int quarterTurns)
+{
+    var rotate = XFormFactory.Rotate90(quarterTurns);
+    var normalize = ShapeNormalizer.ComputeNormalizationXForm(rotate, shape.Width, shape.Height);
+    return Transform(shape, rotate.Then(normalize));
+}
+```
 
 ***
 
@@ -278,7 +303,7 @@ flowchart LR
 ```
 
 - **User Experience Benefits**: When multiple complex irregular weapons are packed side-by-side, hover and click events accurately correspond to visual shapes with zero dead zones.
-- **Performance Optimization**: Point sets under rotation are cached locally (`_cachedOccupiedPoints`), making matrix queries $O(1)$ with zero GC pressure during dragging.
+- **Performance Optimization**: Hit-testing performs a linear comparison directly on the ViewModel's derived occupancy point set, with zero heap allocations on the entire path — zero GC pressure during dragging.
 
 ***
 
@@ -393,14 +418,14 @@ flowchart TD
   Eval -->|Blocked| C2["Blocked / Out of Bounds -> Red Highlight (Invalid)"]
   Eval -->|Stack| C3["Can Stack / Merge -> Yellow Highlight (CanStack)"]
   Eval -->|Exchange| C4["Can Quick Exchange -> Sky Blue Highlight (CanQuickExchange)"]
-  Eval -->|InnerInsert| C5["Can Insert into Sub-Container -> Purple Highlight (InnerInsert)"]
+  Eval -->|InnerInsert| C5["Can Insert into Sub-Container -> Green Highlight (InnerInsert)"]
 
   C1 & C2 & C3 & C4 & C5 --> Pool["Fetch highlight tile from NodePool"]
   Pool --> Render["HighlightOverlay renders color blocks"]
   Render --> Clean["Mouse exits -> Return all tiles to pool (Zero heap allocations)"]
 ```
 
-- **Data-Driven Configuration**: All highlight colors and alpha transparency values are centrally configured in `PlacementConfig.json`, supporting runtime switching for color-blind accessibility modes.
+- **Data-Driven Configuration**: All highlight colors and alpha transparency values are centrally configured in `PlacementConfig.json` and can be customized per project.
 - **Object Pooling Technology**: Powered by `NodePool`, highlight tile nodes are recycled and reused, maintaining smooth and stable frame rates during high-frequency dragging and rotation.
 
 ***
@@ -603,14 +628,14 @@ CTIS integrates a full-featured visual data workbench directly inside the Godot 
 ```mermaid
 flowchart TD
   Editor["CTIS Data Editor Visual Workbench"]
-  Editor --> P1["1. Items Management\nID · Localized Names · Icons · Size & Weight · Slot Type · Internal Grid Presets · Combat Attributes"]
-  Editor --> P2["2. Shapes Editing\nPreset Polyominoes · Custom Point Set Visual Checkbox Toggle · Real-Time Rotation Preview"]
+  Editor --> P1["1. Items Management (with built-in Shape Editing)\nID · Localized Names · Icons · Size & Weight · Slot Type · Internal Grid Presets · Combat Attributes\nPreset Polyominoes · Custom Point Set Visual Checkbox Toggle · Real-Time Rotation Preview"]
+  Editor --> P2["2. Equipment Layout\nPlayer Character Paperdoll Equipment Slot Coordinates & Slot Type Layout"]
   Editor --> P3["3. Config Rules\nSelf-Container Nesting Restrictions · Out-of-Bounds Rules · RGBA Highlight Color Customization per State"]
-  Editor --> P4["4. Equipment Layout\nPlayer Character Paperdoll Equipment Slot Coordinates & Slot Type Layout"]
+  Editor --> P4["4. Settings\nGrid & Depository Dimensions · Interaction Parameters · Data File Paths · Preset Scenes · Path Self-Healing Tools"]
 ```
 
 - **Two-Way Data Synchronization**: Saving in the editor directly updates `ItemCatalog.json`, `PlacementConfig.json`, and `EquipmentLayout.json`, taking effect immediately without restarting the editor.
-- **Convenient Localization Autofill**: Supports one-click propagation of current names and descriptions across all localization language entries.
+- **Bilingual Localization Editing**: Names and descriptions are written to Chinese/English locale entries per the current editing language, with localization keys automatically generated and renamed.
 
 ***
 
@@ -749,7 +774,7 @@ public partial class FloatingGridWindow : GodotWindow
 | Action / Key | Triggered Action | Description |
 | ------------ | ---------------- | ----------- |
 | **Left Mouse Drag** | Pick up / Move item | Activates `TetrisItemGhostVM` and enters placement preview state |
-| **R Key** | Rotate item $90^\circ$ clockwise | Dynamically transforms point set and recalculates `RotationOffset` & highlight state |
+| **R Key** | Rotate item $90^\circ$ clockwise | Dynamically transforms point set and recalculates the normalize translation & highlight state |
 | **Right Mouse Click** | Open context menu | Quick access to inspect attributes, rotate, unequip, drop, open sub-containers, etc. |
 | **B Key** | Open / Close main inventory panel | Toggles inventory UI visibility, triggering view enter/exit tree lifecycles |
 | **F1 Key** | Open / Close debug item panel | Real-time testing of item spawning |

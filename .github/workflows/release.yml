@@ -55,13 +55,15 @@ jobs:
           if os.path.exists("CHANGELOG.md"):
               with open("CHANGELOG.md", "r", encoding="utf-8") as f:
                   content = f.read()
-              # Matches formats like ## [2.0.0], ## v2.0.0, ## 2.0.0 up to the next ## section
-              pattern = rf"(?m)^##\s+\[?(?:ctis-)?(?:v)?{re.escape(version)}\]?(?:[^\n]*)\n([\s\S]*?)(?=(?:^##\s+)|\Z)"
-              match = re.search(pattern, content, re.IGNORECASE)
+              # Matches any '##' heading line that contains the version as a standalone
+              # number, e.g. "## [CTIS - 2.0.0]", "## [2.0.0] - 2026-08-23", "## v2.0.0".
+              # '###' subsections are skipped; 12.0.0 / 2.0.0.1 never match 2.0.0.
+              pattern = rf"(?m)^##(?!#)[^\n]*?(?<![\d.]){re.escape(version)}(?![\w.])[^\n]*\n([\s\S]*?)(?=^##(?!#)|\Z)"
+              match = re.search(pattern, content)
               if match and match.group(1).strip():
                   with open(notes_file, "w", encoding="utf-8") as out:
                       out.write(match.group(1).strip() + "\n")
-                  print("Extracted release notes from CHANGELOG.md")
+                  print(f"Extracted release notes for {version} from CHANGELOG.md")
                   sys.exit(0)
 
           # 2. If not found, check for a standalone RELEASE_NOTES.md

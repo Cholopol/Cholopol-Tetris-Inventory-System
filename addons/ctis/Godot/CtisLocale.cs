@@ -37,17 +37,32 @@ public static class CtisLocale
         path ??= CsvPath;
         if (_loaded) return;
         EnsureTables();
-        if (!Godot.FileAccess.FileExists(path)) return;
-        var text = Godot.FileAccess.GetFileAsString(path);
-        var lines = text.Replace("\r\n", "\n").Split('\n');
-        for (int i = 1; i < lines.Length; i++)
+        if (Godot.FileAccess.FileExists(path))
         {
-            if (string.IsNullOrWhiteSpace(lines[i])) continue;
-            var cols = SplitCsv(lines[i]);
-            if (cols.Length < 3 || string.IsNullOrWhiteSpace(cols[0])) continue;
-            Upsert(cols[0].Trim(), cols[1], cols[2]);
+            var text = Godot.FileAccess.GetFileAsString(path);
+            var lines = text.Replace("\r\n", "\n").Split('\n');
+            for (int i = 1; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                var cols = SplitCsv(lines[i]);
+                if (cols.Length < 3 || string.IsNullOrWhiteSpace(cols[0])) continue;
+                Upsert(cols[0].Trim(), cols[1], cols[2]);
+            }
+        }
+        else
+        {
+            RegisterTranslationFile(path.GetBaseName() + ".en.translation");
+            RegisterTranslationFile(path.GetBaseName() + ".zh.translation");
         }
         _loaded = true;
+    }
+
+    private static void RegisterTranslationFile(string path)
+    {
+        if (!ResourceLoader.Exists(path)) return;
+        var translation = ResourceLoader.Load<Translation>(path);
+        if (translation == null) return;
+        TranslationServer.AddTranslation(translation);
     }
 
     /// <summary>Looks up a message, returning the key when missing.</summary>

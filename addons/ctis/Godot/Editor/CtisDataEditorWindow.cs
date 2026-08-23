@@ -2,6 +2,7 @@ using Ctis.Core;
 using Godot;
 using TetrisCoordLib.Core.Math;
 
+#if TOOLS
 namespace Ctis.Presentation.Editor;
 
 [Tool]
@@ -2067,3 +2068,4 @@ public partial class CtisDataEditorWindow : Control
 
     #endregion
 }
+#endif
